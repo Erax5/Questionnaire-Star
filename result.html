@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 1.5vw;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        :root {
+            --body-font-size-percentage: 100%;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5em;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .sign-out {
+            background-color: black;
+            color: white;
+            padding: 0.5em;
+            border-radius: 0.5em;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .sign-out:hover {
+            background-color: #464242;
+        }
+
+        h1 {
+            font-size: 1.2rem;
+            margin: 0;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2em;
+        }
+
+
+    </style>
+</head>
+<body>
+        <header>
+            <div>Questionnaire Star</div>
+            <button class="sign-out" onclick="window.location.href='index.html';">Sign out</button>
+        </header>
+        <div class="container">
+        <div class="header">
+            <h2>Survey Result</h2>
+        </div>
+
+        <table class="results-table">
+        </table>
+    </div>
+</body>
+</html>
