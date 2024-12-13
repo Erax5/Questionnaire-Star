@@ -16,7 +16,7 @@
     }
 
     :root {
-    --body-font-size-percentage: 100%;
+      --body-font-size-percentage: 100%;
     }
 
     header {
@@ -66,6 +66,15 @@
 <body>
   <header>
     <span>Questionnaire Star</span>
+
+    <!-- Need to adapt the language selection dropdown here -->
+    <div class="language-select">
+      <select id="language" name="lang" required="required">
+        <option value="en">English</option>
+        <option value="sv">Swedish</option>
+      </select>
+    </div>
+
     <div>
       <a onclick="window.location.href='signin.html';" >Sign in</a>
       <a onclick="window.location.href='signup.html';" style="margin-left: 1px;">Sign up</a>
@@ -78,8 +87,9 @@
   <button onclick="window.location.href='signup.html';" >Sign up</button>
 
   <footer>
-    <p>&copy; 2024 Questionnaire Star. All rights reserved.</p >
+    <p>&copy; 2024 Questionnaire Star. All rights reserved.</p>
   </footer>
+
 </body>
 
 </html>
