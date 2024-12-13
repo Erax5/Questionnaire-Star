@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 2vw; 
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        :root {
+            --body-font-size-percentage: 100%;
+        }
+
+        .container {
+            max-width: 40em;
+            margin: 2em auto;
+            padding: 2em;
+            background: #fff;
+            box-shadow: 0 6em 8em rgba(0, 0, 0, 0.1);
+            border-radius: 1em;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .submit-btn {
+            display: block; 
+            width: 20%;
+            padding: 0.5em;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 0.5em;
+            font-size: 1.2em;
+            cursor: pointer;
+            text-align: center;
+            margin: 0 auto; 
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                font-size: 4vw; 
+            }
+
+            .submit-btn {
+                width: 50%; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span>Questionnaire Star</span>
+        <div class="header">
+            <h1>Survey Form</h1>
+            <p>Please take a moment to fill out this survey.</p>
+        </div>
+
+        <form>
+            <p>//This place will show the questions set by admin.</p>
+            <button type="button" class="submit-btn" onclick="window.location.href='user_view_thank.html';">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
