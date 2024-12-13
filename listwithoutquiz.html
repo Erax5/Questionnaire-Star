@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire Star - List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .sign-out {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .new-quiz {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 18px;
+            position: absolute;
+            top: 140px;
+            right: 100px;
+        }
+
+        .new-quiz-icon {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+
+        .new-quiz span {
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+
+        footer {
+        background-color: #f1f1f1;
+        padding: 1em;
+        text-align: center;
+        position: relative;
+        margin-bottom: 0px;
+        width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Questionnaire Star</div>
+        <button class="sign-out" onclick="window.location.href='index.html';">Sign out</button>
+    </header>
+    <div class="container">
+        <div class="title">Questionnaire List</div>
+        <div class="new-quiz" onclick="window.location.href='choose_ques_type.html';">
+            <div class="new-quiz-icon">&#128221;</div>
+            <span>New Quiz</span>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Questionnaire Star. All rights reserved.</p >
+    </footer>
+</body>
+</html>

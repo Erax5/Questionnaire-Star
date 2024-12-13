@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire Star - Answer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 100px;
+        }
+
+        .container h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .button-group button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button-group button.done {
+            background-color: #808080; 
+        }
+
+        .button-group button.finish {
+            background-color: #000000; 
+        }
+
+        .button-group button:hover {
+            opacity: 0.9;
+        }
+
+        .signout {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #000;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .signout:hover {
+            opacity: 0.9;
+        }
+
+        footer {
+        background-color: #f1f1f1;
+        padding: 1em;
+        text-align: center;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="signout" onclick="window.location.href='index.html';">Sign out</button>
+    <div class="container">
+        <h1>Quiz 1</h1>
+        <div class="form-group">
+            <label for="question">Set your question:</label>
+            <input type="text" id="question" placeholder="Enter your question here">
+        </div>
+        <div class="form-group">
+            <label for="examples">Set your examples:</label>
+            <input type="text" id="examples" placeholder="Enter examples here">
+        </div>
+        <div class="button-group">
+            <button class="done" onclick="window.location.href='choose_ques_type.html';">Done this question</button>
+            <button class="finish" onclick="window.location.href='list.html';">Finish</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Questionnaire Star. All rights reserved.</p >
+    </footer>
+</body>
+
+</html>

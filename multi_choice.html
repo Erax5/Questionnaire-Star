@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire Star - Multiple Choice</title>
+    <style>
+        /* Reset styles */
+        body, h1, h2, label, input, button {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        /* Container styling */
+        .container {
+            background-color: white;
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .sign-out {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .sign-out:hover {
+            background-color: #444;
+        }
+
+        /* Main Section */
+        h2 {
+            font-size: 24px;
+            color: #000;
+            margin-bottom: 20px;
+        }
+
+        /* Question Section */
+        .question-section label {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .question-section input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Options Section */
+        .options-section label {
+            font-size: 16px;
+            color: #555;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .option label {
+            margin-right: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .option input {
+            flex: 1;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .option button {
+            margin-left: 10px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .option button:hover {
+            background-color: #cc0000;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1em;
+        }
+
+        .add-remove-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .add-remove-buttons button {
+            background-color: #ddd;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .add-remove-buttons button:hover {
+            background-color: #bbb;
+        }
+
+        /* Buttons Section */
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .done, .finish {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .done {
+            background-color: #ddd;
+            color: #333;
+        }
+
+        .done:hover {
+            background-color: #bbb;
+        }
+
+        .finish {
+            background-color: black;
+            color: white;
+        }
+
+        .finish:hover {
+            background-color: #444;
+        }
+
+        footer {
+        background-color: #f1f1f1;
+        padding: 1em;
+        text-align: center;
+        width: 100%;
+        margin-top: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <span>Questionnaire Star</span>
+        <div>
+          <button class="sign-out" onclick="window.location.href='index.html';" >Sign out</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <main>
+            <h2>Quiz 1</h2>
+            <form>
+                <div class="question-section">
+                    <label for="question">Set your question:</label>
+                    <input type="text" id="question"  />
+                </div>
+                <div class="options-section">
+                    <label>Set your options:</label>
+                    <div class="option">
+                        <label for="option-a">A:</label>
+                        <input type="text" id="option-a" />
+                        <button type="button" class="remove-option">-</button>
+                    </div>
+                    <div class="option">
+                        <label for="option-b">B:</label>
+                        <input type="text" id="option-b"/>
+                        <button type="button" class="remove-option">-</button>
+                    </div>
+                    <div class="option">
+                        <label for="option-c">C:</label>
+                        <input type="text" id="option-c"  />
+                        <button type="button" class="remove-option">-</button>
+                    </div>
+                    <div class="option">
+                        <label for="option-d">D:</label>
+                        <input type="text" id="option-d" />
+                        <button type="button" class="remove-option">-</button>
+                    </div>
+                </div>
+                <div class="add-remove-buttons">
+                    <button type="button" id="add-option">+ Add Option</button>
+                </div>
+                <div class="buttons">
+                    <button type="button" class="done" onclick="window.location.href='choose_ques_type.html';">Done this question</button>
+                    <button type="button" class="finish" onclick="window.location.href='list.html';">Finish</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <script>
+        const addOptionButton = document.getElementById('add-option');
+        const removeLastOptionButton = document.getElementById('remove-last-option');
+        const optionsSection = document.querySelector('.options-section');
+        let optionCount = 4;
+
+        // Add new option
+        addOptionButton.addEventListener('click', () => {
+            optionCount++;
+            const newOption = document.createElement('div');
+            newOption.classList.add('option');
+
+            const label = document.createElement('label');
+            label.textContent = `${String.fromCharCode(64 + optionCount)}:`;
+            label.setAttribute('for', `option-${String.fromCharCode(97 + optionCount - 1)}`);
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.id = `option-${String.fromCharCode(97 + optionCount - 1)}`;
+
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.classList.add('remove-option');
+            removeButton.textContent = '-';
+
+            // Remove the specific option
+            removeButton.addEventListener('click', () => {
+                newOption.remove();
+                optionCount--;
+            });
+
+            newOption.appendChild(label);
+            newOption.appendChild(input);
+            newOption.appendChild(removeButton);
+            optionsSection.appendChild(newOption);
+        });
+
+        // Add remove functionality to default options
+        const defaultRemoveButtons = document.querySelectorAll('.remove-option');
+        defaultRemoveButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                if (optionCount > 1) { // Ensure at least 4 options remain
+                    button.parentElement.remove();
+                    optionCount--;
+                }
+            });
+        });
+    </script>
+
+    <footer>
+        <p>&copy; 2024 Questionnaire Star. All rights reserved.</p >
+    </footer>
+</body>
+</html>

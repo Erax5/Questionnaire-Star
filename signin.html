@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Questionnaire Star - Sign in</title>
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: left;
+      font-size: 20px;
+      margin-left: 14.5em;
+      margin-top: 3em;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1em;
+    }
+
+    form {
+      width: 18.75em;
+      margin: 2em auto;
+      border: 1px solid #ccc;
+      border-radius: 0.3125em;
+      padding: 5em;
+      box-shadow: 0 0 0.3125em rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.3125em;
+    }
+
+    input[type = "text"],
+    input[type = "password"] {
+      width: 100%;
+      padding: 0.5em;
+      margin-bottom: 0.9375em;
+      border: 1px solid #ccc;
+      border-radius: 0.1875em;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.5em;
+      margin-bottom: 0.9375em;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 0.1875em;
+      cursor: pointer;
+    }
+
+  .checkbox {
+      display: flex;
+      align-items: baseline;
+      margin-bottom: 0.9375em;
+    }
+
+  .checkbox label {
+      font-size: 0.875em;
+      margin-left: 0.375em;
+    }
+
+    a {
+      display: block;
+      text-align: right;
+      margin-bottom: 0.625em;
+      color: black;
+      text-decoration: none;
+      border: 1px solid black;
+      padding: 0.3125em 0.625em;
+      border-radius: 0.1875em;
+    }
+    
+    footer {
+      background-color: #f1f1f1;
+      padding: 1em;
+      text-align: center;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <span>Questionnaire Star</span>
+    <div>
+      <button type = "submit" onclick="window.location.href='signup.html';">Sign Up</button>
+    </div>
+  </header>
+
+  <form>
+    <label for = "email">Email</label>
+    <input type = "text" id = "email" value = "">
+    <label for = "password">Password</label>
+    <input type = "password" id = "password" value = "">
+    <div class = "checkbox">
+      <input type = "checkbox" id = "remember - me">
+      <label for = "remember - me">Remember Me</label>
+    </div>
+    <button type = "button" onclick="window.location.href='list.html';">Sign In</button>
+  </form>
+
+  <footer>
+    <p>&copy; 2024 Questionnaire Star. All rights reserved.</p >
+  </footer>
+</body>
+
+</html>
