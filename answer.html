@@ -7,47 +7,72 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            font-size: 1.5vw;
+            background-color: white;
             display: flex;
-            align-items: center;
-            height: 100vh;
             flex-direction: column;
-            justify-content: center;
+            min-height: 100vh;
+        }
+
+        :root {
+            --body-font-size-percentage: 100%;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5em;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .sign-out {
+            background-color: black;
+            color: white;
+            padding: 0.5em;
+            border-radius: 0.5em;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .sign-out:hover {
+            background-color: #464242;
         }
 
         .container {
             background-color: white;
-            padding: 20px 40px;
-            border-radius: 10px;
+            padding: 2em 4em;
+            border-radius: 1em;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 400px;
+            width: 50em;
             text-align: center;
-            margin-top: 20px;
-            margin-bottom: 100px;
+            margin-top: 4em;
+            margin-left: 3.1em;
         }
 
         .container h1 {
-            font-size: 36px;
-            margin-bottom: 20px;
+            font-size: 2em;
+            margin-bottom: 1em;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 3em;
             text-align: left;
         }
 
         .form-group label {
             display: block;
-            font-size: 16px;
-            margin-bottom: 5px;
+            font-size: 1.1em;
+            margin-bottom: 0.5em;
         }
 
         .form-group input[type="text"] {
             width: 100%;
-            padding: 10px;
-            font-size: 16px;
+            padding: 0.5em;
+            height: 6em;
+            font-size: 1em;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 0.5em;
         }
 
         .button-group {
@@ -56,11 +81,11 @@
         }
 
         .button-group button {
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 1em 2em;
+            font-size: 1em;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 0.5em;
             cursor: pointer;
         }
 
@@ -76,35 +101,20 @@
             opacity: 0.9;
         }
 
-        .signout {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: #000;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .signout:hover {
-            opacity: 0.9;
-        }
-
         footer {
-        background-color: #f1f1f1;
-        padding: 1em;
-        text-align: center;
-        position: relative;
-        bottom: 0;
-        width: 100%;
+            background-color: #f1f1f1;
+            text-align: center;
+            margin-top: auto;
         }
     </style>
 </head>
 
 <body>
-    <button class="signout" onclick="window.location.href='index.html';">Sign out</button>
+    <header>
+        <div>Questionnaire Star</div>
+        <button class="sign-out" onclick="window.location.href='index.html';">Sign out</button>
+    </header>
+    
     <div class="container">
         <h1>Quiz 1</h1>
         <div class="form-group">

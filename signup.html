@@ -8,23 +8,22 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      font-size: 1.5vw;
       background-color: white;
-      margin: 0;
-      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
-    h1 {
-      text-align: left;
-      font-size: 20px;
-      margin-left: 14.5em;
-      margin-top: 3em;
+    :root {
+    --body-font-size-percentage: 100%;
     }
 
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1em;
+      padding: 1.5em;
     }
 
     form {
@@ -44,33 +43,37 @@
     input[type="email"],
     input[type="password"] {
       width: 100%;
-      padding: 0.5em;
-      margin-bottom: 0.9375em;
+      height: 1em;
+      padding: 0.7em;
+      margin-bottom: 1.5em;
       border: 1px solid #ccc;
       border-radius: 0.1875em;
     }
 
     button {
       width: 100%;
+      font-size: 1em;
       padding: 0.5em;
-      margin-bottom: 0.9375em;
       background-color: black;
       color: white;
-      border: none;
-      border-radius: 0.1875em;
+      border-radius: 0.5em;
       cursor: pointer;
     }
 
- .checkbox {
+    .checkbox {
       display: flex;
       align-items: baseline;
       margin-bottom: 0.9375em;
     }
 
- .checkbox label {
+    .checkbox label {
       font-size: 0.875em;
       margin-left: 0.375em;
     }
+
+    .my-checkbox {
+      width: 1em;
+    } 
 
     a {
       display: block;
@@ -85,11 +88,8 @@
 
     footer {
       background-color: #f1f1f1;
-      padding: 1em;
       text-align: center;
-      position: relative;
-      bottom: 0;
-      width: 100%;
+      margin-top: auto;
     }
   </style>
 </head>
@@ -110,7 +110,7 @@
     <label for="confirm-password">Confirm Password</label>
     <input type="password" id="confirm-password" value="">
     <div class="checkbox">
-      <input type="checkbox" id="remember-me">
+      <input type="checkbox" class="my-checkbox" id="remember-me">
       <label for="remember-me">Remember Me</label>
     </div>
 

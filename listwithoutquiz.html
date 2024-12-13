@@ -7,85 +7,76 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff;
+            font-size: 1.5vw;
+            background-color: white;
             display: flex;
-            justify-content: center;
             flex-direction: column;
-            height: 100vh;
+            min-height: 100vh;
+        }
+
+        :root {
+        --body-font-size-percentage: 100%;
         }
 
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            padding: 1.5em;
             border-bottom: 1px solid #ddd;
-            position: relative;
-        }
-
-        .logo {
-            font-size: 20px;
-            font-weight: bold;
         }
 
         .sign-out {
             background-color: black;
             color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 0.5em;
+            border-radius: 0.5em;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 1em;
+        }
+
+        .sign-out:hover {
+            background-color: #464242;
         }
 
         .new-quiz {
             display: flex;
             align-items: center;
             cursor: pointer;
-            font-size: 18px;
-            position: absolute;
-            top: 140px;
-            right: 100px;
+            font-size: 1.5em;
         }
 
         .new-quiz-icon {
-            margin-right: 10px;
-            font-size: 24px;
-        }
-
-        .new-quiz span {
-            font-size: 18px;
+            margin-right: 0.5em;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
+            max-width: 50em;
+            margin: 0 0;
+            padding: 2em 2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .title {
-            font-size: 36px;
+            font-size: 2em;
             font-weight: bold;
-            margin-bottom: 40px;
         }
 
         footer {
-        background-color: #f1f1f1;
-        padding: 1em;
-        text-align: center;
-        position: relative;
-        margin-bottom: 0px;
-        width: 100%;
+            background-color: #f1f1f1;
+            text-align: center;
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo">Questionnaire Star</div>
+        <div>Questionnaire Star</div>
         <button class="sign-out" onclick="window.location.href='index.html';">Sign out</button>
     </header>
+
     <div class="container">
         <div class="title">Questionnaire List</div>
         <div class="new-quiz" onclick="window.location.href='choose_ques_type.html';">
