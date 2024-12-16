@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire Star - List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 1.5vw;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        :root {
+        --body-font-size-percentage: 100%;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5em;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .sign-out {
+            background-color: black;
+            color: white;
+            padding: 0.5em;
+            border-radius: 0.5em;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .sign-out:hover {
+            background-color: #464242;
+        }
+
+        .new-quiz {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.5em;
+        }
+
+        .new-quiz-icon {
+            margin-right: 0.5em;
+        }
+
+        .container {
+            max-width: 50em;
+            margin: 0 0;
+            padding: 2em 2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>Questionnaire Star</div>
+        <button class="sign-out" onclick="window.location.href='index.html';">Sign out</button>
+    </header>
+
+    <div class="container">
+        <div class="title">Questionnaire List</div>
+        <div class="new-quiz" onclick="window.location.href='choose_ques_type.html';">
+            <div class="new-quiz-icon">&#128221;</div>
+            <span>New Quiz</span>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Questionnaire Star. All rights reserved.</p >
+    </footer>
+</body>
+</html>
