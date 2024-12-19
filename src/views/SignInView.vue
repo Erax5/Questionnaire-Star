@@ -19,7 +19,7 @@
         <input type = "checkbox" class="my-checkbox" id = "remember-me">
         <label for = "remember-me">{{uiLabels.rememberMe}}</label>
       </div>
-      <button type = "button" onclick="window.location.href='list';">{{uiLabels.signIn}}</button>
+      <button type = "button" onclick="window.location.href='/list';">{{uiLabels.signIn}}</button>
     </form>
 
     <footer>
@@ -72,6 +72,7 @@ export default {
   }
 
   input[type = "text"],
+  input[type = "email"],
   input[type = "password"] {
     width: 100%;
     height: 1em;

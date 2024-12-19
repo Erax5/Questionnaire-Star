@@ -23,7 +23,7 @@
       </div>
 
       <button type="submit" id="signupButton" onclick="window.location.href='listwithoutquiz.html';">{{uiLabels.signUp}}</button>
-      <p id="passwordError" style="color: red; display: none;">The passwords do not match, please re-enter.</p> 
+      <p id="passwordError" style="color: red; display: none;">{{uiLabels.noMatch}}</p> 
     </form>
 
     <!-- TODO:
@@ -97,6 +97,7 @@ export default {
   }
 
   input[type = "text"],
+  input[type = "email"],
   input[type = "password"] {
     width: 100%;
     height: 1em;
