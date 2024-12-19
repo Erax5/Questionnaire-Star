@@ -1,8 +1,78 @@
 @import './base.css';
 
 #app {
-  font-family: Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 1.5vw;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  :root {
+  --body-font-size-percentage: 100%;
+  }
+
+  header {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding: 1.5em;
+  }
+
+  button, router-link,
+  header div a {
+    text-decoration: none;
+    color: white;
+    background-color: black;
+    border: none;
+    border-radius: 0.5em;
+    padding: 0.8em 0.8em;
+    font-size: 1em;
+    cursor: pointer;
+  }
+
+  button, router-link {
+    display: block;
+    width: 10em;
+    height: 3em;
+    margin: 1em auto;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-top: 2.5em;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.3125em;
+  }
+
+  header div a {
+    margin-right: 1em;
+  }
+
+  .checkbox {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 0.9375em;
+  }
+
+  .checkbox label {
+    font-size: 0.875em;
+    margin-left: 0.375em;
+  }
+
+  .my-checkbox {
+    width: 1em;
+  } 
 }

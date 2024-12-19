@@ -1,0 +1,104 @@
+<template>
+  <div class="wrapper">
+    <header>
+      <div>
+        <router-link to="/">{{ uiLabels.home }} </router-link>
+      </div>
+
+      <div>
+        <router-link to="/signup">{{uiLabels.signUp}}</router-link>
+      </div>
+    </header>
+
+    <form>
+      <label for = "email">{{uiLabels.email}}</label>
+      <input type = "text" id = "email" value = "">
+      <label for = "password">{{uiLabels.password}}</label>
+      <input type = "password" id = "password" value = "">
+      <div class = "checkbox">
+        <input type = "checkbox" class="my-checkbox" id = "remember-me">
+        <label for = "remember-me">{{uiLabels.rememberMe}}</label>
+      </div>
+      <button type = "button" onclick="window.location.href='list';">{{uiLabels.signIn}}</button>
+    </form>
+
+    <footer>
+      <p>&copy; 2024 Questionnaire Star. All rights reserved.</p >
+    </footer>
+  </div>
+</template>
+
+<script>
+import ResponsiveNav from '@/components/ResponsiveNav.vue';
+import io from 'socket.io-client';
+const socket = io("localhost:3000");
+
+export default {
+  name: 'SignInView',
+  components: {
+    ResponsiveNav
+  },
+  data() {
+    return {
+      uiLabels: {},
+      newPollId: "",
+      lang: localStorage.getItem( "lang") || "en",
+      hideNav: true
+    }
+  },
+  created() {
+    socket.on( "uiLabels", labels => this.uiLabels = labels );
+    socket.emit( "getUILabels", this.lang );
+  },
+  methods: {
+    switchLanguage() {
+      localStorage.setItem( "lang", this.lang );
+      socket.emit( "getUILabels", this.lang );
+    },
+    toggleNav() {
+      this.hideNav = ! this.hideNav;
+    }
+  }
+}
+</script>
+<style scoped>
+  form {
+    width: 18.75em;
+    margin: 2em auto;
+    border: 1px solid #ccc;
+    border-radius: 0.3125em;
+    padding: 5em;
+    box-shadow: 0 0 0.3125em rgba(0, 0, 0, 0.1);
+  }
+
+  input[type = "text"],
+  input[type = "password"] {
+    width: 100%;
+    height: 1em;
+    padding: 0.7em;
+    margin-bottom: 1.5em;
+    border: 1px solid #ccc;
+    border-radius: 0.1875em;
+  }
+
+  .checkbox {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 0.9375em;
+  }
+
+  .checkbox label {
+    font-size: 0.875em;
+    margin-left: 0.375em;
+  }
+
+  .my-checkbox {
+    width: 1em;
+  } 
+  
+  footer {
+    background-color: #f1f1f1;
+    text-align: center;
+    margin-top: auto;
+  }
+</style>

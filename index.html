@@ -5,91 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Questionnaire Star</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      font-size: 1.5vw;
-      background-color: white;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    :root {
-      --body-font-size-percentage: 100%;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5em;
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 2.5em;
-      margin-top: 2.5em;
-    }
-
-    button,
-    header div a {
-      text-decoration: none;
-      color: white;
-      background-color: black;
-      border: none;
-      border-radius: 0.5em;
-      padding: 0.8em 0.8em;
-      font-size: 1em;
-      cursor: pointer;
-    }
-
-    button {
-      display: block;
-      width: 10em;
-      height: 3em;
-      margin: 1em auto;
-    }
-
-    header div a {
-      margin-right: 1em;
-    }
-
-    footer {
-      background-color: #f1f1f1;
-      text-align: center;
-      margin-top: auto;
-    }
-  </style>
 </head>
-
 <body>
-  <header>
-    <span>Questionnaire Star</span>
-
-    <!-- Need to adapt the language selection dropdown here -->
-    <div class="language-select">
-      <select id="language" name="lang" required="required">
-        <option value="en">English</option>
-        <option value="sv">Swedish</option>
-      </select>
-    </div>
-
-    <div>
-      <a onclick="window.location.href='signin.html';" >Sign in</a>
-      <a onclick="window.location.href='signup.html';" style="margin-left: 1px;">Sign up</a>
-    </div>
-  </header>
-
-  <h1>Welcome to Questionnaire Star</h1>
-
-  <button onclick="window.location.href='signin.html';" >Sign in</button>
-  <button onclick="window.location.href='signup.html';" >Sign up</button>
-
-  <footer>
-    <p>&copy; 2024 Questionnaire Star. All rights reserved.</p>
-  </footer>
-
+  <div id="app"></div>
+  <script type="module" src="/src/main.js"></script>
 </body>
-
 </html>
