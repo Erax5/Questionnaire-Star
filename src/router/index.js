@@ -4,6 +4,7 @@ import SignInView from '../views/SignInView.vue'
 import SignUpView from '../views/SignUpView.vue'
 import ListView from '../views/ListView.vue'
 import ResultView from '../views/ResultView.vue'
+import ChooseQView from '../views/CreateView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/result',
       name: 'Result',
       component: ResultView
+    },
+    {
+      path: '/createquiz',
+      name: 'Choose question type',
+      component: ChooseQView
     },
   ]
 })

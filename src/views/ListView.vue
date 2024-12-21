@@ -17,8 +17,8 @@
         </div>
 
         <!-- TODO: need to make this router-link, but still blue -->
-        <div class="new-quiz" onclick="window.location.href='choose_ques_type.html';">
-            <button onclick="window.location.href='choose_ques_type.html';">
+        <div class="new-quiz" onclick="window.location.href='/createquiz';">
+            <button @click="window.location.href='/createquiz';">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
                     <path d="M8 4a.5.5 0 0 1.5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                 </svg>
@@ -68,7 +68,7 @@ export default {
 </script>
 <style scoped>
 
-  .container {
+ .container {
     margin: 3em;
     background-color: white;
     border-radius: 1em;
@@ -97,11 +97,11 @@ export default {
     background-color: #ececec;
   }
 
-.quiz-item span {
+  .quiz-item span {
     flex: 0.95;
   }
 
-.quiz-item button {
+  .quiz-item button {
     background-color: white;
     border: 1px solid #ccc;
     padding: 0.8em 1.2em;
@@ -110,11 +110,11 @@ export default {
     cursor: pointer;
   }
 
-.quiz-item button:hover {
+  .quiz-item button:hover {
     background-color: #ddd;
   }
 
-.new-quiz {
+  .new-quiz {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -139,7 +139,7 @@ export default {
 
   .new-quiz button svg {
     margin-right: 0.3em;
-  }
+  } 
 
   footer {
     background-color: #f1f1f1;

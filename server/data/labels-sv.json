@@ -15,6 +15,8 @@
 	"noMatch": "Lösenorden matchar inte, vänligen försök igen.",
 	"changeLanguage": "Byt språk",
 	"addQuestion": "Lägg till fråga",
+	"qType": "Välj frågetyp",
+	"addedQuestions": "Tillagda frågor",
 	"setQuestion": "Ställ din fråga",
 	"setOptions": "Ställ in dina alternativ",
 	"addOption": "Lägg till alternativ",
@@ -23,7 +25,8 @@
 	"publish": "Publicera",
 	"singleChoice": "Envalsfråga",
 	"multChoice": "Flervalsfråga",
-	"answer": "Svar",
+	"answer": "Text-svar",
+	"questionAppear": "Fråga 1 kommer att visas här",
 	"submit": "Färdigställ",
 	"back": "Tillbaka",
 	"newQuiz": "Nytt quiz"
