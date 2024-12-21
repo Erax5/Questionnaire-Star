@@ -146,4 +146,8 @@ export default {
     text-align: center;
     margin-top: auto;
   }
+
+.wrapper {
+  background-color: #f9f9f9;
+}
 </style>

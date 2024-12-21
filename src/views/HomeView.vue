@@ -70,6 +70,10 @@ export default {
     text-align: center;
   }
 
+  .wrapper {
+    background-color: #f9f9f9;
+  }
+
   footer {
     background-color: #f1f1f1;
     text-align: center;

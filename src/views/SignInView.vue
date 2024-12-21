@@ -82,6 +82,10 @@ export default {
     border-radius: 0.1875em;
   }
 
+.wrapper {
+  background-color: #f9f9f9;
+}
+
   .checkbox {
     display: flex;
     align-items: baseline;

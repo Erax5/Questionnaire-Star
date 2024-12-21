@@ -5,10 +5,6 @@
         <router-link to="/">{{ uiLabels.home }}</router-link>
       </div>
 
-      <div>
-        <router-link to="/signin">{{ uiLabels.signIn }}</router-link>
-        <router-link to="/signup">{{ uiLabels.signUp }}</router-link>
-      </div>
     </header>
 
     <!-- container for the quiz + completed questions -->
@@ -74,6 +70,10 @@
 
     <div v-if="!isAddingQuestion">
       <button @click="startAddingQuestion">{{ uiLabels.addQuestion }}</button>
+    </div>
+
+    <div class="back-button-container">
+      <router-link to="/list">{{ uiLabels.back }}</router-link>
     </div>
 
     <footer>
@@ -160,6 +160,91 @@ export default {
 </script>
 
 <style scoped>
+  .wrapper {
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .quiz-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    /* padding: 20px; */
+  }
+
+  .quiz-container h2 {
+    margin-bottom: 10px;
+  }
+
+  .quiz-container .option {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .question-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+
+  .question-container h2 {
+    margin-bottom: 10px;
+  }
+
+  .button-container button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+  }
+
+  .button-container button:hover {
+    background-color: #0056b3;
+  }
+
+  .add-remove-buttons button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+  }
+
+  .add-remove-buttons button:hover {
+    background-color: #218838;
+  }
+
+  .remove-option {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+  }
+
+  .remove-option:hover {
+    background-color: #c82333;
+  }
+
+  .back-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: auto;
+    font-size: large;
+    padding: 20px;
+  }
+
   input {
     width: 90%;
     height: 1em;
