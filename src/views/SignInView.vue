@@ -2,11 +2,11 @@
   <div class="wrapper">
     <header>
       <div>
-        <router-link to="/">{{ uiLabels.home }} </router-link>
+        <router-link to="/">{{ uiLabels.home }}</router-link>
       </div>
 
       <div>
-        <router-link to="/signup">{{uiLabels.signUp}}</router-link>
+        <router-link to="/signup">{{ uiLabels.signUp }}</router-link>
       </div>
     </header>
 
@@ -19,7 +19,7 @@
         <input type = "checkbox" class="my-checkbox" id = "remember-me">
         <label for = "remember-me">{{uiLabels.rememberMe}}</label>
       </div>
-      <button type = "button" onclick="window.location.href='/list';">{{uiLabels.signIn}}</button>
+      <router-link to="/list">{{ uiLabels.signIn }}</router-link>
     </form>
 
     <footer>

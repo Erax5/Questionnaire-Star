@@ -1,31 +1,28 @@
 <template>
   <div class="wrapper">
     <header>
-      <div>
-        <router-link to="/">{{ uiLabels.home }} </router-link>
-      </div>
-      <div>
-        <button class="sign-out" onclick="window.location.href='/home';">Sign out</button> <!-- This is a different style of button to the other pages, which is best? -->
-      </div>
+      <router-link to="/">{{ uiLabels.home }}</router-link>
+      <router-link to="/">{{ uiLabels.signOut }}</router-link>
     </header>
 
     <div class="container">
         <h2>Questionnaire List</h2>
 
         <div class="quiz-item">
-            <span>Quiz 1</span>
+            <span>{{uiLabels.quiz}} 1</span>
             <!-- Click the button to view the link of the quiz: user_view -->
-            <button>Share</button>
+            <button>{{uiLabels.share}}</button>
             <!-- Click the button to view the result of the quiz: result -->
-            <button onclick="window.location.href='result.html';">View Result</button>
+            <button onclick="window.location.href='/result';">{{uiLabels.viewResult}}</button>
         </div>
 
+        <!-- TODO: need to make this router-link, but still blue -->
         <div class="new-quiz" onclick="window.location.href='choose_ques_type.html';">
             <button onclick="window.location.href='choose_ques_type.html';">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
                     <path d="M8 4a.5.5 0 0 1.5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                 </svg>
-                New Quiz
+                {{uiLabels.newQuiz}}
             </button>
         </div>
     </div>
@@ -69,40 +66,7 @@ export default {
   }
 }
 </script>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    font-size: 1.5vw;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  :root {
-    --body-font-size-percentage: 100%;
-  }
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5em;
-    border-bottom: 1px solid #ddd;
-  }
-
-  .sign-out { 
-    background-color: black;
-    color: white;
-    padding: 0.5em;
-    border-radius: 0.5em;
-    cursor: pointer;
-    font-size: 1em;
-  }
-
-  .sign-out:hover {
-    background-color: #464242;
-  }
+<style scoped>
 
   .container {
     margin: 3em;

@@ -1,29 +1,20 @@
 <template>
   <div class="wrapper">
     <header>
-      <div>
-        <router-link to="/">{{ uiLabels.home }}</router-link>
-      </div>
-
-      <!-- If this drop down should only be visible on this screen we need to fix the alignment of the header -->
-      <select v-model="lang" @change="switchLanguage">
-        <option value="en">English</option>
-        <option value="sv">Swedish</option>
-      </select>
-
-
-      <div>
-        <router-link to="/signin">{{ uiLabels.signIn }}</router-link>
-        <router-link to="/signup">{{ uiLabels.signUp }}</router-link>
-      </div>
+      <router-link to="/">{{ uiLabels.home }}</router-link>
+      <router-link to="/">{{ uiLabels.signOut }}</router-link>
     </header>
+    
+      <div class="container">
+      <div class="header">
+          <h2>{{uiLabels.result}}</h2>
+      </div>
 
-    <div class="welcome">
-      <h1>{{uiLabels.welcome}}</h1>
+      <table class="results-table">
+      </table>
     </div>
-
     <footer>
-      <p>&copy; 2024 Questionnaire Star. All rights reserved.</p>
+        <p>&copy; 2024 Questionnaire Star. All rights reserved.</p>
     </footer>
   </div>
 </template>
@@ -62,14 +53,40 @@ export default {
 }
 </script>
 <style scoped>
-  .welcome {
+  /* body {
+    font-family: Arial, sans-serif;
+    font-size: 1.5vw;
+    background-color: white;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1; /* Allow the content to fill available space */
-    text-align: center;
+    flex-direction: column;
+    min-height: 100vh;
+} */
+
+  /* :root {
+      --body-font-size-percentage: 100%;
   }
 
+  header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5em;
+      border-bottom: 1px solid #ddd;
+  } */
+
+  /* 
+  h1 {
+      font-size: 1.2rem;
+      margin: 0;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+  }
+
+  h2 {
+      text-align: center;
+      font-size: 2em;
+  } */
   footer {
     background-color: #f1f1f1;
     text-align: center;

@@ -2,11 +2,11 @@
   <div class="wrapper">
     <header>
     <div>
-      <router-link to="/">{{ uiLabels.home }} </router-link>
+      <router-link to="/">{{ uiLabels.home }}</router-link>
     </div>
 
     <div>
-      <router-link to="/signin">{{uiLabels.signIn}}</router-link>
+      <router-link to="/signin">{{ uiLabels.signIn }}</router-link>
     </div>
   </header>
 
@@ -22,7 +22,7 @@
         <label for="remember-me">{{ uiLabels.rememberMe }}</label>
       </div>
 
-      <button type="submit" id="signupButton" onclick="window.location.href='listwithoutquiz.html';">{{uiLabels.signUp}}</button>
+      <router-link type="submit" to="/List">{{ uiLabels.signUp }}</router-link>
       <p id="passwordError" style="color: red; display: none;">{{uiLabels.noMatch}}</p> 
     </form>
 
