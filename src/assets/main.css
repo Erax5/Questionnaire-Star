@@ -71,7 +71,7 @@
     width: 1em;
   } 
 
-  a {
+  a, button {
     text-decoration: none;
     background-color: black;
     color: white;
@@ -81,7 +81,7 @@
     font-size: 1.2em;
   }
 
-  a:hover {
+  a:hover, button:hover {
     background-color: #464242;
   }
 

@@ -29,5 +29,10 @@
 	"questionAppear": "Fråga 1 kommer att visas här",
 	"submit": "Färdigställ",
 	"back": "Tillbaka",
-	"newQuiz": "Nytt quiz"
+	"addQuestionError": "Inga fält kan vara tomma när du skapar en fråga, vänligen försök igen.",
+	"newQuiz": "Nytt quiz",
+	"enterQuestion": "Skriv frågan",
+	"enterOption": "Skriv alternativ",
+	"enterAnswer": "Skriv svaret",
+	"option": "Alternativ"
 }

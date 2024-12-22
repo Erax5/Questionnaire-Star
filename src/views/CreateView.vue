@@ -6,74 +6,88 @@
       </div>
 
     </header>
+    <div class="padder">
 
-    <!-- container for the quiz + completed questions -->
-    <div class="quiz-container">
-      <h2>Quiz 1</h2>
-      <div v-if="questions.length > 0">
-        <h3>{{ uiLabels.addedQuestions }}</h3>
-        <div class="option" v-for="(question, index) in questions" :key="index">
-          <h4>{{ question.text }}</h4>
-          <p v-if="question.type === 'textAnswer'">{{ question.answer }}</p>
-          <ul v-else>
-            <li v-for="(option, i) in question.options" :key="i">{{ option }}</li>
-          </ul>
-          <p><strong>{{ uiLabels.type }}:</strong> {{ question.type }}</p>
-          <button @click="removeQuestion(index)" class="remove-option">-</button>
+      <!-- container for the quiz + completed questions -->
+      <div class="quiz-container">
+        <h2>Quiz 1</h2>
+        <div v-if="questions.length > 0">
+          <h3>{{ uiLabels.addedQuestions }}</h3>
+          <div class="question" v-for="(question, index) in questions" :key="index">
+            <h4>{{ question.question }}</h4>
+            <p v-if="question.type === 'textAnswer'">{{question.answer}}</p>
+            <ul v-else>
+              <li v-for="(option, i) in question.options" :key="i">{{ option }}</li>
+            </ul>
+            <!-- <p><strong>{{ uiLabels.type }}:</strong> {{ question.type }}</p> -->
+             <div class="quiz-container-buttons">
+                <span>Edit</span>
+              <button @click="removeQuestion(index)" class="remove-button">-</button>
+             </div>
+          </div>
         </div>
-      </div>
-      <p v-else>{{ uiLabels.questionAppear }}</p>
-    </div>
-
-
-    <!-- container for adding a new question -->
-    <div class="question-container" v-if="isAddingQuestion">
-      <h2>{{ uiLabels.addQuestion }}</h2>
-      <h3>{{ uiLabels.qType }}</h3>
-      <div class="button-container">
-        <button @click="setQuestionType('multiChoice')">{{ uiLabels.multChoice }}</button>
-        <button @click="setQuestionType('textAnswer')">{{ uiLabels.answer }}</button>
+        <p v-else>{{ uiLabels.questionAppear }}</p>
       </div>
 
-      <div v-if="questionType">
-        <div v-if="questionType === 'textAnswer'">
-          <input v-model="newQuestion.options" type="text" placeholder={{uiLabels.enterAnswer}} />
+      <!-- container for adding a new question -->
+      <div class="question-container" v-if="isAddingQuestion">
+        <h2>{{ uiLabels.addQuestion }}</h2>
+        <h3>{{ uiLabels.qType }}</h3>
+        <div class="button-container">
+          <button @click="setQuestionType('multiChoice')">{{ uiLabels.multChoice }}</button>
+          <button @click="setQuestionType('textAnswer')">{{ uiLabels.answer }}</button>
         </div>
-        <div v-if="questionType === 'multiChoice'">
-          <form>
+
+        <div v-if="questionType">
+          <div v-if="questionType === 'textAnswer'">
             <div class="question-section">
               <label for="question">{{ uiLabels.enterQuestion }}:</label>
-              <input type="text" id="question"  />
+              <input type="text" id="question" v-model="newQuestion.question"/>
             </div>
-
-            <div class="options-section">
-              <label>{{uiLabels.setOptions}}:</label>
-              <div v-for="(option, index) in newQuestion.options" :key="index" class="option">
-                <label :for="'option ' + index">{{ String.fromCharCode(65 + index) }}:</label>
-                <input v-model="options" :id="'option ' + index" />
-                <button type="button" @click="removeOption(index)" class="remove-option">-</button>
+              <label for="question">{{ uiLabels.enterAnswer }}:</label>
+              <input v-model="newQuestion.answer" />
+          </div>
+          <div v-if="questionType === 'multiChoice'">
+            <form>
+              <div class="question-section">
+                <label for="question">{{ uiLabels.enterQuestion }}:</label>
+                <input type="text" v-model="newQuestion.question"/>
               </div>
-            </div>
-            <div class="add-remove-buttons">
-              <button type="button" @click="addOption">{{ uiLabels.addOption }}</button>
-            </div>
-          </form>
-        <!-- TODO: add functionality for adding and removing options -->
-         <!-- TODO: a -->
-         <!-- TODO: also fix the placeholder not displaying the right thing -->
+
+              <div class="options-section">
+                <label>{{uiLabels.setOptions}}:</label>
+                <div v-for="(option, index) in newQuestion.options" :key="index" class="option">
+                  <input 
+                    type="text" 
+                    v-model="newQuestion.options[index]" 
+                    :placeholder="`${uiLabels.option} ${index + 1}`" 
+                  />
+                  <button class="remove-button" @click="removeOption(index)">-</button>
+                </div>
+              </div>
+              <div class="add-remove-buttons">
+                <button type="button" @click="addOption">{{ uiLabels.addOption }}</button>
+              </div>
+            </form>
+          <!-- TODO: add functionality for adding and removing options -->
+          <!-- TODO: a -->
+          <!-- TODO: also fix the placeholder not displaying the right thing -->
+          </div>
+        </div>
+        <div class="button-container-2">
+          <button @click="saveQuestion">{{ uiLabels.addQuestion }}</button>
+          <button @click="cancelAddingQuestion">{{ uiLabels.cancel }}</button>
         </div>
       </div>
 
-      <button @click="saveQuestion">{{ uiLabels.addQuestion }}</button>
-      <button @click="cancelAddingQuestion">{{ uiLabels.cancel }}</button>
-    </div>
+      <div v-if="!isAddingQuestion">
+        <button @click="startAddingQuestion">{{ uiLabels.addQuestion }}</button>
+      </div>
 
-    <div v-if="!isAddingQuestion">
-      <button @click="startAddingQuestion">{{ uiLabels.addQuestion }}</button>
-    </div>
+      <div class="back-button-container">
+        <router-link to="/list">{{ uiLabels.back }}</router-link>
+      </div>
 
-    <div class="back-button-container">
-      <router-link to="/list">{{ uiLabels.back }}</router-link>
     </div>
 
     <footer>
@@ -101,7 +115,7 @@ export default {
       questions: [],
       isAddingQuestion: false, //this is true when actively adding a question
       newQuestion: {
-        text: "",
+        question: "",
         options: [],
         answer: ""
       },
@@ -122,7 +136,7 @@ export default {
     },
     cancelAddingQuestion() {
       this.newQuestion = {
-        text: "",
+        question: "",
         options: [],
         answer: ""
       };
@@ -133,13 +147,28 @@ export default {
       this.questionType = type;
     }, 
     saveQuestion() {
-      this.questions.push({ question: this.newQuestion, type: this.questionType});
+      if (this.newQuestion.question.trim() === '' || 
+         (this.questionType === 'multiChoice' && this.newQuestion.options.length === 0)) {
+      
+        alert(this.uiLabels.addQuestionError); // TODO: replace with more user-friendly error handling
+        return;
+      }
+
+      // add the new question to the questions array
+      this.questions.push({ 
+        question: this.newQuestion.question, 
+        options: [...this.newQuestion.options],
+        answer: this.newQuestion.answer,
+        type: this.questionType 
+      });
+      
+      // reset the newQuestion object
       this.newQuestion = {
-        text: "",
+        question: '',
         options: [],
-        answer: ""
+        answer: ''
       };
-      this.questionType = "";
+      this.questionType = '';
       this.isAddingQuestion = false;
     },
     removeQuestion(index) {
@@ -149,7 +178,7 @@ export default {
       this.hideNav = ! this.hideNav;
     },
     addOption() {
-      this.newQuestion.options.push("");
+      this.newQuestion.options.push('');
     },
     removeOption(index) {
       this.newQuestion.options.splice(index, 1);
@@ -167,32 +196,102 @@ export default {
     height: 100vh;
   }
 
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
+  .padder {
+    padding: 20px;
+    flex-grow: 1;
   }
 
   .quiz-container {
-    background-color: #fff;
+    background-color: #ffffff;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    /* padding: 20px; */
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .quiz-container:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
 
   .quiz-container h2 {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 2em;
+    color: #333;
   }
 
-  .quiz-container .option {
-    background-color: #f1f1f1;
+  .quiz-container .question {
+    background-color: #f9f9f9;
     padding: 10px;
-    border-radius: 4px;
+    border-radius: 8px;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+  }
+
+  .quiz-container .question:hover {
+    background-color: #e9e9e9;
+  }
+
+  .quiz-container .question h4 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #555;
+  }
+
+  .quiz-container .question p,
+  .quiz-container .question ul {
+    margin: 10px 0 0 0;
+    font-size: 1.1em;
+    color: #777;
+  }
+
+  .quiz-container .question ul {
+    padding-left: 20px;
+  }
+
+  .quiz-container .question ul li {
+    list-style-type: disc;
+  }
+
+  .quiz-container .remove-question {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .quiz-container .remove-question:hover {
+    background-color: #cc0000;
+  }
+
+  .quiz-container-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .quiz-container .question {
+    cursor: pointer;
+    position: relative;
+  }
+
+  .quiz-container .question:hover .quiz-container-buttons span {
+    text-decoration: underline;
+  }
+
+  .quiz-container .question:hover {
+    background-color: #e0f7fa;
+  }
+
+  .quiz-container-buttons span {
+    color: #007bff;
+    cursor: pointer;
+    font-size:1.2em;
   }
 
   .question-container {
@@ -218,23 +317,34 @@ export default {
   }
 
   .add-remove-buttons button {
-    background-color: #28a745;
+    background-color: #007bff;
     color: white;
     border: none;
   }
 
   .add-remove-buttons button:hover {
-    background-color: #218838;
+    background-color: #0056b3;
   }
 
-  .remove-option {
-    background-color: #dc3545;
+  .button-container-2 {
+    display: flex;
+    justify-content:center;
+    margin-top: 20px;
+    gap: 10px;
+  }
+
+  .remove-button {
     color: white;
     border: none;
+    margin-left: 1em;
+    background-color: #ff4d4d;
+    padding: 0.5em 0.8em;
+    border-radius: 0.5em;
+    cursor: pointer;
   }
 
-  .remove-option:hover {
-    background-color: #c82333;
+  .remove-button:hover {
+    background-color: #cc0000;
   }
 
   .back-button-container {
@@ -246,7 +356,7 @@ export default {
   }
 
   input {
-    width: 90%;
+    width: 95%;
     height: 1em;
     padding: 1em;
     margin-bottom: 1.5em;
@@ -284,19 +394,6 @@ export default {
     margin-top: auto;
   }
 
-  button {
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 0.8em 1.2em;
-    font-size: 1em;
-    border-radius: 0.5em;
-    cursor: pointer;
-  }
-
-  button:hover {
-    background-color: #ddd;
-  }
-
   .option {
       display: flex;
       align-items: center;
@@ -310,24 +407,7 @@ export default {
 
   .option input {
       flex: 1;
-      padding: 0.5em;
-      font-size: 1em;
       border: 1px solid #ddd;
       border-radius: 0.5em;
-      width:50%
-  }
-
-  .option button {
-      margin-left: 1em;
-      background-color: #ff4d4d;
-      color: white;
-      border: none;
-      padding: 0.5em 0.8em;
-      border-radius: 0.5em;
-      cursor: pointer;
-  }
-
-  .option button:hover {
-      background-color: #cc0000;
   }
 </style>

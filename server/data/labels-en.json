@@ -28,8 +28,11 @@
 	"questionAppear": "Question 1 will appear here",
 	"submit": "Submit",
 	"back": "Back",
+	"addQuestionError": "No fields can be blank when creating a question, please try again.",
 	"newQuiz": "New Quiz",
 	"enterQuestion": "Enter question",
 	"enterOption": "Enter option",
-	"enterAnswer": "Enter answer"
+	"enterAnswer": "Enter answer",
+	"question": "Question",
+	"option": "Option"
 }
