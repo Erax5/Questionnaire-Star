@@ -28,11 +28,15 @@
 	"questionAppear": "Question 1 will appear here",
 	"submit": "Submit",
 	"back": "Back",
+	"edit": "Edit",
+	"editQuestionWarning": "Warning: Editing a question will cancel adding a new question. Do you wish to continue?",
 	"addQuestionError": "No fields can be blank when creating a question, please try again.",
 	"newQuiz": "New Quiz",
 	"enterQuestion": "Enter question",
 	"enterOption": "Enter option",
 	"enterAnswer": "Enter answer",
 	"question": "Question",
+	"linkCopy": "Quiz link copied to clipboard!",
+	"failedCopy": "Failed to copy quiz link to clipboard. Error: ",
 	"option": "Option"
 }

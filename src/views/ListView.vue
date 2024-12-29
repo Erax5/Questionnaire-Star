@@ -9,11 +9,9 @@
         <h2>Questionnaire List</h2>
 
         <div class="quiz-item">
-            <span>{{uiLabels.quiz}} 1</span>
-            <!-- Click the button to view the link of the quiz: user_view -->
-            <button>{{uiLabels.share}}</button>
-            <!-- Click the button to view the result of the quiz: result -->
-            <button onclick="window.location.href='/result';">{{uiLabels.viewResult}}</button>
+            <span>{{uiLabels.quiz}} 1</span> <!-- TODO: change hardcoded "1" into dynamic counting -->
+            <button @click="shareQuiz(1)"> {{ uiLabels.share }}</button>
+            <router-link to="/result" class="button" style="border: 1px solid #ccc; padding: 0.8em 1.2em; font-size: 1em;">{{uiLabels.viewResult}}</router-link>
         </div>
 
         <!-- TODO: need to make this router-link, but still blue -->
@@ -62,6 +60,14 @@ export default {
     },
     toggleNav() {
       this.hideNav = ! this.hideNav;
+    },
+    shareQuiz(quizId) {
+      const quizLink = `${window.location.origin}/quizzes/${quizId}`;
+      navigator.clipboard.writeText(quizLink).then(() => {
+      alert(this.uiLabels.linkCopy); // TODO: change to nicer window than an alert
+      }).catch(err => {
+      console.error(this.uiLabels.failedCopy, err);
+      });
     }
   }
 }
@@ -102,7 +108,7 @@ export default {
   }
 
   .quiz-item button {
-    background-color: white;
+    background-color: #000000;
     border: 1px solid #ccc;
     padding: 0.8em 1.2em;
     font-size: 1em;
@@ -111,7 +117,7 @@ export default {
   }
 
   .quiz-item button:hover {
-    background-color: #ddd;
+    background-color: #464242;
   }
 
   .new-quiz {

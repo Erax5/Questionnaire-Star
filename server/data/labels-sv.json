@@ -29,10 +29,14 @@
 	"questionAppear": "Fråga 1 kommer att visas här",
 	"submit": "Färdigställ",
 	"back": "Tillbaka",
+	"edit": "Redigera",
+	"editQuestionWarning": "Varning: Att redigera en fråga kommer att avbryta skapandet av en ny fråga. Vill du fortsätta?",
 	"addQuestionError": "Inga fält kan vara tomma när du skapar en fråga, vänligen försök igen.",
 	"newQuiz": "Nytt quiz",
 	"enterQuestion": "Skriv frågan",
 	"enterOption": "Skriv alternativ",
 	"enterAnswer": "Skriv svaret",
+	"linkCopy": "Quiz-länk kopierad till urklipp!",
+	"failedCopy": "Misslyckades med att kopiera quiz-länk till urklipp. Error: ",
 	"option": "Alternativ"
 }

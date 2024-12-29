@@ -13,7 +13,7 @@
         <h2>Quiz 1</h2>
         <div v-if="questions.length > 0">
           <h3>{{ uiLabels.addedQuestions }}</h3>
-          <div class="question" v-for="(question, index) in questions" :key="index">
+          <div class="question" @click="editQuestion(question, index)" v-for="(question, index) in questions" :key="index">
             <h4>{{ question.question }}</h4>
             <p v-if="question.type === 'textAnswer'">{{question.answer}}</p>
             <ul v-else>
@@ -21,7 +21,7 @@
             </ul>
             <!-- <p><strong>{{ uiLabels.type }}:</strong> {{ question.type }}</p> -->
              <div class="quiz-container-buttons">
-                <span>Edit</span>
+                <span>{{ uiLabels.edit }}</span>
               <button @click="removeQuestion(index)" class="remove-button">-</button>
              </div>
           </div>
@@ -30,7 +30,7 @@
       </div>
 
       <!-- container for adding a new question -->
-      <div class="question-container" v-if="isAddingQuestion">
+      <div class="question-container" v-if="isAddingQuestion || isEditingQuestion">
         <h2>{{ uiLabels.addQuestion }}</h2>
         <h3>{{ uiLabels.qType }}</h3>
         <div class="button-container">
@@ -75,12 +75,13 @@
           </div>
         </div>
         <div class="button-container-2">
-          <button @click="saveQuestion">{{ uiLabels.addQuestion }}</button>
+          <button v-if="isAddingQuestion" @click="saveQuestion()">{{ uiLabels.addQuestion }}</button>
+          <button v-if="isEditingQuestion" @click="saveQuestion()">{{ uiLabels.save }}</button>
           <button @click="cancelAddingQuestion">{{ uiLabels.cancel }}</button>
         </div>
       </div>
 
-      <div v-if="!isAddingQuestion">
+      <div v-if="!isAddingQuestion && !isEditingQuestion">
         <button @click="startAddingQuestion">{{ uiLabels.addQuestion }}</button>
       </div>
 
@@ -114,6 +115,8 @@ export default {
       hideNav: true,
       questions: [],
       isAddingQuestion: false, //this is true when actively adding a question
+      isEditingQuestion: false, //this is true when actively editing a question
+      editingIndex: null,
       newQuestion: {
         question: "",
         options: [],
@@ -131,8 +134,28 @@ export default {
       localStorage.setItem( "lang", this.lang );
       socket.emit( "getUILabels", this.lang );
     },
+    editQuestion(question, index) {
+      if (this.isAddingQuestion) {
+        if (confirm(this.uiLabels.editQuestionWarning)) {
+          this.cancelAddingQuestion();
+        } else {
+          return;
+        }
+      }
+      this.newQuestion = {
+        question: question.question,
+        options: [...question.options],
+        answer: question.answer
+      };
+      this.questionType = question.type;
+      this.editingIndex = index;
+      this.startEditingQuestion();
+    },
     startAddingQuestion() {
       this.isAddingQuestion = true;
+    },
+    startEditingQuestion() {
+      this.isEditingQuestion = true;
     },
     cancelAddingQuestion() {
       this.newQuestion = {
@@ -142,25 +165,33 @@ export default {
       };
       this.questionType = "";
       this.isAddingQuestion = false;
+      this.isEditingQuestion = false;
     },
     setQuestionType(type) {
       this.questionType = type;
     }, 
     saveQuestion() {
       if (this.newQuestion.question.trim() === '' || 
-         (this.questionType === 'multiChoice' && this.newQuestion.options.length === 0)) {
-      
+         (this.questionType === 'multiChoice' && (this.newQuestion.options.length === 0) || this.newQuestion.options.includes(''))){
+
         alert(this.uiLabels.addQuestionError); // TODO: replace with more user-friendly error handling
         return;
       }
 
-      // add the new question to the questions array
-      this.questions.push({ 
-        question: this.newQuestion.question, 
+      const newQuestion = {
+        question: this.newQuestion.question,
         options: [...this.newQuestion.options],
         answer: this.newQuestion.answer,
-        type: this.questionType 
-      });
+        type: this.questionType
+      };
+      // if editing a question, remove the old question from the questions array and add the new one at the same index
+      if (this.isEditingQuestion) {
+        this.questions.splice(this.editingIndex, 1, newQuestion);
+      }
+      // if new question, add to the questions array
+      else {
+        this.questions.push(newQuestion);
+      }
       
       // reset the newQuestion object
       this.newQuestion = {
@@ -170,6 +201,7 @@ export default {
       };
       this.questionType = '';
       this.isAddingQuestion = false;
+      this.isEditingQuestion = false;
     },
     removeQuestion(index) {
       this.questions.splice(index, 1);
