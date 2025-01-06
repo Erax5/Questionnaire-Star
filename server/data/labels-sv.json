@@ -41,5 +41,7 @@
 	"failedCopy": "Misslyckades med att kopiera quiz-länk till urklipp. Error: ",
 	"option": "Alternativ",
 	"answerError": "Please set an answer",
-	"ans": "Svar"
+	"ans": "Svar",
+	"QuestionnaireList": "Questionnaire List",
+	"Questionnaire": "Questionnaire"
 }

@@ -6,7 +6,7 @@
     </header>
 
     <div class="container">
-        <h2>Questionnaire List</h2>
+        <h2>{{ uiLabels.QuestionnaireList }}</h2>
 
         <div class="quiz-item">
             <span>{{uiLabels.quiz}} 1</span> <!-- TODO: change hardcoded "1" into dynamic counting -->

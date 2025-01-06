@@ -10,7 +10,7 @@
 
       <!-- container for the quiz + completed questions -->
       <div class="quiz-container">
-        <h2>Quiz 1</h2>
+        <h2>{{uiLabels.quiz}} 1</h2><!-- TODO: change hardcoded "1" into dynamic counting -->
         <div v-if="questions.length > 0">
           <h3>{{ uiLabels.addedQuestions }}</h3>
           <div class="question" @click="editQuestion(question, index)" v-for="(question, index) in questions" :key="index">

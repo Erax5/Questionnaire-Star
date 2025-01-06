@@ -9,6 +9,7 @@
       <select v-model="lang" @change="switchLanguage">
         <option value="en">English</option>
         <option value="sv">Svenska</option>
+        <option value="cn">中文</option>
       </select>
 
       <div>

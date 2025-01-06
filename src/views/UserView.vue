@@ -8,15 +8,14 @@
     
     <!-- HTML from user_view.html -->
     <div class="container">
-        <span>Questionnaire Star</span>
         <div>
-            <h1>Questionnaire</h1>
+            <h1>{{ uiLabels.Questionnaire }}</h1>
             <!--Place to enter quiz id or similar?-->
         </div>
 
         <form>
             <p>//This place will show the questions set by admin.</p>
-            <button type="button" class="submit-btn" onclick="window.location.href='user_view_thank.html';">Submit</button>
+            <button type="button" class="submit-btn" onclick="window.location.href='user_view_thank.html';">{{ uiLabels.submit }}</button>
         </form>
     </div>
 

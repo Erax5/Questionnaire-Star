@@ -41,5 +41,7 @@
 	"failedCopy": "Failed to copy quiz link to clipboard. Error: ",
 	"option": "Option",
 	"answerError": "Please set an answer",
-	"ans": "Answer"
+	"ans": "Answer",
+	"QuestionnaireList": "Questionnaire List",
+	"Questionnaire": "Questionnaire"
 }
