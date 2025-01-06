@@ -11,10 +11,10 @@
         <option value="sv">Swedish</option>
       </select>
 
-
       <div>
         <router-link to="/signin">{{ uiLabels.signIn }}</router-link>
         <router-link to="/signup">{{ uiLabels.signUp }}</router-link>
+        <router-link to="/user-view">{{ uiLabels.quiz }}</router-link>
       </div>
     </header>
 
