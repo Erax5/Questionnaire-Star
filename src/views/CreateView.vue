@@ -4,8 +4,8 @@
       <div>
         <router-link to="/">{{ uiLabels.home }}</router-link>
       </div>
-
     </header>
+    
     <div class="padder">
 
       <!-- container for the quiz + completed questions -->

@@ -8,7 +8,7 @@
       <!-- If this drop down should only be visible on this screen we need to fix the alignment of the header -->
       <select v-model="lang" @change="switchLanguage">
         <option value="en">English</option>
-        <option value="sv">Swedish</option>
+        <option value="sv">Svenska</option>
       </select>
 
       <div>

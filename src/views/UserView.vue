@@ -4,11 +4,12 @@
       <div>
         <router-link to="/">{{ uiLabels.home }}</router-link>
       </div>
+    </header>
     
     <!-- HTML from user_view.html -->
     <div class="container">
         <span>Questionnaire Star</span>
-        <div class="header">
+        <div>
             <h1>Questionnaire</h1>
             <!--Place to enter quiz id or similar?-->
         </div>
@@ -19,7 +20,6 @@
         </form>
     </div>
 
-    </header>
     <main>
       <form>
 
@@ -32,12 +32,26 @@
 </template>
 
 <script>
+import ResponsiveNav from '@/components/ResponsiveNav.vue';
+import io from 'socket.io-client';
+const socket = io("localhost:3000");
+
 export default {
   name: 'UserView',
+  components: {
+    ResponsiveNav
+  },
   data() {
     return {
-      
+      uiLabels: {},
+      newPollId: "",
+      lang: localStorage.getItem( "lang") || "en",
+      hideNav: true,
     };
+  },
+  created() {
+    socket.on( "uiLabels", labels => this.uiLabels = labels );
+    socket.emit( "getUILabels", this.lang );
   },
   methods: {
 
@@ -46,12 +60,13 @@ export default {
 </script>
 
 <style scoped>
-.user-view {
-  /* add more styles */
-  footer {
+.wrapper
+{
+    background-color: #f9f9f9;
+}
+footer {
     background-color: #f1f1f1;
     text-align: center;
     margin-top: auto;
   }
-}
 </style>
