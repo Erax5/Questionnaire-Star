@@ -106,4 +106,14 @@ export default {
     text-align: center;
     margin-top: auto;
   }
+  @media screen and (max-width: 50em) {
+    footer{
+      font-size: 2vw; 
+      padding: 0.5em;
+    }
+
+    div{
+      font-size: 2vw; 
+    }
+  }
 </style>

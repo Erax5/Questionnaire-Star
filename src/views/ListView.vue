@@ -156,4 +156,22 @@ export default {
 .wrapper {
   background-color: #f9f9f9;
 }
+
+@media screen and (max-width: 50em) {
+  select {
+    font-size: 1.5vw; 
+    padding: 1em; 
+    min-width: 70px;
+  }
+
+  footer{
+    font-size: 2vw; 
+    padding: 0.5em;
+  }
+
+  div{
+    font-size: 2vw; 
+    padding: 1em;
+  }
+}
 </style>

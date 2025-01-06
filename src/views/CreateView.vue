@@ -392,7 +392,6 @@ export default {
     margin-top: 20px;
     gap: 10px;
   }
-
   .remove-button {
     color: white;
     border: none;
@@ -408,11 +407,11 @@ export default {
   }
 
   .back-button-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: auto;
-    font-size: large;
-    padding: 20px;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: auto;
+      font-size: 2.3vw;  
+      padding: 20px;
   }
 
   input {
@@ -489,4 +488,16 @@ export default {
     background-color: #007bff;
     border-color: #007bff;
   }
+
+
+@media screen and (max-width: 50em) {
+  footer{
+    font-size: 2vw; 
+    padding: 0.5em;
+  }
+
+  div{
+    font-size: 2vw; 
+  }
+}
 </style>

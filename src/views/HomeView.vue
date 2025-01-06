@@ -20,7 +20,7 @@
     </header>
 
     <div class="welcome">
-      <h1>{{uiLabels.welcome}}</h1>
+      <h1>{{uiLabels.welcome}}</h1> 
     </div>
 
     <footer>
@@ -79,5 +79,23 @@ export default {
     background-color: #f1f1f1;
     text-align: center;
     margin-top: auto;
+  }
+
+  @media screen and (max-width: 50em) {
+    select {
+      font-size: 1.5vw; 
+      padding: 1em; 
+      min-width: 70px;
+    }
+
+    footer{
+      font-size: 2vw; 
+      padding: 0.5em;
+    }
+
+    div{
+      font-size: 2vw; 
+      padding: 1em;
+    }
   }
 </style>

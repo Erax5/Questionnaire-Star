@@ -116,4 +116,42 @@ export default {
 .wrapper {
   background-color: #f9f9f9;
 }
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.checkbox label {
+  font-size: 0.8em;
+  margin-left: 0.4em;
+}
+
+  @media screen and (max-width: 50em) {
+
+    input[type="text"],
+    input[type="password"] {
+      padding: 0.6em; /* Adjust padding for smaller devices */
+    }
+
+    footer{
+      font-size: 2vw; 
+      padding: 0.5em;
+    }
+
+    div{
+      font-size: 2vw; 
+      padding: 1em;
+    }
+
+    .checkbox {
+      flex-direction: row;
+    }
+
+    .checkbox label {
+      font-size: 1.2em; /* Adjust font size for smaller screens */
+      margin-left: 0.3em; /* Remove margin to prevent offset */
+    }
+  }
 </style>
