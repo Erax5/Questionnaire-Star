@@ -18,6 +18,7 @@
 	"qType": "Välj frågetyp",
 	"addedQuestions": "Tillagda frågor",
 	"setQuestion": "Ställ din fråga",
+	"setAnswer": "Bestäm ditt svar",
 	"setOptions": "Ställ in dina alternativ",
 	"addOption": "Lägg till alternativ",
 	"cancel": "Avbryt",
@@ -38,5 +39,7 @@
 	"enterAnswer": "Skriv svaret",
 	"linkCopy": "Quiz-länk kopierad till urklipp!",
 	"failedCopy": "Misslyckades med att kopiera quiz-länk till urklipp. Error: ",
-	"option": "Alternativ"
+	"option": "Alternativ",
+	"answerError": "Please set an answer",
+	"ans": "Svar"
 }

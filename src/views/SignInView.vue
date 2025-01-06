@@ -89,17 +89,17 @@ export default {
   .checkbox {
     display: flex;
     align-items: baseline;
-    margin-bottom: 0.9375em;
+    margin-bottom: 1em;
   }
 
   .checkbox label {
-    font-size: 0.875em;
-    margin-left: 0.375em;
+    font-size: 0.6em;
+    margin-left: 0.4em;
   }
 
-  .my-checkbox {
+  /* .my-checkbox {
     width: 1em;
-  } 
+  }  */
   
   footer {
     background-color: #f1f1f1;

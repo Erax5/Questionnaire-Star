@@ -18,6 +18,7 @@
             <p v-if="question.type === 'textAnswer'">{{question.answer}}</p>
             <ul v-else>
               <li v-for="(option, i) in question.options" :key="i">{{ option }}</li>
+              <li><strong>{{ uiLabels.ans }}:</strong> {{ question.options[question.answer] }}</li>
             </ul>
             <!-- <p><strong>{{ uiLabels.type }}:</strong> {{ question.type }}</p> -->
              <div class="quiz-container-buttons">
@@ -48,27 +49,29 @@
               <input v-model="newQuestion.answer" />
           </div>
           <div v-if="questionType === 'multiChoice'">
-            <form>
               <div class="question-section">
                 <label for="question">{{ uiLabels.enterQuestion }}:</label>
                 <input type="text" v-model="newQuestion.question"/>
               </div>
 
               <div class="options-section">
-                <label>{{uiLabels.setOptions}}:</label>
+                <div style="display: flex; justify-content: space-between;">
+                  <label>{{uiLabels.setOptions}}:</label>
+                  <label>{{uiLabels.setAnswer}}</label>
+                </div>
                 <div v-for="(option, index) in newQuestion.options" :key="index" class="option">
                   <input 
                     type="text" 
                     v-model="newQuestion.options[index]" 
                     :placeholder="`${uiLabels.option} ${index + 1}`" 
                   />
+                    <input type="checkbox" :checked="newQuestion.answer === index" @change="answerSwitch(index)"/>
                   <button class="remove-button" @click="removeOption(index)">-</button>
                 </div>
               </div>
               <div class="add-remove-buttons">
                 <button type="button" @click="addOption">{{ uiLabels.addOption }}</button>
               </div>
-            </form>
           <!-- TODO: add functionality for adding and removing options -->
           <!-- TODO: a -->
           <!-- TODO: also fix the placeholder not displaying the right thing -->
@@ -151,6 +154,13 @@ export default {
       this.editingIndex = index;
       this.startEditingQuestion();
     },
+    answerSwitch(index) {
+      if (this.newQuestion.answer === index) {
+        this.newQuestion.answer = "";
+      } else {
+        this.newQuestion.answer = index;
+      }
+    },
     startAddingQuestion() {
       this.isAddingQuestion = true;
     },
@@ -175,6 +185,10 @@ export default {
          (this.questionType === 'multiChoice' && (this.newQuestion.options.length === 0) || this.newQuestion.options.includes(''))){
 
         alert(this.uiLabels.addQuestionError); // TODO: replace with more user-friendly error handling
+        return;
+      }
+      if (this.newQuestion.answer === '') {
+        alert(this.uiLabels.answerError);
         return;
       }
 
@@ -213,8 +227,22 @@ export default {
       this.newQuestion.options.push('');
     },
     removeOption(index) {
+    try {
+      console.log('Removing option at index:', index);
+      console.log('Options before removal:', this.newQuestion.options);
+
       this.newQuestion.options.splice(index, 1);
+      if (this.newQuestion.answer === index) {
+        this.newQuestion.answer = "";
+      } else if (this.newQuestion.answer > index) {
+        this.newQuestion.answer--;
+      }
+
+      console.log('Options after removal:', this.newQuestion.options);
+    } catch (error) {
+      console.error('Error removing option:', error);
     }
+  },
 
   }
 }
@@ -368,7 +396,7 @@ export default {
   .remove-button {
     color: white;
     border: none;
-    margin-left: 1em;
+    margin-left: 0.5em;
     background-color: #ff4d4d;
     padding: 0.5em 0.8em;
     border-radius: 0.5em;
@@ -438,8 +466,27 @@ export default {
   }
 
   .option input {
-      flex: 1;
       border: 1px solid #ddd;
       border-radius: 0.5em;
+  }
+
+  .options-section input[type="checkbox"] {
+    width: 1.2em;
+    height: 1.2em;
+    margin-right: 0.5em;
+    cursor: pointer;
+    accent-color: #007bff;
+    border: 1px solid #ccc;
+    border-radius: 0.25em;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .options-section input[type="checkbox"]:hover {
+    border-color: #007bff;
+  }
+
+  .options-section input[type="checkbox"]:checked {
+    background-color: #007bff;
+    border-color: #007bff;
   }
 </style>

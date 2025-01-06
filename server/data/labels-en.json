@@ -18,6 +18,7 @@
 	"qType": "Choose the question type",
 	"addedQuestions": "Added questions",
 	"setQuestion": "Set your question",
+	"setAnswer": "Set your answer",
 	"setOptions": "Set your options",
 	"addOption": "Add option",
 	"cancel": "Cancel",
@@ -38,5 +39,7 @@
 	"question": "Question",
 	"linkCopy": "Quiz link copied to clipboard!",
 	"failedCopy": "Failed to copy quiz link to clipboard. Error: ",
-	"option": "Option"
+	"option": "Option",
+	"answerError": "Please set an answer",
+	"ans": "Answer"
 }
