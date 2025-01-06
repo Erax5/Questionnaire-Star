@@ -77,8 +77,8 @@ footer {
   }
 
   footer{
-    font-size: 3vw; 
-    padding: 1em;
+    font-size: 2vw; 
+    padding: 0.5em;
   }
 
   div{
