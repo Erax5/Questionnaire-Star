@@ -147,7 +147,7 @@ export default {
             dataLabels: {
               offset: -5
             },
-            size: '70%' // 添加这一行来控制饼图大小
+            size: '70%' 
           }
         }
       }
