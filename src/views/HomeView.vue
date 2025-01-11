@@ -1,9 +1,7 @@
 <template>
   <div class="wrapper">
     <header>
-      <div>
-        <router-link to="/">{{ uiLabels.home }}</router-link>
-      </div>
+      <router-link to="/">{{ uiLabels.home }}</router-link>
 
       <!-- If this drop down should only be visible on this screen we need to fix the alignment of the header -->
       <select v-model="lang" @change="switchLanguage">
@@ -24,7 +22,7 @@
     </div>
 
     <footer>
-      <p>&copy; 2024 Questionnaire Star. All rights reserved.</p>
+      <p>&copy; {{uiLabels.footer}}</p>
     </footer>
   </div>
 </template>
@@ -69,33 +67,5 @@ export default {
     align-items: center;
     flex-grow: 1; /* Allow the content to fill available space */
     text-align: center;
-  }
-
-  .wrapper {
-    background-color: #f9f9f9;
-  }
-
-  footer {
-    background-color: #f1f1f1;
-    text-align: center;
-    margin-top: auto;
-  }
-
-  @media screen and (max-width: 50em) {
-    select {
-      font-size: 1.5vw; 
-      padding: 1em; 
-      min-width: 70px;
-    }
-
-    footer{
-      font-size: 2vw; 
-      padding: 0.5em;
-    }
-
-    div{
-      font-size: 2vw; 
-      padding: 1em;
-    }
   }
 </style>

@@ -1,14 +1,9 @@
 <template>
   <div class="wrapper">
     <header>
-    <div>
       <router-link to="/">{{ uiLabels.home }}</router-link>
-    </div>
-
-    <div>
       <router-link to="/signin">{{ uiLabels.signIn }}</router-link>
-    </div>
-  </header>
+    </header>
 
     <form>
       <label for="email">{{ uiLabels.email }}</label>
@@ -48,7 +43,7 @@
     </script> -->
 
     <footer>
-      <p>&copy; 2024 Questionnaire Star. All rights reserved.</p >
+      <p>&copy; {{uiLabels.footer}}</p>
     </footer>
   </div>
 </template>

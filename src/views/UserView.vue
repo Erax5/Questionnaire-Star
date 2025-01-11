@@ -1,9 +1,7 @@
 <template>
   <div class="wrapper">
     <header>
-      <div>
         <router-link to="/">{{ uiLabels.home }}</router-link>
-      </div>
     </header>
     
     <!-- HTML from user_view.html -->
@@ -25,7 +23,7 @@
       </form>
     </main>
     <footer>
-      <p>&copy; 2024 Questionnaire Star. All rights reserved.</p>
+      <p>&copy; {{uiLabels.footer}}</p>
     </footer>
   </div>
 </template>

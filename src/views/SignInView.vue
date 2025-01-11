@@ -1,13 +1,8 @@
 <template>
   <div class="wrapper">
     <header>
-      <div>
-        <router-link to="/">{{ uiLabels.home }}</router-link>
-      </div>
-
-      <div>
-        <router-link to="/signup">{{ uiLabels.signUp }}</router-link>
-      </div>
+      <router-link to="/">{{ uiLabels.home }}</router-link>
+      <router-link to="/signup">{{ uiLabels.signUp }}</router-link>
     </header>
 
     <form>
@@ -23,7 +18,7 @@
     </form>
 
     <footer>
-      <p>&copy; 2024 Questionnaire Star. All rights reserved.</p >
+      <p>&copy; {{uiLabels.footer}}</p>
     </footer>
   </div>
 </template>
@@ -111,26 +106,26 @@ export default {
 
     input[type="text"],
     input[type="password"] {
-      padding: 0.6em; /* Adjust padding for smaller devices */
+      /* padding: 0.6em; */
     }
 
     footer{
       font-size: 2vw; 
-      padding: 0.5em;
+      /* padding: 0.5em; */
     }
 
     div{
-      font-size: 2vw; 
-      padding: 1em;
+      font-size: 2.2vw; 
+      /* padding: 1em; */
     }
 
     .checkbox {
-      flex-direction: row;
+      /* flex-direction: row; */
     }
 
     .checkbox label {
-      font-size: 1.2em; /* Adjust font size for smaller screens */
-      margin-left: 0.3em; /* Remove margin to prevent offset */
+      font-size: 1.2em;
+      margin-left: 0.3em;
     }
   }
 

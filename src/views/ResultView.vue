@@ -14,7 +14,7 @@
       </table>
     </div>
     <footer>
-        <p>&copy; 2024 Questionnaire Star. All rights reserved.</p>
+      <p>&copy; {{uiLabels.footer}}</p>
     </footer>
   </div>
 </template>

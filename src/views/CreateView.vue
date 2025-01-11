@@ -1,15 +1,12 @@
 <template>
   <div class="wrapper">
     <header>
-      <div>
-        <router-link to="/">{{ uiLabels.home }}</router-link>
-      </div>
+      <router-link to="/">{{ uiLabels.home }}</router-link>
+      <router-link to="/">{{ uiLabels.signOut }}</router-link>
     </header>
-    
-    <div class="padder">
 
       <!-- container for the quiz + completed questions -->
-      <div class="quiz-container">
+      <div class="container">
         <h2>{{uiLabels.quiz}} 1</h2><!-- TODO: change hardcoded "1" into dynamic counting -->
         <div v-if="questions.length > 0">
           <h3>{{ uiLabels.addedQuestions }}</h3>
@@ -23,7 +20,7 @@
             <!-- <p><strong>{{ uiLabels.type }}:</strong> {{ question.type }}</p> -->
              <div class="quiz-container-buttons">
                 <span>{{ uiLabels.edit }}</span>
-              <button @click="removeQuestion(index)" class="remove-button">-</button>
+              <button @click="removeQuestion(index)" class="red-button">-</button>
              </div>
           </div>
         </div>
@@ -31,7 +28,7 @@
       </div>
 
       <!-- container for adding a new question -->
-      <div class="question-container" v-if="isAddingQuestion || isEditingQuestion">
+      <div class="container" v-if="isAddingQuestion || isEditingQuestion">
         <h2>{{ uiLabels.addQuestion }}</h2>
         <h3>{{ uiLabels.qType }}</h3>
         <div class="button-container">
@@ -66,7 +63,7 @@
                     :placeholder="`${uiLabels.option} ${index + 1}`" 
                   />
                     <input type="checkbox" :checked="newQuestion.answer === index" @change="answerSwitch(index)"/>
-                  <button class="remove-button" @click="removeOption(index)">-</button>
+                  <button class="red-button" @click="removeOption(index)">-</button>
                 </div>
               </div>
               <div class="add-remove-buttons">
@@ -78,14 +75,14 @@
           </div>
         </div>
         <div class="button-container-2">
-          <button v-if="isAddingQuestion" @click="saveQuestion()">{{ uiLabels.addQuestion }}</button>
-          <button v-if="isEditingQuestion" @click="saveQuestion()">{{ uiLabels.save }}</button>
-          <button @click="cancelAddingQuestion">{{ uiLabels.cancel }}</button>
+          <button class="black-button" v-if="isAddingQuestion" @click="saveQuestion()">{{ uiLabels.addQuestion }}</button>
+          <button class="black-button" v-if="isEditingQuestion" @click="saveQuestion()">{{ uiLabels.save }}</button>
+          <button class="black-button" @click="cancelAddingQuestion">{{ uiLabels.cancel }}</button>
         </div>
       </div>
 
       <div v-if="!isAddingQuestion && !isEditingQuestion">
-        <button @click="startAddingQuestion">{{ uiLabels.addQuestion }}</button>
+        <button style="margin-left:2em" class=black-button @click="startAddingQuestion">{{ uiLabels.addQuestion }}</button>
       </div>
 
       <div class="back-button-container">
@@ -95,9 +92,8 @@
     </div>
 
     <footer>
-      <p>&copy; 2024 Questionnaire Star. All rights reserved.</p>
+      <p>&copy; {{uiLabels.footer}}</p>
     </footer>
-  </div>
 </template>
 
 <script>
@@ -249,37 +245,7 @@ export default {
 </script>
 
 <style scoped>
-  .wrapper {
-    background-color: #f9f9f9;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
-
-  .padder {
-    padding: 20px;
-    flex-grow: 1;
-  }
-
-  .quiz-container {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-  }
-
-  .quiz-container:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
-
-  .quiz-container h2 {
-    margin-bottom: 15px;
-    font-size: 2em;
-    color: #333;
-  }
-
-  .quiz-container .question {
+  .container .question {
     background-color: #f9f9f9;
     padding: 10px;
     border-radius: 8px;
@@ -288,45 +254,24 @@ export default {
     justify-content: space-between;
     align-items: center;
     transition: background-color 0.3s ease;
+    cursor: pointer;
   }
 
-  .quiz-container .question:hover {
-    background-color: #e9e9e9;
+  .container .question:hover {
+    background-color: #e0f7fa;
   }
 
-  .quiz-container .question h4 {
+  .container .question h4 {
     margin: 0;
     font-size: 1.2em;
     color: #555;
   }
 
-  .quiz-container .question p,
-  .quiz-container .question ul {
+  .container .question p,
+  .container .question ul {
     margin: 10px 0 0 0;
     font-size: 1.1em;
     color: #777;
-  }
-
-  .quiz-container .question ul {
-    padding-left: 20px;
-  }
-
-  .quiz-container .question ul li {
-    list-style-type: disc;
-  }
-
-  .quiz-container .remove-question {
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .quiz-container .remove-question:hover {
-    background-color: #cc0000;
   }
 
   .quiz-container-buttons {
@@ -335,31 +280,14 @@ export default {
     gap: 10px;
   }
 
-  .quiz-container .question {
-    cursor: pointer;
-    position: relative;
-  }
-
-  .quiz-container .question:hover .quiz-container-buttons span {
+  .container .question:hover .quiz-container-buttons span {
     text-decoration: underline;
-  }
-
-  .quiz-container .question:hover {
-    background-color: #e0f7fa;
   }
 
   .quiz-container-buttons span {
     color: #007bff;
     cursor: pointer;
     font-size:1.2em;
-  }
-
-  .question-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
   }
 
   .question-container h2 {
@@ -409,8 +337,6 @@ export default {
   .back-button-container {
       display: flex;
       justify-content: flex-end;
-      margin-top: auto;
-      font-size: 2.3vw;  
       padding: 20px;
   }
 
@@ -421,17 +347,6 @@ export default {
     margin-bottom: 1.5em;
     border: 1px solid #ccc;
     border-radius: 0.1875em;
-  }
-
-  .quiz-container {
-    margin-bottom: 20px;
-  }
-
-  .question-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
   }
 
   .finish-button {
@@ -456,7 +371,7 @@ export default {
   .option {
       display: flex;
       align-items: center;
-      margin-bottom: 1em;
+      /* margin-bottom: 1em; */
   }
 
   .option label {
@@ -488,16 +403,4 @@ export default {
     background-color: #007bff;
     border-color: #007bff;
   }
-
-
-@media screen and (max-width: 50em) {
-  footer{
-    font-size: 2vw; 
-    padding: 0.5em;
-  }
-
-  div{
-    font-size: 2vw; 
-  }
-}
 </style>
