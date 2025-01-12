@@ -1,7 +1,11 @@
 <template>
   <div class="wrapper">
     <header>
-        <router-link to="/">{{ uiLabels.home }}</router-link>
+        <router-link to="/home">{{ uiLabels.home }}</router-link>
+        <div>
+        <span style="margin-right: 1em;">{{ uiLabels.loggedIn }} {{ username }}</span>
+        <button @click="logOut()" style="margin-right:1em">{{ uiLabels.signOut }}</button>
+      </div>
     </header>
     
     <!-- HTML from user_view.html -->
@@ -44,14 +48,35 @@ export default {
       newPollId: "",
       lang: localStorage.getItem( "lang") || "en",
       hideNav: true,
+      username: this.getCookie("username") || ""
     };
   },
   created() {
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
+
+    const username = this.getCookie("username");
+    if (!username) {
+      console.log("User is not logged in: returning to login screen");
+      this.$router.push("/"); //add this when there is another home screen
+    }
   },
   methods: {
-
+    getCookie(name) {
+      const nameEQ = name + "=";
+      const ca = document.cookie.split(';');
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+      return null;
+    },
+    logOut() {
+      document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      console.log("User logged out");
+      this.$router.push("/");
+    },
   },
 };
 </script>

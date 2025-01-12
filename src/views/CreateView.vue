@@ -1,8 +1,20 @@
 <template>
   <div class="wrapper">
     <header>
-      <router-link to="/">{{ uiLabels.home }}</router-link>
-      <router-link to="/">{{ uiLabels.signOut }}</router-link>
+      <div style="width:33%; align-items: center;">
+        <router-link to="/home">{{ uiLabels.home }}</router-link>
+      </div>
+      <div style="width:34%; display: flex; justify-content: center; align-items: center;">
+        <select v-model="lang" @change="switchLanguage">
+          <option value="en">English</option>
+          <option value="sv">Svenska</option>
+          <option value="cn">中文</option>
+        </select>
+      </div>
+      <div style="width:33%; display: flex; justify-content: right; align-items: center;">
+        <span style="margin-right: 1em;">{{ uiLabels.loggedIn }} {{ username }}</span>
+        <button @click="logOut()" style="margin-right:1em">{{ uiLabels.signOut }}</button>
+      </div>
     </header>
 
       <!-- container for the quiz + completed questions -->
@@ -122,13 +134,35 @@ export default {
         answer: ""
       },
       questionType:"",
+      username: this.getCookie("username") || ""
     }
   },
   created() {
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.emit( "getUILabels", this.lang );
+
+    const username = this.getCookie("username");
+    if (!username) {
+      console.log("User is not logged in: returning to login screen");
+      this.$router.push("/"); //add this when there is another home screen
+    }
   },
   methods: {
+    getCookie(name) {
+      const nameEQ = name + "=";
+      const ca = document.cookie.split(';');
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+      return null;
+    },
+    logOut() {
+      document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      console.log("User logged out");
+      this.$router.push("/");
+    },
     switchLanguage() {
       localStorage.setItem( "lang", this.lang );
       socket.emit( "getUILabels", this.lang );

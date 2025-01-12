@@ -5,7 +5,16 @@
       <router-link to="/signup">{{ uiLabels.signUp }}</router-link>
     </header>
 
-    <form>
+    <div class="login-div">
+      <label for="username">{{ uiLabels.username }}:</label>
+      <input type="text" v-model="username" id="username" required>
+      <div class="checkbox">
+        <input type="checkbox" class="my-checkbox" @click="switchRememberMe()" id="remember-me">
+        <label for="remember-me">{{uiLabels.rememberMe}}</label>
+      </div>
+      <button class="blue-button" @click="login">{{ uiLabels.logIn }}</button>
+    </div>
+    <!-- <form>
       <label for = "email">{{uiLabels.email}}</label>
       <input type = "text" id = "email" value = "">
       <label for = "password">{{uiLabels.password}}</label>
@@ -15,7 +24,7 @@
         <label for = "remember-me">{{uiLabels.rememberMe}}</label>
       </div>
       <router-link to="/list">{{ uiLabels.signIn }}</router-link>
-    </form>
+    </form> -->
 
     <footer>
       <p>&copy; {{uiLabels.footer}}</p>
@@ -26,6 +35,7 @@
 <script>
 import ResponsiveNav from '@/components/ResponsiveNav.vue';
 import io from 'socket.io-client';
+import router from '../router';
 const socket = io("localhost:3000");
 
 export default {
@@ -38,7 +48,9 @@ export default {
       uiLabels: {},
       newPollId: "",
       lang: localStorage.getItem( "lang") || "en",
-      hideNav: true
+      hideNav: true,
+      username: "",
+      rememberMe: false
     }
   },
   created() {
@@ -52,20 +64,44 @@ export default {
     },
     toggleNav() {
       this.hideNav = ! this.hideNav;
+    },
+    switchRememberMe() {
+      this.rememberMe = !this.rememberMe;
+    },
+    login() {
+      if(this.username.trim() === "") {
+        alert("Please enter a username");
+        return;
+      }
+      if(this.rememberMe === true) this.setCookie("username", this.username, 1);
+      else this.setSessionCookie("username", this.username);
+
+      console.log("Logged in as: " + this.getCookie("username"));
+      router.push("/home");
+    },
+    setCookie(cname, cvalue, days) {
+      const d = new Date();
+      d.setTime(d.getTime() + (days*24*60*60*1000));
+      const expires = "expires="+ d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    },
+    setSessionCookie(cname, cvalue) {
+      document.cookie = cname + "=" + cvalue + ";path=/";
+    },
+    getCookie(name) {
+      const nameEQ = name + "=";
+      const ca = document.cookie.split(';');
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+      return null;
     }
   }
 }
 </script>
 <style scoped>
-  form {
-    width: 18.75em;
-    margin: 2em auto;
-    border: 1px solid #ccc;
-    border-radius: 0.3125em;
-    padding: 5em;
-    box-shadow: 0 0 0.3125em rgba(0, 0, 0, 0.1);
-  }
-
   input[type = "text"],
   input[type = "email"],
   input[type = "password"] {

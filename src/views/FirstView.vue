@@ -2,7 +2,7 @@
   <div class="wrapper">
     <header>
       <div style="width:33%; align-items: center;">
-        <router-link to="/">{{ uiLabels.home }}</router-link>
+        <span style="margin-left:0.5em; font-size: 1.1em">{{ uiLabels.home }}</span>
       </div>
       <div style="width:34%; display: flex; justify-content: center; align-items: center;">
         <select v-model="lang" @change="switchLanguage">
@@ -12,9 +12,7 @@
         </select>
       </div>
       <div style="width:33%; display: flex; justify-content: right; align-items: center;">
-        <span style="margin-right: 1em;">{{ uiLabels.loggedIn }} {{ username }}</span>
-        <button @click="logOut()" style="margin-right:1em">{{ uiLabels.signOut }}</button>
-        <router-link to="/user-view">{{ uiLabels.quiz }}</router-link>
+
       </div>
     </header>
 
@@ -22,9 +20,9 @@
       <h1>{{uiLabels.welcome}}</h1> 
     </div>
 
-    <div class="container" style="margin-left: 30%; margin-right: 30%; margin-bottom: 15%; display: flex; justify-content: center;">
-      <router-link class="blue-button" to="/list" style="margin-right:2em">{{ uiLabels.play }}</router-link>
-      <router-link class="blue-button" to="/createquiz">{{ uiLabels.create }}</router-link>
+    <div class="container" style="margin-left: 20em; margin-right: 20em; margin-bottom: 10em; display: flex; justify-content: center;">
+      <router-link to="/signin" style="margin-right:2em">{{ uiLabels.signIn }}</router-link>
+      <router-link to="/signup">{{ uiLabels.signUp }}</router-link>
     </div>
 
     <footer>
@@ -39,7 +37,7 @@ import io from 'socket.io-client';
 const socket = io("localhost:3000");
 
 export default {
-  name: 'HomeView',
+  name: 'FirstView',
   components: {
     ResponsiveNav
   },
@@ -57,9 +55,9 @@ export default {
     socket.emit( "getUILabels", this.lang );
 
     const username = this.getCookie("username");
-    if (!username) {
-      console.log("User is not logged in: returning to login screen");
-      this.$router.push("/"); //add this when there is another home screen
+    if (username) {
+      this.$router.push("/home"); //add this when there is another home screen
+      console.log("User is logged in");
     }
   },
   methods: {
@@ -79,12 +77,7 @@ export default {
     },
     toggleNav() {
       this.hideNav = ! this.hideNav;
-    },
-    logOut() {
-      document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      console.log("User logged out");
-      this.$router.push("/");
-    },
+    }
   }
 }
 </script>
