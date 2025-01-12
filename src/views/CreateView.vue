@@ -22,17 +22,21 @@
         <h2>{{uiLabels.quiz}} 1</h2><!-- TODO: change hardcoded "1" into dynamic counting -->
         <div v-if="questions.length > 0">
           <h3>{{ uiLabels.addedQuestions }}</h3>
-          <div class="question" @click="editQuestion(question, index)" v-for="(question, index) in questions" :key="index">
-            <h4>{{ question.question }}</h4>
-            <p v-if="question.type === 'textAnswer'">{{question.answer}}</p>
-            <ul v-else>
-              <li v-for="(option, i) in question.options" :key="i">{{ option }}</li>
-              <li><strong>{{ uiLabels.ans }}:</strong> {{ question.options[question.answer] }}</li>
-            </ul>
-            <!-- Button for deleting a question from the quiz overview -->
-            <div class="quiz-container-buttons">
+          <div class="question-container" v-for="(question, index) in questions" :key="index">
+            <div class="question" @click="editQuestion(question, index)">
+              <div style="width:40%;"><h4>{{ question.question }}</h4></div>
+              <div style="width:30%;">
+                <p v-if="question.type === 'textAnswer'">{{question.answer}}</p>
+                <ul v-else>
+                  <li v-for="(option, i) in question.options" :key="i">{{ option }}</li>
+                  <li><strong>{{ uiLabels.ans }}:</strong> {{ question.options[question.answer] }}</li>
+                </ul>
+              </div>
               <span>{{ uiLabels.edit }}</span>
-              <button class="remove-question-button" @click.stop="removeQuestion(index)"> - </button>
+            </div>
+            <div class="quiz-container-buttons">
+              <!-- Button for deleting a question from the quiz overview -->
+              <button class="red-button" @click.stop="removeQuestion(index)"> - </button>
             </div>
           </div>
         </div>
@@ -79,7 +83,7 @@
                 </div>
               </div>
               <div class="add-remove-buttons">
-                <button type="button" @click="addOption">{{ uiLabels.addOption }}</button>
+                <button class="red-button" @click="addOption">{{ uiLabels.addOption }}</button>
               </div>
           <!-- TODO: add functionality for adding and removing options -->
           <!-- TODO: a -->
@@ -279,7 +283,12 @@ export default {
 </script>
 
 <style scoped>
-  .container .question {
+  .question-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .question {
     background-color: #f9f9f9;
     padding: 10px;
     border-radius: 8px;
@@ -289,32 +298,27 @@ export default {
     align-items: center;
     transition: background-color 0.3s ease;
     cursor: pointer;
+    width: 95%;
   }
 
-  .container .question:hover {
+  .question:hover {
     background-color: #e0f7fa;
   }
 
-  .container .question h4 {
+  .question h4 {
     margin: 0;
     font-size: 1.2em;
     color: #555;
   }
 
-  .container .question p,
-  .container .question ul {
+  .question p,
+  .question ul {
     margin: 10px 0 0 0;
     font-size: 1.1em;
     color: #777;
   }
 
-  .quiz-container-buttons {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .quiz-container-buttons span {
+  .question span {
     color: #007bff;
     cursor: pointer;
     font-size:1.2em;
@@ -350,37 +354,12 @@ export default {
     margin-top: 20px;
     gap: 10px;
   }
-  .quiz-container-buttons:hover span {
+  .question:hover span {
     text-decoration: underline;
   }
   /* TODO fix so that this rule works, it still underlines "Edit" when hovering "remove" */
-  .quiz-container-buttons:hover .remove-question-button:hover + span {
+  .question:hover + .remove-question-button:hover {
     text-decoration: none;
-  }
-
-  .remove-button {
-    color: white;
-    border: none;
-    margin-left: 0.5em;
-    background-color: #ff4d4d;
-    padding: 0.5em 0.8em;
-    border-radius: 0.5em;
-    cursor: pointer;
-  }
-
-  .remove-question-button{
-    display: flex;
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    padding: 0.2em 0.6em;
-    font-size: 1em;
-    border-radius: 0.5em;
-    cursor: pointer;
-  }
-
-  .remove-question-button:hover{
-    background-color: #cc0000;
   }
 
   .back-button-container {
@@ -391,11 +370,10 @@ export default {
 
   input {
     width: 95%;
-    height: 1em;
+    height: 1.5em;
     padding: 1em;
-    margin-bottom: 1.5em;
     border: 1px solid #ccc;
-    border-radius: 0.1875em;
+    border-radius: 0.2em;
   }
 
   .finish-button {
@@ -420,7 +398,7 @@ export default {
   .option {
       display: flex;
       align-items: center;
-      /* margin-bottom: 1em; */
+      margin-bottom: 0.7em;
   }
 
   .option label {
@@ -433,10 +411,14 @@ export default {
       border-radius: 0.5em;
   }
 
+  .options-section {
+      margin: 1em;
+    }
+
   .options-section input[type="checkbox"] {
     width: 1.2em;
     height: 1.2em;
-    margin-right: 0.5em;
+    margin-left: 2em;
     cursor: pointer;
     accent-color: #007bff;
     border: 1px solid #ccc;
