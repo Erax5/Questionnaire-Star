@@ -58,7 +58,7 @@
               <label for="question">{{ uiLabels.enterQuestion }}:</label>
               <input type="text" id="question" v-model="newQuestion.question"/>
             </div>
-              <label for="question">{{ uiLabels.enterAnswer }}:</label>
+              <label style="margin-top:1em;" for="question">{{ uiLabels.enterAnswer }}:</label>
               <input v-model="newQuestion.answer" />
           </div>
           <div v-if="questionType === 'multiChoice'">
@@ -101,7 +101,8 @@
         <button style="margin-left:2em" class=black-button @click="startAddingQuestion">{{ uiLabels.addQuestion }}</button>
       </div>
 
-      <div class="back-button-container">
+      <div class="page-operation-button-container">
+        <button class="blue-button" @click="publish()" style="margin-right:1em;">{{ uiLabels.publish }}</button>
         <router-link to="/list">{{ uiLabels.back }}</router-link>
       </div>
 
@@ -261,23 +262,35 @@ export default {
       this.newQuestion.options.push('');
     },
     removeOption(index) {
-    try {
-      console.log('Removing option at index:', index);
-      console.log('Options before removal:', this.newQuestion.options);
+      try {
+        console.log('Removing option at index:', index);
+        console.log('Options before removal:', this.newQuestion.options);
 
-      this.newQuestion.options.splice(index, 1);
-      if (this.newQuestion.answer === index) {
-        this.newQuestion.answer = "";
-      } else if (this.newQuestion.answer > index) {
-        this.newQuestion.answer--;
+        this.newQuestion.options.splice(index, 1);
+        if (this.newQuestion.answer === index) {
+          this.newQuestion.answer = "";
+        } else if (this.newQuestion.answer > index) {
+          this.newQuestion.answer--;
+        }
+
+        console.log('Options after removal:', this.newQuestion.options);
+      } catch (error) {
+        console.error('Error removing option:', error);
       }
-
-      console.log('Options after removal:', this.newQuestion.options);
-    } catch (error) {
-      console.error('Error removing option:', error);
-    }
-  },
-
+    },
+    publish() {
+      if (this.questions.length === 0) {
+        alert(this.uiLabels.errorPublishing);
+        return;
+      }
+      let quiz = {
+        creatorId: this.getCookie("username"),
+        quizId: null, // Id is set by the server
+        questions: this.questions
+      };
+      socket.emit("publishQuiz", quiz);
+      this.$router.push("/list");
+    },
   }
 }
 </script>
@@ -289,7 +302,7 @@ export default {
   }
 
   .question {
-    background-color: #f9f9f9;
+    background-color: #f0f0f0;
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 10px;
@@ -362,7 +375,7 @@ export default {
     text-decoration: none;
   }
 
-  .back-button-container {
+  .page-operation-button-container {
       display: flex;
       justify-content: flex-end;
       padding: 20px;

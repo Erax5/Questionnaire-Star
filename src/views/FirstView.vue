@@ -12,7 +12,6 @@
         </select>
       </div>
       <div style="width:33%; display: flex; justify-content: right; align-items: center;">
-
       </div>
     </header>
 

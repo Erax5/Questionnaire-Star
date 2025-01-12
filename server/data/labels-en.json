@@ -9,6 +9,7 @@
 	"signOut": "Sign out",
 	"quiz": "Quiz", 
 	"play": "Play", 
+	"creator": "Creator: ", 
 	"create": "Create", 
 	"rememberMe": "Remember me",
 	"share": "Share",
@@ -30,6 +31,7 @@
 	"cancel": "Cancel",
 	"save": "Save",
 	"publish": "Publish",
+	"errorPublishing": "An empty quiz cannot be published.",
 	"multChoice": "Multiple choice",
 	"answer": "Text answer",
 	"questionAppear": "Question 1 will appear here",
@@ -48,6 +50,7 @@
 	"option": "Option",
 	"answerError": "Please set an answer",
 	"ans": "Answer",
+	"Quizzes": "Quizzes",
 	"QuestionnaireList": "Questionnaire List",
 	"Questionnaire": "Questionnaire"
 }

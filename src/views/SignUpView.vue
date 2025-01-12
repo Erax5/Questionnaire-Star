@@ -1,8 +1,19 @@
 <template>
   <div class="wrapper">
     <header>
-      <router-link to="/">{{ uiLabels.home }}</router-link>
-      <router-link to="/signin">{{ uiLabels.signIn }}</router-link>
+      <div style="width:33%; align-items: center;">
+        <router-link to="/">{{ uiLabels.home }}</router-link>
+      </div>
+      <div style="width:34%; display: flex; justify-content: center; align-items: center;">
+        <select v-model="lang" @change="switchLanguage">
+          <option value="en">English</option>
+          <option value="sv">Svenska</option>
+          <option value="cn">中文</option>
+        </select>
+      </div>
+      <div style="width:33%; display: flex; justify-content: right; align-items: center;">
+        <router-link to="/signin">{{ uiLabels.signIn }}</router-link>
+      </div>
     </header>
 
     <div class="login-div">

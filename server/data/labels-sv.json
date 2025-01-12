@@ -9,6 +9,7 @@
 	"signOut": "Logga ut",
 	"quiz": "Quiz",
 	"play": "Spela", 
+	"creator": "Skapare: ", 
 	"create": "Skapa", 
 	"rememberMe": "Kom ihåg mig",
 	"share": "Dela",
@@ -30,6 +31,7 @@
 	"cancel": "Avbryt",
 	"save": "Spara",
 	"publish": "Publicera",
+	"errorPublishing": "Ett tomt quiz kan inte publiceras.",
 	"singleChoice": "Envalsfråga",
 	"multChoice": "Flervalsfråga",
 	"answer": "Text-svar",
@@ -48,6 +50,7 @@
 	"option": "Alternativ",
 	"answerError": "Please set an answer",
 	"ans": "Svar",
+	"Quizzes": "Quizlista",
 	"QuestionnaireList": "Questionnaire List",
 	"Questionnaire": "Questionnaire"
 }

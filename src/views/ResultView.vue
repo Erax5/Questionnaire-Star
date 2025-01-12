@@ -1,8 +1,17 @@
 <template>
   <div class="wrapper">
     <header>
-      <router-link to="/home">{{ uiLabels.home }}</router-link>
-      <div>
+      <div style="width:33%; align-items: center;">
+        <router-link to="/">{{ uiLabels.home }}</router-link>
+      </div>
+      <div style="width:34%; display: flex; justify-content: center; align-items: center;">
+        <select v-model="lang" @change="switchLanguage">
+          <option value="en">English</option>
+          <option value="sv">Svenska</option>
+          <option value="cn">中文</option>
+        </select>
+      </div>
+      <div style="width:33%; display: flex; justify-content: right; align-items: center;">
         <span style="margin-right: 1em;">{{ uiLabels.loggedIn }} {{ username }}</span>
         <button @click="logOut()" style="margin-right:1em">{{ uiLabels.signOut }}</button>
       </div>

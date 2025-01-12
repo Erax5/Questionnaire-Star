@@ -23,7 +23,7 @@
     </div>
 
     <div class="container" style="margin-left: 30%; margin-right: 30%; margin-bottom: 15%; display: flex; justify-content: center;">
-      <router-link class="blue-button" to="/list" style="margin-right:2em">{{ uiLabels.play }}</router-link>
+      <router-link class="blue-button" to="/list" style="margin-right:2em">{{ uiLabels.Quizzes }}</router-link>
       <router-link class="blue-button" to="/createquiz">{{ uiLabels.create }}</router-link>
     </div>
 
