@@ -29,11 +29,11 @@
               <li v-for="(option, i) in question.options" :key="i">{{ option }}</li>
               <li><strong>{{ uiLabels.ans }}:</strong> {{ question.options[question.answer] }}</li>
             </ul>
-            <!-- <p><strong>{{ uiLabels.type }}:</strong> {{ question.type }}</p> -->
-             <div class="quiz-container-buttons">
-                <span>{{ uiLabels.edit }}</span>
-              <button @click="removeQuestion(index)" class="red-button">-</button>
-             </div>
+            <!-- Button for deleting a question from the quiz overview -->
+            <div class="quiz-container-buttons">
+              <span>{{ uiLabels.edit }}</span>
+              <button class="remove-question-button" @click.stop="removeQuestion(index)"> - </button>
+            </div>
           </div>
         </div>
         <p v-else>{{ uiLabels.questionAppear }}</p>
@@ -314,10 +314,6 @@ export default {
     gap: 10px;
   }
 
-  .container .question:hover .quiz-container-buttons span {
-    text-decoration: underline;
-  }
-
   .quiz-container-buttons span {
     color: #007bff;
     cursor: pointer;
@@ -347,13 +343,21 @@ export default {
   .add-remove-buttons button:hover {
     background-color: #0056b3;
   }
-
+  
   .button-container-2 {
     display: flex;
     justify-content:center;
     margin-top: 20px;
     gap: 10px;
   }
+  .quiz-container-buttons:hover span {
+    text-decoration: underline;
+  }
+  /* TODO fix so that this rule works, it still underlines "Edit" when hovering "remove" */
+  .quiz-container-buttons:hover .remove-question-button:hover + span {
+    text-decoration: none;
+  }
+
   .remove-button {
     color: white;
     border: none;
@@ -364,7 +368,18 @@ export default {
     cursor: pointer;
   }
 
-  .remove-button:hover {
+  .remove-question-button{
+    display: flex;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 0.2em 0.6em;
+    font-size: 1em;
+    border-radius: 0.5em;
+    cursor: pointer;
+  }
+
+  .remove-question-button:hover{
     background-color: #cc0000;
   }
 
