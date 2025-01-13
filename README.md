@@ -1,6 +1,14 @@
 # Questionnaire Star
 
-A simple questionnaire application that allows users to create and answer questionnaires
+A simple questionnaire application that allows users to create and answer questionnaires.
+
+Creators:
+- Axel Gleisner
+- Houwan Liu
+- Linjing Shen
+- Ella Taawo
+
+Houwan Liu and Linjing Shen worked as a team for most of the project, while Axel Gleisner and Ella Taawo worked individually.
 
 ## Admin view
 
