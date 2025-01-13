@@ -47,6 +47,7 @@
 ### ResultView:
 - Houwan Liu
 - Linjing Shen
+- Axel Gleisner
 
 ### SignInView:
 - Axel Gleisner
