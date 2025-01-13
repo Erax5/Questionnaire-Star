@@ -8,6 +8,9 @@
 	"signUp": "注册",
 	"signOut": "退出登录",
 	"quiz": "问卷",
+	"play": "",
+	"creator": "创建者: ", 
+	"create": "创建", 
 	"rememberMe": "记住我",
 	"share": "分享",
 	"viewResult": "查看结果",
@@ -28,7 +31,8 @@
 	"cancel": "取消",
 	"save": "保存",
 	"publish": "发布",
-	"multChoice": "多选题",
+	"errorPublishing": "空问卷无法发布。",
+	"multChoice": "单选题",
 	"answer": "问答题",
 	"questionAppear": "问题1将在此显示",
 	"submit": "提交",
@@ -46,6 +50,8 @@
 	"option": "选项",
 	"answerError": "请设置回答",
 	"ans": "回答",
+	"Quizzes": "问卷列表",
 	"QuestionnaireList": "问卷列表",
-	"Questionnaire": "问卷"
+	"Questionnaire": "问卷",
+	"thankYou": "感谢您参与此问卷！"
 }
