@@ -26,15 +26,18 @@
 
         <form>
           <span>{{ quiz }}</span>
-          <div v-for="(question, index) in quiz.questions" :key="index">
+          <div v-for="(question, questionIndex) in quiz.questions" :key="questionIndex">
             <h2>{{ question.question }}</h2>
+            det här syns så länge det finns en fråga
             <div v-if="question.type === 'multipleChoice'">
-              <div v-for="(option, index) in question.options" :key="index">
-                <input type="checkbox" :checked="newQuestion.answer === index" @change="answerSwitch(index)"/>
+              det här borde synas om frågan är multiple choice
+              <div v-for="(option, optionIndex) in question.options" :key="optionIndex">
+                <input type="checkbox" :checked="userAnswers[questionIndex] === optionIndex" @change="answerSwitch(questionIndex, optionIndex)"/>
                 <span>{{ option }}</span>
               </div>
             </div>
             <div v-else-if="question.type === 'textAnswer'">
+              det här ser du om det är en textfråga
               <input type="text" v-model="question.answer">
             </div>
 
