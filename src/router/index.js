@@ -56,7 +56,18 @@ const router = createRouter({
       path: '/thank-you',
       name: 'ThankYou',
       component: ThankYou
-    }
+    },
+    {
+      path: '/quiz',
+      name: 'User View',
+      component: UserView,
+      children: [
+        {
+          path: ':id',
+          component: UserView
+        }
+      ]
+    },
   ]
 })
 

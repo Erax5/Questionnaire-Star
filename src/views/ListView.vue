@@ -21,10 +21,10 @@
         <h2>{{ uiLabels.QuestionnaireList }}</h2>
 
         <div v-for="(quiz, index) in quizzes" :key="index" class="nestled-div" style="cursor:pointer;" @click.self="playQuiz(index)">
-          <div style="width:50%; display: flex; justify-content: space-between; align-items: center;"><span>{{uiLabels.quiz}} {{index+1}}</span> <!-- TODO: change hardcoded "1" into dynamic counting -->
-          <span style="margin-left:2em;">{{uiLabels.creator}} {{ quiz.creatorId }}</span></div>
+          <div @click.self="playQuiz(index)" style="width:50%; display: flex; justify-content: space-between; align-items: center;"><span @click.self="playQuiz(index)">{{uiLabels.quiz}} {{index+1}}</span> <!-- TODO: change hardcoded "1" into dynamic counting -->
+          <span @click.self="playQuiz(index)" style="margin-left:2em;">{{uiLabels.creator}} {{ quiz.creatorId }}</span></div>
           
-          <div>
+          <div @click.self="playQuiz(index)">
             <button class="black-button" @click="shareQuiz(index)"> {{ uiLabels.share }}</button>
             <router-link v-if="isCreator(index)" style="margin-left:1em;" class="black-button" to="/result">{{uiLabels.viewResult}}</router-link>
           </div>
@@ -96,7 +96,7 @@ export default {
     },
     playQuiz(quizIndex) {
       console.log(`Playing quiz ${quizIndex}`);
-      this.$router.push(`/quizzes/${quizIndex}`);
+      this.$router.push(`/quiz/${quizIndex}`);
     },
     logOut() {
       document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
