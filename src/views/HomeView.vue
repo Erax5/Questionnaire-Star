@@ -11,9 +11,9 @@
           <option value="cn">中文</option>
         </select>
       </div>
-      <div style="display: flex; justify-content: right; align-items: center;">
-        <span style="width:30%; margin-right: 1em;">{{ uiLabels.loggedIn }} {{ username }}</span>
-        <button @click="logOut()" style="width:33%; margin-right:1em">{{ uiLabels.signOut }}</button>
+      <div style="width:44%; display: flex; justify-content: right; align-items: center;">
+        <span style="width:33%; margin-right: 1em;">{{ uiLabels.loggedIn }} {{ username }}</span>
+        <button @click="logOut()" style="width:30%; margin-right:1em">{{ uiLabels.signOut }}</button>
         <router-link to="/user-view">{{ uiLabels.quiz }}</router-link>
       </div>
     </header>
