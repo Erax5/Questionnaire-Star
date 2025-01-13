@@ -38,9 +38,9 @@ const router = createRouter({
       component: ListView
     },
     {
-      path: '/result',
+      path: '/results/:id',
       name: 'Result',
-      component: ResultView
+      component: ResultView,
     },
     {
       path: '/createquiz',
@@ -58,15 +58,9 @@ const router = createRouter({
       component: ThankYou
     },
     {
-      path: '/quiz',
+      path: '/quiz/:id',
       name: 'User View',
       component: UserView,
-      children: [
-        {
-          path: ':id',
-          component: UserView
-        }
-      ]
     },
   ]
 })

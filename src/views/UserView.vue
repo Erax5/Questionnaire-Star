@@ -25,9 +25,26 @@
         </div>
 
         <form>
-            <p>This place will show the questions set by admin.</p>
+          <span>{{ quiz }}</span>
+          <div v-for="(question, index) in quiz.questions" :key="index">
+            <h2>{{ question.question }}</h2>
+            <div v-if="question.type === 'multipleChoice'">
+              <div v-for="(option, index) in question.options" :key="index">
+                <input type="checkbox" :checked="newQuestion.answer === index" @change="answerSwitch(index)"/>
+                <span>{{ option }}</span>
+              </div>
+            </div>
+            <div v-else-if="question.type === 'textAnswer'">
+              <input type="text" v-model="question.answer">
+            </div>
+
+          </div>
+
+          <div style="display: flex; justify-content: space-between;">
             <button type="button" class="submit-btn" @click="submitQuiz">{{ uiLabels.submit }}</button>
-        </form>
+            <router-link to="/list">{{ uiLabels.back }}</router-link>
+          </div>
+      </form>
     </div>
 
     <main>
@@ -57,7 +74,9 @@ export default {
       newPollId: "",
       lang: localStorage.getItem( "lang") || "en",
       hideNav: true,
-      username: this.getCookie("username") || ""
+      username: this.getCookie("username") || "",
+      quiz: {},
+      userAnswers: []
     };
   },
   created() {
@@ -68,6 +87,20 @@ export default {
     if (!username) {
       console.log("User is not logged in: returning to login screen");
       this.$router.push("/"); //add this when there is another home screen
+    }
+
+    // Logic to get the questions from the server
+    const quizId = this.$route.params.id;
+    if (!quizId) {
+      console.log("No quiz id provided");
+      this.$router.push("/list");
+    }
+    else {
+      socket.emit("getQuiz", quizId);
+      socket.on("quiz", quiz => {
+        this.quiz = quiz;
+        console.log(quiz);
+      });
     }
   },
   methods: {
@@ -80,6 +113,9 @@ export default {
         if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
       }
       return null;
+    },
+    answerSwitch(questionIndex, optionIndex) {
+      this.userAnswers[questionIndex] = optionIndex
     },
     submitQuiz() {
       // Logic to submit the quiz

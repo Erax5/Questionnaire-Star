@@ -68,11 +68,19 @@ export default {
       username: this.getCookie("username") || "",
       results: [],
       userData: {
+        "userId": "",
+        "quizId": "",
+        "answers": []
+      },
+      quizData: [],
+
+
+      userDataExample: {
         "userId": "12345",
         "quizId": "67890",
         "answers": ["0", "2", "banana"]
       },
-      quizData: {
+      quizDataExample: {
         "quizId": "67890",
         "questions": [
           {
@@ -106,7 +114,27 @@ export default {
       console.log("User is not logged in: returning to login screen");
       this.$router.push("/"); //add this when there is another home screen
     }
-    this.processAnswers()
+
+    // Logic to get the questions from the server
+    const quizId = this.$route.params.id;
+    if (!quizId) {
+      console.log("No quiz id provided");
+      this.$router.push("/list");
+    }
+    else {
+      socket.emit("getQuiz", quizId);
+      socket.on("quiz", quiz => {
+        this.quizData = quiz;
+        console.log(this.quizData);
+      });
+
+      socket.emit("getAnswers", quizId);
+      socket.on("answers", answers => {
+        this.userData = answers;
+        console.log(this.userData);
+      });
+    }
+    // this.processAnswers()
   },
   methods: {
     getCookie(name) {

@@ -14,8 +14,20 @@ function sockets(io, socket, data) {
     socket.emit('answersUpdate', data.getAnswers(form.quizId));
   });
 
+  socket.on('getUserAnswers', function(quizId, userId) {
+    socket.emit('answers', data.getAnswers(quizId));
+  });
+
+  socket.on('getAnswers', function(quizId) {
+    socket.emit('answers', data.getAnswers(quizId));
+  });
+  
   socket.on('getQuizzes', function() {
     socket.emit('quizzes', data.getQuizzes());
+  });
+
+  socket.on('getQuiz', function(quizId) {
+    socket.emit('quiz', data.getQuiz(quizId));
   });
 
   // socket.on('createPoll', function(d) {

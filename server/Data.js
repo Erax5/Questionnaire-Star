@@ -21,7 +21,7 @@ function Data() {
   
   // Our code below
   this.quizzes = [];
-  this.userAnswers = {};
+  this.userAnswers = [];
   this.currentId = 0;
 }
 
@@ -49,14 +49,18 @@ Data.prototype.getQuiz = function (quizId) {
 
 Data.prototype.submitAnswers = function (quizId, userId, answers) {
   if (!this.userAnswers[quizId]) {
-    this.userAnswers[quizId] = {};
+    this.userAnswers[quizId] = [];
   }
   
   this.userAnswers[quizId][userId] = answers;
 }
 
+Data.prototype.getUserAnswers = function (quizId, userId) {
+  return this.userAnswers[quizId][userId] || [];
+}
+
 Data.prototype.getAnswers = function (quizId) {
-  return this.userAnswers[quizId] || {};
+  return this.userAnswers[quizId] || [];
 }
 // our code above
 
