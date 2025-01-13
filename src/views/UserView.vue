@@ -29,7 +29,7 @@
           <div v-for="(question, questionIndex) in quiz.questions" :key="questionIndex">
             <h2>{{ question.question }}</h2>
             det här syns så länge det finns en fråga
-            <div v-if="question.type === 'multipleChoice'">
+            <div v-if="question.type === 'multiChoice'">
               det här borde synas om frågan är multiple choice
               <div v-for="(option, optionIndex) in question.options" :key="optionIndex">
                 <input type="checkbox" :checked="userAnswers[questionIndex] === optionIndex" @change="answerSwitch(questionIndex, optionIndex)"/>
