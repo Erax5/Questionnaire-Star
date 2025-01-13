@@ -7,6 +7,7 @@ import ListView from '../views/ListView.vue'
 import ResultView from '../views/ResultView.vue'
 import CreateView from '../views/CreateView.vue'
 import UserView from '../views/UserView.vue'
+import ThankYou from '../views/ThankYou.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -51,6 +52,11 @@ const router = createRouter({
       name: 'User View',
       component: UserView
     },
+    {
+      path: '/thank-you',
+      name: 'ThankYou',
+      component: ThankYou
+    }
   ]
 })
 

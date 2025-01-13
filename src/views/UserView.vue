@@ -25,8 +25,8 @@
         </div>
 
         <form>
-            <p>//This place will show the questions set by admin.</p>
-            <button type="button" class="submit-btn" onclick="window.location.href='user_view_thank.html';">{{ uiLabels.submit }}</button>
+            <p>This place will show the questions set by admin.</p>
+            <button type="button" class="submit-btn" @click="submitQuiz">{{ uiLabels.submit }}</button>
         </form>
     </div>
 
@@ -80,6 +80,10 @@ export default {
         if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
       }
       return null;
+    },
+    submitQuiz() {
+      // Logic to submit the quiz
+      this.$router.push('/thank-you'); // Navigate to ThankYou.vue
     },
     logOut() {
       document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
