@@ -10,6 +10,9 @@
 - Axel Gleisner
 - Ella Taawo
 
+## Mobile Styling
+- Houwan Liu
+
 ## Initial Setup of Vue and Porting of HTML Code
 - Axel Gleisner
 
