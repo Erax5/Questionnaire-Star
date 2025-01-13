@@ -21,7 +21,7 @@
         <h2>{{ uiLabels.QuestionnaireList }}</h2>
 
         <div v-for="(quiz, index) in quizzes" :key="index" class="nestled-div" style="cursor:pointer;" @click.self="playQuiz(index)">
-          <div style="width:50%, display: flex; justify-content: space-between; align-items: center;"><span>{{uiLabels.quiz}} {{index+1}}</span> <!-- TODO: change hardcoded "1" into dynamic counting -->
+          <div style="width:50%; display: flex; justify-content: space-between; align-items: center;"><span>{{uiLabels.quiz}} {{index+1}}</span> <!-- TODO: change hardcoded "1" into dynamic counting -->
           <span style="margin-left:2em;">{{uiLabels.creator}} {{ quiz.creatorId }}</span></div>
           
           <div>
