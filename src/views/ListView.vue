@@ -21,7 +21,7 @@
         <h2>{{ uiLabels.QuestionnaireList }}</h2>
 
         <div v-for="(quiz, index) in quizzes" :key="index" class="nestled-div" style="cursor:pointer;" @click.self="playQuiz(index)">
-          <div @click.self="playQuiz(index)" style="width:50%; display: flex; justify-content: space-between; align-items: center;"><span style="user-select: none;" @click.self="playQuiz(index)">{{uiLabels.Questionnaire}} {{index+1}}</span> <!-- TODO: change hardcoded "1" into dynamic counting -->
+          <div @click.self="playQuiz(index)" style="width:50%; display: flex; justify-content: space-between; align-items: center;"><span style="user-select: none;" @click.self="playQuiz(index)">{{uiLabels.Questionnaire}} {{index+1}}</span> 
           <span @click.self="playQuiz(index)" style="margin-left:2em; user-select: none;">{{uiLabels.creator}} {{ quiz.creatorId }}</span></div>
           
           <div @click.self="playQuiz(index)">
@@ -30,7 +30,6 @@
           </div>
         </div>
 
-        <!-- TODO: need to make this router-link, but still blue -->
         <div class="new-quiz">
             <router-link class="blue-button" to='/create'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
@@ -76,7 +75,7 @@ export default {
     const username = this.getCookie("username");
     if (!username) {
       console.log("User is not logged in: returning to login screen");
-      this.$router.push("/"); //add this when there is another home screen
+      this.$router.push("/");
     }
   },
   methods: {
@@ -116,7 +115,7 @@ export default {
     shareQuiz(quizId) {
       const quizLink = `${window.location.origin}/questionnaires/${quizId}`;
       navigator.clipboard.writeText(quizLink).then(() => {
-      alert(this.uiLabels.linkCopy); // TODO: change to nicer window than an alert
+      alert(this.uiLabels.linkCopy);
       }).catch(err => {
       console.error(this.uiLabels.failedCopy, err);
       });

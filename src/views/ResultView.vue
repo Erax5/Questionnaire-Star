@@ -112,7 +112,7 @@ export default {
     const username = this.getCookie("username");
     if (!username) {
       console.log("User is not logged in: returning to login screen");
-      this.$router.push("/"); //add this when there is another home screen
+      this.$router.push("/"); 
     }
 
     // Logic to get the questions from the server
@@ -218,41 +218,6 @@ export default {
 }
 </script>
 <style scoped>
-  /* body {
-    font-family: Arial, sans-serif;
-    font-size: 1.5vw;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-} */
-
-  /* :root {
-      --body-font-size-percentage: 100%;
-  }
-
-  header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5em;
-      border-bottom: 1px solid #ddd;
-  } */
-
-  /* 
-  h1 {
-      font-size: 1.2rem;
-      margin: 0;
-      position: absolute;
-      top: 20px;
-      left: 20px;
-  }
-
-  h2 {
-      text-align: center;
-      font-size: 2em;
-  } */
-
   .wrapper {
     background-color: #f9f9f9;
   }

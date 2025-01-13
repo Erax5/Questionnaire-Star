@@ -19,8 +19,7 @@
 
       <!-- container for the quiz + completed questions -->
       <div class="container">
-        <!--Maybe simplistic but easier solve:-->
-        <h2> {{uiLabels.newQuestionnaire}} </h2><!-- TODO: change hardcoded "1" into dynamic counting -->
+        <h2> {{uiLabels.newQuestionnaire}} </h2>
         <div v-if="questions.length > 0">
           <h3>{{ uiLabels.addedQuestions }}</h3>
           <div class="question-container" v-for="(question, index) in questions" :key="index">
@@ -53,6 +52,7 @@
           <button @click="setQuestionType('textAnswer')">{{ uiLabels.answer }}</button>
         </div>
 
+        <!-- If the question is of type textAnswer -->
         <div v-if="questionType">
           <div v-if="questionType === 'textAnswer'">
             <div class="question-section">
@@ -62,12 +62,15 @@
               <label style="margin-top:1em;" for="question">{{ uiLabels.enterAnswer }}:</label>
               <input v-model="newQuestion.answer" />
           </div>
+
+          <!-- If the question is of type multiChoice -->
           <div v-if="questionType === 'multiChoice'">
               <div class="question-section">
                 <label for="question">{{ uiLabels.enterQuestion }}:</label>
                 <input type="text" v-model="newQuestion.question"/>
               </div>
 
+              <!-- Options for multi choice question -->
               <div class="options-section">
                 <div style="display: flex; justify-content: space-between;">
                   <label>{{uiLabels.setOptions}}:</label>
@@ -86,11 +89,10 @@
               <div class="add-remove-buttons">
                 <button class="red-button" @click="addOption">{{ uiLabels.addOption }}</button>
               </div>
-          <!-- TODO: add functionality for adding and removing options -->
-          <!-- TODO: a -->
-          <!-- TODO: also fix the placeholder not displaying the right thing -->
+
           </div>
         </div>
+        <!-- Buttons for operating on the quiz -->
         <div class="button-container-2">
           <button class="black-button" v-if="isAddingQuestion" @click="saveQuestion()">{{ uiLabels.addQuestion }}</button>
           <button class="black-button" v-if="isEditingQuestion" @click="saveQuestion()">{{ uiLabels.save }}</button>
@@ -98,10 +100,12 @@
         </div>
       </div>
 
+      <!-- Button for adding a new question -->
       <div v-if="!isAddingQuestion && !isEditingQuestion">
         <button style="margin-left:2em" class=black-button @click="startAddingQuestion">{{ uiLabels.addQuestion }}</button>
       </div>
 
+      <!-- Buttons for publishing the quiz or returning without saving -->
       <div class="page-operation-button-container">
         <button class="blue-button" @click="publish()" style="margin-right:1em;">{{ uiLabels.publish }}</button>
         <router-link to="/list">{{ uiLabels.back }}</router-link>
@@ -150,7 +154,7 @@ export default {
     const username = this.getCookie("username");
     if (!username) {
       console.log("User is not logged in: returning to login screen");
-      this.$router.push("/"); //add this when there is another home screen
+      this.$router.push("/");
     }
   },
   methods: {
@@ -190,6 +194,7 @@ export default {
       this.editingIndex = index;
       this.startEditingQuestion();
     },
+    // Function to switch the answer for a multi choice question
     answerSwitch(index) {
       if (this.newQuestion.answer === index) {
         this.newQuestion.answer = "";
@@ -216,11 +221,12 @@ export default {
     setQuestionType(type) {
       this.questionType = type;
     }, 
+    // Completing the process of adding a question
     saveQuestion() {
       if (this.newQuestion.question.trim() === '' || 
          (this.questionType === 'multiChoice' && (this.newQuestion.options.length === 0) || this.newQuestion.options.includes(''))){
 
-        alert(this.uiLabels.addQuestionError); // TODO: replace with more user-friendly error handling
+        alert(this.uiLabels.addQuestionError);
         return;
       }
       if (this.newQuestion.answer === '') {
@@ -259,9 +265,11 @@ export default {
     toggleNav() {
       this.hideNav = ! this.hideNav;
     },
+    // Function to add an option to a multi choice question
     addOption() {
       this.newQuestion.options.push('');
     },
+    // Function to remove an option from a multi choice question
     removeOption(index) {
       try {
         console.log('Removing option at index:', index);
@@ -279,6 +287,7 @@ export default {
         console.error('Error removing option:', error);
       }
     },
+    // Saving the quiz by publishing it to the server
     publish() {
       if (this.questions.length === 0) {
         alert(this.uiLabels.errorPublishing);
@@ -371,10 +380,6 @@ export default {
   .question:hover span {
     text-decoration: underline;
   }
-  /* TODO fix so that this rule works, it still underlines "Edit" when hovering "remove" */
-  .question:hover + .remove-question-button:hover {
-    text-decoration: none;
-  }
 
   .page-operation-button-container {
       display: flex;
@@ -402,12 +407,6 @@ export default {
     margin: 20px;
     gap: 10px;
     justify-content: flex-start;
-  }
-
-  footer {
-    background-color: #f1f1f1;
-    text-align: center;
-    margin-top: auto;
   }
 
   .option {

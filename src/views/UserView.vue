@@ -83,7 +83,7 @@ export default {
     const username = this.getCookie("username");
     if (!username) {
       console.log("User is not logged in: returning to login screen");
-      this.$router.push("/"); //add this when there is another home screen
+      this.$router.push("/");
     }
 
     // Logic to get the questions from the server

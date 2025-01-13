@@ -148,12 +148,10 @@ export default {
 
     footer{
       font-size: 2vw; 
-      /* padding: 0.5em; */
     }
 
     div{
       font-size: 2.2vw; 
-      /* padding: 1em; */
     }
 
     .checkbox label {

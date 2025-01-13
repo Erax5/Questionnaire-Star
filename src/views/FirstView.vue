@@ -55,7 +55,7 @@ export default {
 
     const username = this.getCookie("username");
     if (username) {
-      this.$router.push("/home"); //add this when there is another home screen
+      this.$router.push("/home"); 
       console.log("User is logged in");
     }
   },
