@@ -6,6 +6,10 @@ A simple questionnaire application that allows users to create and answer questi
 
 Every user can create questionnaires and share them with others. Only the creator can view the results of their questionnaires. This view is accessible by clicking on the "Results" button in the questionnaire list. By the time of submission of this project, the results screen is not yet fully implemented.
 
+## Github Repo
+
+https://github.com/Erax5/Questionnaire-Star
+
 ## Project Setup
 
 ```sh
