@@ -41,6 +41,7 @@
 	"editQuestionWarning": "Warning: Editing a question will cancel adding a new question. Do you wish to continue?",
 	"addQuestionError": "No fields can be blank when creating a question, please try again.",
 	"newQuiz": "New Quiz",
+	"newQuestionnaire": "New Questionnaire",
 	"enterQuestion": "Enter question",
 	"enterOption": "Enter option",
 	"enterAnswer": "Enter answer",

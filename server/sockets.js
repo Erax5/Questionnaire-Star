@@ -6,22 +6,16 @@ function sockets(io, socket, data) {
 
   socket.on('publishQuiz', function(quiz) {
     data.publishQuiz(quiz);
-    socket.emit('quizzes', data.getQuizzes());
   });
 
   socket.on('submitAnswers', function(form) {
     data.submitAnswers(form.quizId, form.userId, form.answers);
-    socket.emit('answersUpdate', data.getAnswers(form.quizId));
-  });
-
-  socket.on('getUserAnswers', function(quizId, userId) {
-    socket.emit('answers', data.getAnswers(quizId));
   });
 
   socket.on('getAnswers', function(quizId) {
     socket.emit('answers', data.getAnswers(quizId));
   });
-  
+
   socket.on('getQuizzes', function() {
     socket.emit('quizzes', data.getQuizzes());
   });

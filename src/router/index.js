@@ -43,14 +43,9 @@ const router = createRouter({
       component: ResultView,
     },
     {
-      path: '/createquiz',
+      path: '/create',
       name: 'Quiz Creation',
       component: CreateView
-    },
-    {
-      path: '/user-view',
-      name: 'User View',
-      component: UserView
     },
     {
       path: '/thank-you',
@@ -58,7 +53,7 @@ const router = createRouter({
       component: ThankYou
     },
     {
-      path: '/quiz/:id',
+      path: '/questionnaires/:id',
       name: 'User View',
       component: UserView,
     },

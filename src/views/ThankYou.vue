@@ -1,11 +1,18 @@
 <template>
+  <div class="wrapper">
     <header>
       <div style="width:33%; align-items: center;">
         <router-link to="/home">{{ uiLabels.home }}</router-link>
       </div>
     </header>
-  <div class="thank-you">
-    <h1>{{ uiLabels.thankYou }}</h1> 
+    <div class="container">
+      <div class="thank-you">
+        <h1>{{ uiLabels.thankYou }}</h1> 
+      </div>
+      <div class="nestled-container">
+        <router-link to="/list">{{ uiLabels.back }}</router-link>
+      </div>
+    </div>
   </div>
 </template>
 

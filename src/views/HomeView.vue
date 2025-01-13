@@ -13,8 +13,7 @@
       </div>
       <div style="width:44%; display: flex; justify-content: right; align-items: center;">
         <span style="width:33%; margin-right: 1em;">{{ uiLabels.loggedIn }} {{ username }}</span>
-        <button @click="logOut()" style="width:30%; margin-right:1em">{{ uiLabels.signOut }}</button>
-        <router-link to="/user-view">{{ uiLabels.quiz }}</router-link>
+        <button @click="logOut()" style="margin-right:1em">{{ uiLabels.signOut }}</button>
       </div>
     </header>
 
@@ -23,8 +22,13 @@
     </div>
 
     <div class="container" style="margin-left: 30%; margin-right: 30%; margin-bottom: 15%; display: flex; justify-content: center;">
-      <router-link class="blue-button" to="/list" style="margin-right:2em">{{ uiLabels.Quizzes }}</router-link>
-      <router-link class="blue-button" to="/createquiz">{{ uiLabels.create }}</router-link>
+      <router-link class="blue-button" to="/list" style="margin-right:2em">{{ uiLabels.QuestionnaireList }}</router-link>
+      <router-link class="blue-button" to='/create'>
+                <svg style="margin-right:0.3em;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1.5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+                {{uiLabels.create}}
+            </router-link>
     </div>
 
     <footer>

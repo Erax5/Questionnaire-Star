@@ -1,50 +1,44 @@
 <template>
   <div class="wrapper">
     <header>
-      <div style="width:33%; align-items: center;">
+      <div style="width:44%; align-items: center;">
         <router-link to="/">{{ uiLabels.home }}</router-link>
       </div>
-      <div style="width:34%; display: flex; justify-content: center; align-items: center;">
+      <div style="width:12%; display: flex; justify-content: center; align-items: center;">
         <select v-model="lang" @change="switchLanguage">
           <option value="en">English</option>
           <option value="sv">Svenska</option>
           <option value="cn">中文</option>
         </select>
       </div>
-      <div style="width:33%; display: flex; justify-content: right; align-items: center;">
-        <span style="margin-right: 1em;">{{ uiLabels.loggedIn }} {{ username }}</span>
+      <div style="width:44%; display: flex; justify-content: right; align-items: center;">
+        <span style="width:40%; margin-right: 1em;">{{ uiLabels.loggedIn }} {{ username }}</span>
         <button @click="logOut()" style="margin-right:1em">{{ uiLabels.signOut }}</button>
       </div>
     </header>
     
-    <!-- HTML from user_view.html -->
     <div class="container">
         <div>
-            <h1>{{ uiLabels.Questionnaire }}</h1>
-            <!--Place to enter quiz id or similar?-->
+            <h1 style="text-align: left;">{{ uiLabels.Questionnaire }}</h1>
         </div>
 
         <form>
-          <span>{{ quiz }}</span>
-          <div v-for="(question, questionIndex) in quiz.questions" :key="questionIndex">
-            <h2>{{ question.question }}</h2>
-            det här syns så länge det finns en fråga
+          <div style="margin-bottom:2em;" v-for="(question, questionIndex) in quiz.questions" :key="questionIndex">
+            <h2 style="align-items: left; justify-content: left; text-align: left;">{{ question.question }}</h2>
             <div v-if="question.type === 'multiChoice'">
-              det här borde synas om frågan är multiple choice
-              <div v-for="(option, optionIndex) in question.options" :key="optionIndex">
+              <div class="nestled-div" @click="answerSwitch(questionIndex, optionIndex)" style="justify-content:flex-start; cursor:pointer;" v-for="(option, optionIndex) in question.options" :key="optionIndex">
                 <input type="checkbox" :checked="userAnswers[questionIndex] === optionIndex" @change="answerSwitch(questionIndex, optionIndex)"/>
-                <span>{{ option }}</span>
+                <span style="margin-left:2em;">{{ option }}</span>
               </div>
             </div>
             <div v-else-if="question.type === 'textAnswer'">
-              det här ser du om det är en textfråga
-              <input type="text" v-model="question.answer">
+              <input type="text" v-model="this.userAnswers[questionIndex]" :placeholder="uiLabels.enterAnswer" />
             </div>
 
           </div>
 
-          <div style="display: flex; justify-content: space-between;">
-            <button type="button" class="submit-btn" @click="submitQuiz">{{ uiLabels.submit }}</button>
+          <div style="display: flex; justify-content: space-between; margin-top: 2em;">
+            <button type="button" class="submit-btn" @click="submitQuiz()">{{ uiLabels.submit }}</button>
             <router-link to="/list">{{ uiLabels.back }}</router-link>
           </div>
       </form>
@@ -102,7 +96,6 @@ export default {
       socket.emit("getQuiz", quizId);
       socket.on("quiz", quiz => {
         this.quiz = quiz;
-        console.log(quiz);
       });
     }
   },
@@ -118,10 +111,24 @@ export default {
       return null;
     },
     answerSwitch(questionIndex, optionIndex) {
-      this.userAnswers[questionIndex] = optionIndex
+      if (this.userAnswers[questionIndex] === optionIndex) {
+        this.userAnswers[questionIndex] = null;
+      } else {
+        this.userAnswers[questionIndex] = optionIndex;
+      }
     },
     submitQuiz() {
-      // Logic to submit the quiz
+      if (this.userAnswers.length !== this.quiz.questions.length) {
+        alert("Please answer all questions before submitting");
+        return;
+      }
+      let form = {
+        userId: this.getCookie("username"),
+        quizId: this.quiz.quizId,
+        answers: this.userAnswers
+      }
+      socket.emit("submitAnswers", form);
+
       this.$router.push('/thank-you'); // Navigate to ThankYou.vue
     },
     logOut() {
@@ -134,20 +141,29 @@ export default {
 </script>
 
 <style scoped>
-.wrapper
-{
+  .wrapper
+  {
     background-color: #f9f9f9;
-}
-footer {
+  }
+
+  footer {
     background-color: #f1f1f1;
     text-align: center;
     margin-top: auto;
   }
 
+  input[type="text"] {
+    width: 95%;
+    height: 1.5em;
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-size:0.8em;
+  }
+
 @media screen and (max-width: 50em) {
 
-  input[type="text"],
-  input[type="password"] {
+  input[type="text"] {
     padding: 0.6em; /* Adjust padding for smaller devices */
   }
 

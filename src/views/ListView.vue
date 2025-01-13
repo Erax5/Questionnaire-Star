@@ -21,7 +21,7 @@
         <h2>{{ uiLabels.QuestionnaireList }}</h2>
 
         <div v-for="(quiz, index) in quizzes" :key="index" class="nestled-div" style="cursor:pointer;" @click.self="playQuiz(index)">
-          <div @click.self="playQuiz(index)" style="width:50%; display: flex; justify-content: space-between; align-items: center;"><span style="user-select: none;" @click.self="playQuiz(index)">{{uiLabels.quiz}} {{index+1}}</span> <!-- TODO: change hardcoded "1" into dynamic counting -->
+          <div @click.self="playQuiz(index)" style="width:50%; display: flex; justify-content: space-between; align-items: center;"><span style="user-select: none;" @click.self="playQuiz(index)">{{uiLabels.Questionnaire}} {{index+1}}</span> <!-- TODO: change hardcoded "1" into dynamic counting -->
           <span @click.self="playQuiz(index)" style="margin-left:2em; user-select: none;">{{uiLabels.creator}} {{ quiz.creatorId }}</span></div>
           
           <div @click.self="playQuiz(index)">
@@ -32,11 +32,11 @@
 
         <!-- TODO: need to make this router-link, but still blue -->
         <div class="new-quiz">
-            <router-link class="blue-button" to='/createquiz'>
+            <router-link class="blue-button" to='/create'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
                     <path d="M8 4a.5.5 0 0 1.5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                 </svg>
-                {{uiLabels.newQuiz}}
+                {{uiLabels.create}}
             </router-link>
         </div>
     </div>
@@ -72,7 +72,6 @@ export default {
     socket.emit( "getUILabels", this.lang );
     socket.on( "quizzes", quizzes => this.quizzes = quizzes );
     socket.emit( "getQuizzes" );
-    console.log(this.quizzes || "No quizzes found");
 
     const username = this.getCookie("username");
     if (!username) {
@@ -115,7 +114,7 @@ export default {
       this.hideNav = ! this.hideNav;
     },
     shareQuiz(quizId) {
-      const quizLink = `${window.location.origin}/quizzes/${quizId}`;
+      const quizLink = `${window.location.origin}/questionnaires/${quizId}`;
       navigator.clipboard.writeText(quizLink).then(() => {
       alert(this.uiLabels.linkCopy); // TODO: change to nicer window than an alert
       }).catch(err => {

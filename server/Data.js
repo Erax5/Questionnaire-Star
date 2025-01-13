@@ -53,12 +53,8 @@ Data.prototype.submitAnswers = function (quizId, userId, answers) {
   }
   
   this.userAnswers[quizId][userId] = answers;
+  console.log("answers submitted", this.userAnswers[quizId][userId]);
 }
-
-Data.prototype.getUserAnswers = function (quizId, userId) {
-  return this.userAnswers[quizId][userId] || [];
-}
-
 Data.prototype.getAnswers = function (quizId) {
   return this.userAnswers[quizId] || [];
 }

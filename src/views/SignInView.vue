@@ -25,17 +25,6 @@
       </div>
       <button class="blue-button" @click="login">{{ uiLabels.logIn }}</button>
     </div>
-    <!-- <form>
-      <label for = "email">{{uiLabels.email}}</label>
-      <input type = "text" id = "email" value = "">
-      <label for = "password">{{uiLabels.password}}</label>
-      <input type = "password" id = "password" value = "">
-      <div class = "checkbox">
-        <input type = "checkbox" class="my-checkbox" id = "remember-me">
-        <label for = "remember-me">{{uiLabels.rememberMe}}</label>
-      </div>
-      <router-link to="/list">{{ uiLabels.signIn }}</router-link>
-    </form> -->
 
     <footer>
       <p>&copy; {{uiLabels.footer}}</p>
@@ -139,9 +128,13 @@ export default {
     margin-left: 0.4em;
   }
 
-  /* .my-checkbox {
-    width: 1em;
-  }  */
+  input[type="checkbox"] {
+    width: 1.5em;
+    height: 1.5em;
+  } 
+  input[type="label"] {
+    font-size: 1.5em;
+  }
   
   footer {
     background-color: #f1f1f1;

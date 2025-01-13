@@ -6,12 +6,19 @@
   min-height: 100vh;
 }
 
+  input[type="text"] {
+    width: 95%;
+    height: 1.5em;
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-size:0.8em;
+  }
 
   .wrapper {
     display: flex;
     flex-direction: column;
     flex:1;
-    /* padding: 20px;  */
     background-color: #f9f9f9;
   }
 
@@ -67,21 +74,6 @@
   header div a {
     margin-right: 1em;
   }
-
-  /* .checkbox {
-    display: flex;
-    align-items: baseline;
-    margin-bottom: 0.9375em;
-  }
-
-  .checkbox label {
-    font-size: 0.875em;
-    margin-left: 0.375em;
-  }
-
-  .my-checkbox {
-    width: 1em;
-  }  */
 
 /* ----------------------------- language drop down styling ----------------------------- */
 
