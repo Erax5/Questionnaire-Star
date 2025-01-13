@@ -95,7 +95,7 @@ export default {
     },
     playQuiz(quizIndex) {
       console.log(`Playing quiz ${quizIndex}`);
-      this.$router.push(`/quiz/${quizIndex}`);
+      this.$router.push(`/questionnaires/${quizIndex}`);
     },
     viewResults(quizIndex) {
       console.log(`Viewing results for quiz ${quizIndex}`);

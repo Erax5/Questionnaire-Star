@@ -144,11 +144,6 @@ export default {
 
   @media screen and (max-width: 50em) {
 
-    input[type="text"],
-    input[type="password"] {
-      /* padding: 0.6em; */
-    }
-
     footer{
       font-size: 2vw; 
       /* padding: 0.5em; */
@@ -157,10 +152,6 @@ export default {
     div{
       font-size: 2.2vw; 
       /* padding: 1em; */
-    }
-
-    .checkbox {
-      /* flex-direction: row; */
     }
 
     .checkbox label {
