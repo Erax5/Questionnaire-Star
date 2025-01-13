@@ -67,21 +67,14 @@ export default {
       hideNav: true,
       username: this.getCookie("username") || "",
       results: [],
-      userData: {
-        "userId": "",
-        "quizId": "",
-        "answers": []
-      },
+      userData: {},
       quizData: [],
 
 
       userDataExample: {
-        "userId": "12345",
-        "quizId": "67890",
-        "answers": ["0", "2", "banana"]
+        "userId": ["0", "2", "banana"]
       },
       quizDataExample: {
-        "quizId": "67890",
         "questions": [
           {
             "questionType": "multiChoice",
