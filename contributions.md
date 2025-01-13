@@ -29,6 +29,7 @@
 - Axel Gleisner
 - Ella Taawo
 - Houwan Liu
+- Linjing Shen
 
 ## View Components
 
