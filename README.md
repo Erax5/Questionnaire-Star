@@ -1,11 +1,10 @@
-# polly24
+# Questionnaire Star
 
-This is skeleton code for building "real-time" quiz and polling tools. The code is intended for quick prototyping and for learning (user) interface programming.
+A simple questionnaire application that allows users to create and answer questionnaires
 
+## Admin view
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Every user can create questionnaires and share them with others. Only the creator can view the results of their questionnaires. This view is accessible by clicking on the "Results" button in the questionnaire list. By the time of submission of this project, the results screen is not yet fully implemented.
 
 ## Project Setup
 
