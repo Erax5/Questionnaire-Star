@@ -12,7 +12,7 @@
         </select>
       </div>
       <div style="width:44%; display: flex; justify-content: right; align-items: center;">
-        <span style="width:40%; margin-right: 1em;">{{ uiLabels.loggedIn }} {{ username }}</span>
+        <span style="width:33%; margin-right: 1em;">{{ uiLabels.loggedIn }} {{ username }}</span>
         <button @click="logOut()" style="margin-right:1em">{{ uiLabels.signOut }}</button>
       </div>
     </header>
@@ -343,6 +343,9 @@ export default {
 @media (max-width: 1024px) {
   .chart-wrapper {
     max-width: 280px;
+  }
+  .container{
+    min-width:80%;
   }
 }
 

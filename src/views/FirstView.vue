@@ -19,7 +19,7 @@
       <h1>{{uiLabels.welcome}}</h1> 
     </div>
 
-    <div class="container" style="margin-left: 25%; margin-right: 25%; margin-bottom: 10em; display: flex; justify-content: center;">
+    <div class="container" style="max-width: 35%; margin-bottom: 10em; display: flex; justify-content: center;">
       <router-link to="/signin" style="margin-right:2em">{{ uiLabels.signIn }}</router-link>
       <router-link to="/signup">{{ uiLabels.signUp }}</router-link>
     </div>

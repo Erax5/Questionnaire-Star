@@ -1,17 +1,17 @@
 <template>
   <div class="wrapper">
     <header>
-      <div style="width:33%; align-items: center;">
+      <div style="width:44%; align-items: center;">
         <router-link to="/">{{ uiLabels.home }}</router-link>
       </div>
-      <div style="width:34%; display: flex; justify-content: center; align-items: center;">
+      <div style="width:12%; display: flex; justify-content: center; align-items: center;">
         <select v-model="lang" @change="switchLanguage">
           <option value="en">English</option>
           <option value="sv">Svenska</option>
           <option value="cn">中文</option>
         </select>
       </div>
-      <div style="width:33%; display: flex; justify-content: right; align-items: center;">
+      <div style="width:44%; display: flex; justify-content: right; align-items: center;">
         <router-link to="/signup">{{ uiLabels.signUp }}</router-link>
       </div>
     </header>
@@ -112,10 +112,13 @@ export default {
     border: 1px solid #ccc;
     border-radius: 0.1875em;
   }
-
-.wrapper {
-  background-color: #f9f9f9;
-}
+  input[type="checkbox"] {
+    width: 1.5em;
+    height: 1.5em;
+  } 
+  input[type="label"] {
+    font-size: 1.5em;
+  }
 
   .checkbox {
     display: flex;
@@ -127,14 +130,6 @@ export default {
     font-size: 0.8em;
     margin-left: 0.4em;
   }
-
-  input[type="checkbox"] {
-    width: 1.5em;
-    height: 1.5em;
-  } 
-  input[type="label"] {
-    font-size: 1.5em;
-  }
   
   footer {
     background-color: #f1f1f1;
@@ -144,12 +139,8 @@ export default {
 
   @media screen and (max-width: 50em) {
 
-    footer{
-      font-size: 2vw; 
-    }
-
-    div{
-      font-size: 2.2vw; 
+    input[type="text"] {
+      font-size:2.5vw;
     }
 
     .checkbox label {

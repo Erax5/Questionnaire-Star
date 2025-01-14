@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <header>
-      <div style="width:33%; align-items: center;">
+      <div style="width:44%; align-items: center;">
         <router-link to="/home">{{ uiLabels.home }}</router-link>
       </div>
     </header>

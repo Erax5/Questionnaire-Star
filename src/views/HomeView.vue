@@ -21,7 +21,7 @@
       <h1>{{uiLabels.welcome}}</h1> 
     </div>
 
-    <div class="container" style="margin-left: 30%; margin-right: 30%; margin-bottom: 15%; display: flex; justify-content: center;">
+    <div class="container" style="margin-bottom: 15%; display: flex; justify-content: center;">
       <router-link class="blue-button" to="/list" style="margin-right:2em">{{ uiLabels.QuestionnaireList }}</router-link>
       <router-link class="blue-button" to='/create'>
                 <svg style="margin-right:0.3em;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
@@ -98,5 +98,9 @@ export default {
     justify-content: center;
     align-items: center;
     flex-grow: 1;
+  }
+  .container {
+    margin-left:auto;
+    margin-right:auto;
   }
 </style>

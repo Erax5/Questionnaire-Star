@@ -12,7 +12,7 @@
         </select>
       </div>
       <div style="width:44%; display: flex; justify-content: right; align-items: center;">
-        <span style="width:40%; margin-right: 1em;">{{ uiLabels.loggedIn }} {{ username }}</span>
+        <span style="width:33%; margin-right: 1em;">{{ uiLabels.loggedIn }} {{ username }}</span>
         <button @click="logOut()" style="margin-right:1em">{{ uiLabels.signOut }}</button>
       </div>
     </header>
@@ -448,4 +448,21 @@ export default {
     background-color: #007bff;
     border-color: #007bff;
   }
+
+  @media screen and (max-width: 50em) {
+  .container{
+    min-width:80%;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: left;
+    margin:0;
+  }
+
+  .button-container-2 {
+    display: flex;
+    justify-content:right;
+  }
+}
 </style>

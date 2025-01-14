@@ -3,232 +3,255 @@
 #app {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+
+  min-height: 125vh; 
+  transform: scale(0.8);
+  width:125%;
+  height:125%;
+  transform-origin: 0 0;
 }
 
-  input[type="text"] {
-    width: 95%;
-    height: 1.5em;
-    padding: 1em;
-    border: 1px solid #ccc;
-    border-radius: 0.2em;
-    font-size:0.8em;
-  }
 
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-    flex:1;
-    background-color: #f9f9f9;
-  }
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: #f9f9f9;
+}
 
-  .wrapper {
-    background-color: #f9f9f9;
-  }
+input[type="text"] {
+  width: 95%;
+  height: 1.5em;
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 0.2em;
+  font-size:0.8em;
+}
+input[type="checkbox"] {
+  width: 1.5em;
+  height: 1.5em;
+} 
+input[type="label"] {
+  font-size: 1.5em;
+}
 
-  footer {
-    background-color: #f1f1f1;
-    text-align: center;
-    margin-top: auto;
-  }
+footer {
+  background-color: #f1f1f1;
+  text-align: center;
+  margin-top: auto;
+}
 
+body, html {
+  font-family: Arial, sans-serif;
+  font-size: 1.5vw;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
-  body, html {
-    font-family: Arial, sans-serif;
-    font-size: 1.5vw;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    /* height: 100%; */
-  }
+:root {
+--body-font-size-percentage: 100%;
+}
 
-  :root {
-  --body-font-size-percentage: 100%;
-  }
+header {
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f0f0f0;
+  height:2em;
+}
 
-  header {
-    display: flex;
-    justify-content:space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #f0f0f0;
-    height:2em;
-  }
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  margin-top: 2.5em;
+}
 
-  h1 {
-    text-align: center;
-    font-size: 2.5em;
-    margin-top: 2.5em;
-  }
+h2 {
+  text-align: center;
+  font-size: 2em;
+}
 
-  h2 {
-    text-align: center;
-    font-size: 2em;
-  }
+label {
+  display: block;
+  margin-bottom: 0.3125em;
+}
 
-  label {
-    display: block;
-    margin-bottom: 0.3125em;
-  }
-
-  header div a {
-    margin-right: 1em;
-  }
+header div a {
+  margin-right: 1em;
+}
 
 /* ----------------------------- language drop down styling ----------------------------- */
 
-  select {
-    width: 5em;
-    padding: 0.4em;
-    font-size: 1em;
-    color: #333;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 0.5em; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    appearance: none; 
-    cursor: pointer;
-    text-align: center; 
-  }
+select {
+  width: 5em;
+  padding: 0.4em;
+  font-size: 1em;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 0.5em; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  appearance: none; 
+  cursor: pointer;
+  text-align: center; 
+}
 
-  select:hover {
-    background-color: #f9f9f9; 
-    border-color: #888;
-  }
+select:hover {
+  background-color: #f9f9f9; 
+  border-color: #888;
+}
 
-  select:focus {
-    outline: none;
-    border-color: #555; 
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-  }
+select:focus {
+  outline: none;
+  border-color: #555; 
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
 /* ----------------------------- /language drop down styling ----------------------------- */
 
 /* ----------------------------- button styling ----------------------------- */
 
-  /* for page-changing buttons - header buttons for example */
-  a, button {
-    text-decoration: none;
-    background-color: black;
-    color: white;
-    border: none;
-    padding: 0.5em;
-    border-radius: 0.5em;
-    cursor: pointer;
-    font-size: 1.1em;
-  }
+/* for page-changing buttons - header buttons for example */
+a, button {
+  text-decoration: none;
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-size: 1.1em;
+}
 
-  a:hover, button:hover {
-    background-color: #464242;
-  }
+a:hover, button:hover {
+  background-color: #464242;
+}
 
-  /* for all blue buttons*/
-  .blue-button{
-    display: flex;
-    align-items: center;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 0.7em 1em;
-    font-size: 1em;
-    border-radius: 0.5em;
-    cursor: pointer;
-  }
+/* for all blue buttons*/
+.blue-button{
+  display: flex;
+  align-items: center;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.7em 1em;
+  font-size: 1em;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
 
-  .blue-button:hover{
-    background-color: #0056b3;
-  }
+.blue-button:hover{
+  background-color: #0056b3;
+}
 
-  /* for all red (removal) buttons */
-  .red-button{
-    display: flex;
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    padding: 0.2em 0.6em;
-    font-size: 1em;
-    border-radius: 0.5em;
-    cursor: pointer;
-    margin-left:1em;
-  }
+/* for all red (removal) buttons */
+.red-button{
+  display: flex;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 0.2em 0.6em;
+  font-size: 1em;
+  border-radius: 0.5em;
+  cursor: pointer;
+  margin-left:1em;
+}
 
-  .red-button {
-    font-size: 1.2em;
-  }
+.red-button {
+  font-size: 1.2em;
+}
 
-  .red-button:hover{
-    background-color: #cc0000;
-  }
+.red-button:hover{
+  background-color: #cc0000;
+}
 
-  /* all black buttons except page-changing buttons (which should be router-links anyway) */
-  .black-button {
-    background-color: #000000;
-    border: 1px solid #ccc;
-    padding: 0.7em 1em;
-    font-size: 1em;
-    border-radius: 0.5em;
-    cursor: pointer;
-  }
+/* all black buttons except page-changing buttons (which should be router-links anyway) */
+.black-button {
+  background-color: #000000;
+  border: 1px solid #ccc;
+  padding: 0.7em 1em;
+  font-size: 1em;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
 
-  .black-button:hover {
-    background-color: #464242;
-  }
+.black-button:hover {
+  background-color: #464242;
+}
 /* ----------------------------- /button styling ----------------------------- */
 
 /* ----------------------------- div styling ----------------------------- */
 
-  .container {
-    margin: 1.5em;
-    background-color: white;
-    border-radius: 1em;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 2em;
-  }
+.container {
+  margin: 1.5em;
+  background-color: white;
+  border-radius: 1em;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 2em;
+  align-items: center;
+  justify-content: center;
+}
 
-  .container h2 {
-    font-size: 2em;
-    margin: 0 0 1em 0;
-  }
+.container h2 {
+  font-size: 2em;
+  margin: 0 0 1em 0;
+}
 
-  .nestled-div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1em;
-    border: 1px solid #e0e0e0;
-    border-radius: 0.5em;
-    margin-bottom: 1em;
-    background-color: #f5f5f5;
-    transition: background-color 0.3s;
-  }
+.nestled-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5em;
+  margin-bottom: 1em;
+  background-color: #f5f5f5;
+  transition: background-color 0.3s;
+}
 
-  .nestled-div:hover {
-    background-color: #ececec;
-  }
+.nestled-div:hover {
+  background-color: #ececec;
+}
 
-  /* this is for form-looking login containers */
-  .login-div {
-    width: 18.75em;
-    margin: 2em auto;
-    border: 1px solid #ccc;
-    border-radius: 0.3125em;
-    padding: 5em;
-    box-shadow: 0 0 0.3125em rgba(0, 0, 0, 0.1);
-  }
+/* this is for form-looking login containers */
+.login-div {
+  width: 18.75em;
+  margin: 2em auto;
+  border: 1px solid #ccc;
+  border-radius: 0.3125em;
+  padding: 5em;
+  box-shadow: 0 0 0.3125em rgba(0, 0, 0, 0.1);
+}
 
 /* ----------------------------- /div styling ----------------------------- */
-  
 
-  @media screen and (max-width: 50em) {
-    select {
-      font-size: 2vw; 
-      min-width: 40px;
-    }
 
-    footer{
-      font-size: 2vw; 
-    }
-
-    div{
-      font-size: 2.2vw; 
-    }
+@media screen and (max-width: 50em) {
+  #app {
+    min-height: 80vh; 
+    transform: scale(1.25);
+    width:80%;
+    height: 80%;
   }
+  
+  select {
+    font-size: 2.5vw; 
+  }
+
+  div{
+    font-size: 2.2vw; 
+  }
+
+  a{
+    font-size: 1.3em;
+  }
+
+  .container{
+    min-width:60%;
+    margin-right:auto;
+    margin-left:auto;
+  }
+}

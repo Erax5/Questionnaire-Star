@@ -12,7 +12,7 @@
         </select>
       </div>
       <div style="width:44%; display: flex; justify-content: right; align-items: center;">
-        <span style="width:40%; margin-right: 1em;">{{ uiLabels.loggedIn }} {{ username }}</span>
+        <span style="width:33%; margin-right: 1em;">{{ uiLabels.loggedIn }} {{ username }}</span>
         <button @click="logOut()" style="margin-right:1em">{{ uiLabels.signOut }}</button>
       </div>
     </header>
@@ -145,17 +145,6 @@ export default {
 </script>
 
 <style scoped>
-  .wrapper
-  {
-    background-color: #f9f9f9;
-  }
-
-  footer {
-    background-color: #f1f1f1;
-    text-align: center;
-    margin-top: auto;
-  }
-
   input[type="text"] {
     width: 95%;
     height: 1.5em;
@@ -169,16 +158,7 @@ export default {
 
   input[type="text"] {
     padding: 0.6em; /* Adjust padding for smaller devices */
-  }
-
-  footer{
-    font-size: 2vw; 
-    padding: 0.5em;
-  }
-
-  div{
-    font-size: 2vw; 
-    padding: 1em;
+    font-size: 1.3em; 
   }
 
   .checkbox {
@@ -188,6 +168,10 @@ export default {
   .checkbox label {
     font-size: 1.2em; /* Adjust font size for smaller screens */
     margin-left: 0.3em; /* Remove margin to prevent offset */
+  }
+
+  .container {
+    min-width:80%;
   }
 }
 </style>

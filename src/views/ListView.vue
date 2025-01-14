@@ -12,7 +12,7 @@
         </select>
       </div>
       <div style="width:44%; display: flex; justify-content: right; align-items: center;">
-        <span style="width:40%; margin-right: 1em;">{{ uiLabels.loggedIn }} {{ username }}</span>
+        <span style="width:33%; margin-right: 1em;">{{ uiLabels.loggedIn }} {{ username }}</span>
         <button @click="logOut()" style="margin-right:1em">{{ uiLabels.signOut }}</button>
       </div>
     </header>
@@ -32,7 +32,7 @@
 
         <div class="new-quiz">
             <router-link class="blue-button" to='/create'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
                     <path d="M8 4a.5.5 0 0 1.5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                 </svg>
                 {{uiLabels.create}}
@@ -134,4 +134,9 @@ export default {
   .new-quiz a svg {
     margin-right: 0.3em;
   } 
+
+  .plus {
+    width:100;
+    height:100;
+  }
 </style>
