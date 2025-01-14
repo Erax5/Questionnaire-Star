@@ -87,4 +87,9 @@ export default {
     align-items: center;
     flex-grow: 1;
   }
+
+  .container {
+    margin-left:auto;
+    margin-right:auto;
+  }
 </style>
