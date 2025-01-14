@@ -319,7 +319,7 @@ export default {
 
 .chart-wrapper {
   width: 100%;
-  max-width: 300px; 
+  max-width: 15em; 
   padding: 0.5rem;
   margin: 0 auto; 
   display: flex;
