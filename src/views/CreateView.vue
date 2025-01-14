@@ -17,100 +17,103 @@
       </div>
     </header>
 
-      <!-- container for the quiz + completed questions -->
-      <div class="container">
-        <h2> {{uiLabels.newQuestionnaire}} </h2>
-        <div v-if="questions.length > 0">
-          <h3>{{ uiLabels.addedQuestions }}</h3>
-          <div class="question-container" v-for="(question, index) in questions" :key="index">
-            <div class="question" @click="editQuestion(question, index)">
-              <div style="width:40%;"><h4>{{ question.question }}</h4></div>
-              <div style="width:30%;">
-                <p v-if="question.type === 'textAnswer'">{{question.answer}}</p>
-                <ul v-else>
-                  <li v-for="(option, i) in question.options" :key="i">{{ option }}</li>
-                  <li><strong>{{ uiLabels.ans }}:</strong> {{ question.options[question.answer] }}</li>
-                </ul>
+      <div>
+        <!-- container for the quiz + completed questions -->
+        <div class="container">
+          <h2> {{uiLabels.newQuestionnaire}} </h2>
+          <div v-if="questions.length > 0">
+            <h3>{{ uiLabels.addedQuestions }}</h3>
+            <!-- <div class="question-container" v-for="(question, index) in questions" :key="index"> -->
+              <div class="question" @click="editQuestion(question, index)" v-for="(question, index) in questions" :key="index">
+                <div style="width:40%;"><h4 style="user-select: none;">{{ question.question }}</h4></div>
+                <div style="width:30%;">
+                  <!-- <p style="user-select: none;" v-if="question.type === 'textAnswer'">{{question.answer}}</p> -->
+                  <!-- <ul v-else> -->
+                  <ul v-if="question.type === 'multiChoice'">
+                    <li style="user-select: none;" v-for="(option, i) in question.options" :key="i">{{ option }}</li>
+                    <!-- <li style="user-select: none;"><strong>{{ uiLabels.ans }}:</strong> {{ question.options[question.answer] }}</li> -->
+                  </ul>
+                </div>
+                <span>{{ uiLabels.edit }}</span>
+                <div class="quiz-container-buttons">
+                  <!-- Button for deleting a question from the quiz overview -->
+                  <button class="red-button" @click.stop="removeQuestion(index)"> - </button>
+                </div>
               </div>
-              <span>{{ uiLabels.edit }}</span>
-            </div>
-            <div class="quiz-container-buttons">
-              <!-- Button for deleting a question from the quiz overview -->
-              <button class="red-button" @click.stop="removeQuestion(index)"> - </button>
-            </div>
+            <!-- </div> -->
           </div>
-        </div>
-        <p v-else>{{ uiLabels.questionAppear }}</p>
-      </div>
-
-      <!-- container for adding a new question -->
-      <div class="container" v-if="isAddingQuestion || isEditingQuestion">
-        <h2>{{ uiLabels.addQuestion }}</h2>
-        <h3>{{ uiLabels.qType }}</h3>
-        <div class="button-container">
-          <button @click="setQuestionType('multiChoice')">{{ uiLabels.multChoice }}</button>
-          <button @click="setQuestionType('textAnswer')">{{ uiLabels.answer }}</button>
+          <p v-else>{{ uiLabels.questionAppear }}</p>
         </div>
 
-        <!-- If the question is of type textAnswer -->
-        <div v-if="questionType">
-          <div v-if="questionType === 'textAnswer'">
-            <div class="question-section">
-              <label for="question">{{ uiLabels.enterQuestion }}:</label>
-              <input type="text" id="question" v-model="newQuestion.question"/>
-            </div>
-              <label style="margin-top:1em;" for="question">{{ uiLabels.enterAnswer }}:</label>
-              <input v-model="newQuestion.answer" />
+        <!-- container for adding a new question -->
+        <div class="container" v-if="isAddingQuestion || isEditingQuestion">
+          <h2>{{ uiLabels.addQuestion }}</h2>
+          <h3>{{ uiLabels.qType }}</h3>
+          <div class="button-container">
+            <button @click="setQuestionType('multiChoice')">{{ uiLabels.multChoice }}</button>
+            <button @click="setQuestionType('textAnswer')">{{ uiLabels.answer }}</button>
           </div>
 
-          <!-- If the question is of type multiChoice -->
-          <div v-if="questionType === 'multiChoice'">
+          <!-- If the question is of type textAnswer -->
+          <div v-if="questionType">
+            <div v-if="questionType === 'textAnswer'">
               <div class="question-section">
                 <label for="question">{{ uiLabels.enterQuestion }}:</label>
-                <input type="text" v-model="newQuestion.question"/>
+                <input type="text" id="question" v-model="newQuestion.question"/>
               </div>
+                <!-- <label style="margin-top:1em;" for="question">{{ uiLabels.enterAnswer }}:</label>
+                <input v-model="newQuestion.answer" /> -->
+            </div>
 
-              <!-- Options for multi choice question -->
-              <div class="options-section">
-                <div style="display: flex; justify-content: space-between;">
-                  <label>{{uiLabels.setOptions}}:</label>
-                  <label>{{uiLabels.setAnswer}}</label>
+            <!-- If the question is of type multiChoice -->
+            <div v-if="questionType === 'multiChoice'">
+                <div class="question-section">
+                  <label for="question">{{ uiLabels.enterQuestion }}:</label>
+                  <input type="text" v-model="newQuestion.question"/>
                 </div>
-                <div v-for="(option, index) in newQuestion.options" :key="index" class="option">
-                  <input 
-                    type="text" 
-                    v-model="newQuestion.options[index]" 
-                    :placeholder="`${uiLabels.option} ${index + 1}`" 
-                  />
-                    <input type="checkbox" :checked="newQuestion.answer === index" @change="answerSwitch(index)"/>
-                  <button class="red-button" @click="removeOption(index)">-</button>
-                </div>
-              </div>
-              <div class="add-remove-buttons">
-                <button class="red-button" @click="addOption">{{ uiLabels.addOption }}</button>
-              </div>
 
+                <!-- Options for multi choice question -->
+                <div class="options-section">
+                  <div style="display: flex; justify-content: space-between;">
+                    <label>{{uiLabels.setOptions}}:</label>
+                    <!-- <label>{{uiLabels.setAnswer}}</label> -->
+                  </div>
+                  <div v-for="(option, index) in newQuestion.options" :key="index" class="option">
+                    <input 
+                      type="text" 
+                      v-model="newQuestion.options[index]" 
+                      :placeholder="`${uiLabels.option} ${index + 1}`" 
+                    />
+                      <!-- <input type="checkbox" :checked="newQuestion.answer === index" @change="answerSwitch(index)"/> -->
+                    <button class="red-button" @click="removeOption(index)">-</button>
+                  </div>
+                </div>
+                <div class="add-remove-buttons">
+                  <button class="red-button" @click="addOption">{{ uiLabels.addOption }}</button>
+                </div>
+
+            </div>
+          </div>
+          <!-- Buttons for operating on the quiz -->
+          <div class="button-container-2">
+            <button class="black-button" v-if="isAddingQuestion" @click="saveQuestion()">{{ uiLabels.addQuestion }}</button>
+            <button class="black-button" v-if="isEditingQuestion" @click="saveQuestion()">{{ uiLabels.save }}</button>
+            <button class="black-button" @click="cancelAddingQuestion">{{ uiLabels.cancel }}</button>
           </div>
         </div>
-        <!-- Buttons for operating on the quiz -->
-        <div class="button-container-2">
-          <button class="black-button" v-if="isAddingQuestion" @click="saveQuestion()">{{ uiLabels.addQuestion }}</button>
-          <button class="black-button" v-if="isEditingQuestion" @click="saveQuestion()">{{ uiLabels.save }}</button>
-          <button class="black-button" @click="cancelAddingQuestion">{{ uiLabels.cancel }}</button>
+
+        <!-- Button for adding a new question -->
+        <div v-if="!isAddingQuestion && !isEditingQuestion">
+          <button style="margin-left:2em" class=black-button @click="startAddingQuestion">{{ uiLabels.addQuestion }}</button>
         </div>
-      </div>
 
-      <!-- Button for adding a new question -->
-      <div v-if="!isAddingQuestion && !isEditingQuestion">
-        <button style="margin-left:2em" class=black-button @click="startAddingQuestion">{{ uiLabels.addQuestion }}</button>
-      </div>
+        <!-- Buttons for publishing the quiz or returning without saving -->
+        <div class="page-operation-button-container">
+          <button class="blue-button" @click="publish()" style="margin-right:1em;">{{ uiLabels.publish }}</button>
+          <router-link to="/list">{{ uiLabels.back }}</router-link>
+        </div>
 
-      <!-- Buttons for publishing the quiz or returning without saving -->
-      <div class="page-operation-button-container">
-        <button class="blue-button" @click="publish()" style="margin-right:1em;">{{ uiLabels.publish }}</button>
-        <router-link to="/list">{{ uiLabels.back }}</router-link>
       </div>
-
     </div>
 
     <footer>
@@ -185,6 +188,10 @@ export default {
           return;
         }
       }
+      if(this.isEditingQuestion) {
+        this.cancelAddingQuestion();
+        return
+      }
       this.newQuestion = {
         question: question.question,
         options: [...question.options],
@@ -220,6 +227,7 @@ export default {
     },
     setQuestionType(type) {
       this.questionType = type;
+      this.newQuestion.options = [];
     }, 
     // Completing the process of adding a question
     saveQuestion() {
@@ -229,10 +237,10 @@ export default {
         alert(this.uiLabels.addQuestionError);
         return;
       }
-      if (this.newQuestion.answer === '') {
-        alert(this.uiLabels.answerError);
-        return;
-      }
+      // if (this.newQuestion.answer === '') {
+      //   alert(this.uiLabels.answerError);
+      //   return;
+      // }
 
       const newQuestion = {
         question: this.newQuestion.question,
@@ -309,19 +317,23 @@ export default {
   .question-container {
     display: flex;
     align-items: center;
+    border-radius: 12px;
+  }
+
+  .question-section {
+    margin-top: 1em;
   }
 
   .question {
     background-color: #f0f0f0;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 10px;
+    padding: 0.5em;
+    border-radius: 0.6em;
+    margin-bottom: 0.3em;
     display: flex;
     justify-content: space-between;
     align-items: center;
     transition: background-color 0.3s ease;
     cursor: pointer;
-    width: 95%;
   }
 
   .question:hover {

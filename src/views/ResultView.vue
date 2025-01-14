@@ -44,7 +44,7 @@
               </div>
               <div v-else-if="result.type === 'textAnswer'" class="answers-list">
                 <p v-for="(answer, answerIndex) in result.data" :key="answerIndex" style="font-size: 1em; margin-left: 1em;">
-                  {{ uiLabels.result }} {{ answerIndex + 1 }}: {{ answer }}</p>
+                  {{ uiLabels.user }} {{ answerIndex + 1 }}: {{ answer }}</p>
               </div>
             </div>
           </div>
