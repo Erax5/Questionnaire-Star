@@ -205,8 +205,42 @@ export default {
         return { question: question.question, data, type };
       });
     },
-
     getChartOptions(result) {
+      const vw = window.innerWidth;
+
+      const calculateFontSize = () => {
+        if (vw <= 480) {
+          return '12px'; 
+        } else if (vw <= 768) {
+          return '14px'; 
+        } else {
+          const baseSize = Math.min(Math.max(vw * 0.015, 8), 30);
+          return `${baseSize}px`; 
+        }
+      };
+
+      const calculateLegendSize = () => {
+        if (vw <= 480) {
+          return '10px'; 
+        } else if (vw <= 768) {
+          return '12px';
+        } else {
+          const baseSize = Math.min(Math.max(vw * 0.015, 8), 30);
+          return `${baseSize}px`; 
+        }
+      };
+
+      const calculateLableDataSize = () => {
+        if (vw <= 480) {
+          return '8px'; 
+        } else if (vw <= 768) {
+          return '10px';
+        } else {
+          const baseSize = Math.min(Math.max(vw * 0.010, 5), 25);
+          return `${baseSize}px`; 
+        }
+      };
+
       return {
         chart: {
           type: 'pie',
@@ -229,18 +263,21 @@ export default {
         colors: this.colors,
         legend: {
           position: 'bottom',
-          fontSize: '14px',
+          fontSize: calculateLegendSize(),
           horizontalAlign: 'center',
           floating: false,
           itemMargin: {
-            horizontal: 5,
-            vertical: 2
+            horizontal: Math.max(vw * 0.008, 3), 
+            vertical: Math.max(vw * 0.002, 2)
           },
           formatter: function(seriesName, opts) {
             return [seriesName]
           }
         },
         tooltip: {
+          style: {
+            fontSize: calculateFontSize()
+          },
           y: {
             formatter: (value) => {
               const total = result.data.reduce((sum, item) => sum + item.value, 0);
@@ -249,63 +286,13 @@ export default {
             }
           }
         },
-        plotOptions: {
-          pie: {
-            dataLabels: {
-              enabled: true,
-              style: {
-                fontSize: '12px',
-                fontFamily: 'Helvetica, Arial, sans-serif'
-              },
-              formatter: function(val, opts) {
-                return opts.w.globals.labels[opts.seriesIndex] + '\n' + val.toFixed(1) + '%'
-              }
-            },
-            expandOnClick: true
+        dataLabels: {
+          style: {
+            fontSize: calculateLableDataSize()
           }
-        },
-        responsive: [{
-          breakpoint: 1024,
-          options: {
-            legend: {
-              fontSize: '14px'
-            }
-          }
-        }, {
-          breakpoint: 768,
-          options: {
-            legend: {
-              fontSize: '12px'
-            },
-            plotOptions: {
-              pie: {
-                dataLabels: {
-                  style: {
-                    fontSize: '11px'
-                  }
-                }
-              }
-            }
-          }
-        }, {
-          breakpoint: 480,
-          options: {
-            legend: {
-              fontSize: '10px'
-            },
-            plotOptions: {
-              pie: {
-                dataLabels: {
-                  style: {
-                    fontSize: '9px'
-                  }
-                }
-              }
-            }
-          }
-        }]
+        }
       };
-    }
+    }    
   }
 };
 </script>
