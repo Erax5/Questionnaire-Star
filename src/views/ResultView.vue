@@ -16,31 +16,45 @@
         <button @click="logOut()" style="margin-right:1em">{{ uiLabels.signOut }}</button>
       </div>
     </header>
-    
+
     <div class="container">
       <div class="header">
         <h2>{{uiLabels.result}}</h2>
       </div>
 
+      <!-- <p> {{ allAnswers }}</p> -->
+      <!-- <p> {{ quizData }}</p> -->
+       <!-- <p> {{ results }}</p> -->
+
       <div class="space-y-8 w-full max-w-4xl mx-auto p-4">
-        <div v-for="(result, index) in results" :key="index" class="card">
-          <div class="card-header">
-            <h3 class="text-lg font-medium">
-              Question {{ index + 1 }}: {{ result.question }}
-            </h3>
-          </div>
-          <div class="card-content">
-            <div class="chart-container" style="height: 300px;">
-              <VueApexCharts
-                type="pie"
-                :options="getChartOptions(result)"
-                :series="result.data.map(item => item.value)"
-              />
+        <div v-if="allAnswers && quizData.questions && results.length > 0">
+          <div v-for="(result, index) in results" :key="index" class="card">
+            <div class="card-header">
+              <h3 class="text-lg font-medium">
+                {{ uiLabels.question }} {{ index + 1 }}: {{ result.question }}
+              </h3>
+            </div>
+            <div class="card-content">
+              <div v-if="result.type === 'multiChoice'" class="chart-container" style="display: flex; justify-content: center;">
+                <VueApexCharts
+                  type="pie"
+                  :options="getChartOptions(result)"
+                  :series="result.data.map(item => item.value)"
+                />
+              </div>
+              <div v-else-if="result.type === 'textAnswer'" class="answers-list">
+                <p v-for="(answer, answerIndex) in result.data" :key="answerIndex" style="font-size: 1em; margin-left: 1em;">
+                  {{ uiLabels.result }} {{ answerIndex + 1 }}: {{ answer }}</p>
+              </div>
             </div>
           </div>
         </div>
+        <div v-else>
+          <p style="font-size: 1em; display: flex; justify-content: center;">{{ uiLabels.noResults }}</p>
+        </div>
       </div>
     </div>
+
     <footer>
       <p>&copy; {{uiLabels.footer}}</p>
     </footer>
@@ -49,12 +63,12 @@
 
 <script>
 import ResponsiveNav from '@/components/ResponsiveNav.vue';
-import VueApexCharts from 'vue3-apexcharts'
+import VueApexCharts from 'vue3-apexcharts';
 import io from 'socket.io-client';
 const socket = io("localhost:3000");
 
 export default {
-  name: 'HomeView',
+  name: 'ResultView',
   components: {
     ResponsiveNav,
     VueApexCharts
@@ -62,19 +76,16 @@ export default {
   data() {
     return {
       uiLabels: {},
-      newPollId: "",
       lang: localStorage.getItem("lang") || "en",
-      hideNav: true,
       username: "",  
       results: [],
-      userData: {},
       quizData: {}, 
+      allAnswers: {},
       colors: ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8']
-    }
+    };
   },
   created() {
     this.username = this.getCookie("username") || "";
-    
     socket.on("uiLabels", labels => this.uiLabels = labels);
     socket.emit("getUILabels", this.lang);
 
@@ -91,35 +102,16 @@ export default {
       return;
     }
 
-    let hasQuiz = false;
-    let hasAnswers = false;
-
     socket.on("quiz", quiz => {
       console.log("Received quiz data:", quiz);
       this.quizData = quiz;
-      hasQuiz = true;
-      if (hasAnswers) {
-        this.processAnswers();
-      }
+      this.processResults();
     });
 
     socket.on("answers", answers => {
       console.log("Received answers data:", answers);
-      const userAnswers = answers[this.username];
-      if (!userAnswers) {
-        console.error(`No answers found for user: ${this.username}`);
-        return;
-      }
-
-      this.userData = {
-        userId: this.username,
-        answers: userAnswers
-      };
-
-      hasAnswers = true;
-      if (hasQuiz) {
-        this.processAnswers();
-      }
+      this.allAnswers = answers;
+      this.processResults();
     });
 
     socket.emit("getQuiz", quizId);
@@ -148,98 +140,66 @@ export default {
       this.$router.push("/");
     },
 
-    processAnswers() {
-      console.log("Processing answers...");
-      
-      if (!this.quizData?.questions || !this.userData?.answers) {
+    processResults() {
+      if (!this.quizData?.questions || !this.allAnswers) {
         console.error("Missing data:", {
           hasQuestions: Boolean(this.quizData?.questions),
-          hasUserAnswers: Boolean(this.userData?.answers)
+          hasAnswers: Boolean(this.allAnswers)
         });
         return;
       }
 
-      const userAnswers = this.userData.answers;
-      const questions = this.quizData.questions;
+      this.results = this.quizData.questions.map((question, index) => {
+        const data = [];
+        const type = question.type;
 
-      if (!Array.isArray(userAnswers) || !Array.isArray(questions)) {
-        console.error("Invalid data format:", {
-          userAnswers: typeof userAnswers,
-          questions: typeof questions
-        });
-        return;
-      }
-
-      if (userAnswers.length !== questions.length) {
-        console.error("Answer/question length mismatch:", {
-          answersLength: userAnswers.length,
-          questionsLength: questions.length
-        });
-        return;
-      }
-
-      this.results = questions.map((question, index) => {
-        const answer = userAnswers[index];
-        console.log(`Processing question ${index + 1}:`, { question, answer });
-
-        let data = [];
-        
-        // 处理选择题
-        if (question.options && Array.isArray(question.options)) {
-          // 创建一个值数组，初始化为0
-          const values = new Array(question.options.length).fill(0);
-          
-          // 处理多选答案
-          if (Array.isArray(answer)) {
-            answer.forEach(answerIndex => {
-              if (answerIndex >= 0 && answerIndex < values.length) {
-                values[answerIndex] = 1;
+        if (type === 'multiChoice') {
+          const optionCounts = new Array(question.options.length).fill(0);
+          Object.values(this.allAnswers).forEach(userAnswers => {
+            const answer = userAnswers[index];
+            if (Array.isArray(answer)) {
+              answer.forEach(answerIndex => {
+                if (answerIndex >= 0 && answerIndex < optionCounts.length) {
+                  optionCounts[answerIndex]++;
+                }
+              });
+            } else if (answer !== null && answer !== undefined) {
+              const answerIndex = parseInt(answer);
+              if (answerIndex >= 0 && answerIndex < optionCounts.length) {
+                optionCounts[answerIndex]++;
               }
-            });
-          } 
-          // 处理单选答案
-          else if (answer !== null && answer !== undefined) {
-            const answerIndex = parseInt(answer);
-            if (answerIndex >= 0 && answerIndex < values.length) {
-              values[answerIndex] = 1;
             }
-          }
+          });
 
-          // 生成数据对象
-          data = question.options.map((option, index) => ({
+          data.push(...question.options.map((option, i) => ({
             name: option,
-            value: values[index]
-          }));
+            value: optionCounts[i]
+          })));
         } 
-        // 处理文本题
         else {
-          data = [{
-            name: answer || "No answer provided",
-            value: 1
-          }];
+          Object.values(this.allAnswers).forEach(userAnswers => {
+          const answer = userAnswers[index];
+          if (answer) {
+            data.push(answer);
+          }
+        });
         }
 
-        return {
-          question: question.question,
-          data: data
-        };
+        return { question: question.question, data, type };
       });
-
-      console.log("Processed results:", this.results);
     },
 
     getChartOptions(result) {
       return {
         chart: {
           type: 'pie',
-          width: '50%',
-          height: '50%'
+          width: '50vw',
+          height: '50vh'
         },
         labels: result.data.map(item => item.name),
         colors: this.colors,
         legend: {
-          position: 'bottom',
-          fontSize: '14px'
+          fontSize: '15em'
         },
         tooltip: {
           y: {
@@ -256,7 +216,7 @@ export default {
               enabled: true,
               offset: -5,
               style: {
-                fontSize: '12px'
+                fontSize: '15em'
               }
             },
             expandOnClick: true,
@@ -267,8 +227,7 @@ export default {
           breakpoint: 480,
           options: {
             legend: {
-              position: 'bottom',
-              fontSize: '14px'
+              fontSize: '15em'
             },
             tooltip: {
               y: {
@@ -285,7 +244,7 @@ export default {
                   enabled: true,
                   offset: -5,
                   style: {
-                    fontSize: '12px'
+                    fontSize: '15em'
                   }
                 },
                 expandOnClick: true,
@@ -297,5 +256,5 @@ export default {
       };
     }
   }
-}
+};
 </script>

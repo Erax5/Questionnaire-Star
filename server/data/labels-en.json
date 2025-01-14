@@ -54,5 +54,6 @@
 	"Quizzes": "Quizzes",
 	"QuestionnaireList": "Questionnaire List",
 	"Questionnaire": "Questionnaire",
-  "thankYou": "Thank you for participating in this quiz!"
+  	"thankYou": "Thank you for participating in this quiz!",
+	"noResults": "No user submissions for this quiz yet."
 }

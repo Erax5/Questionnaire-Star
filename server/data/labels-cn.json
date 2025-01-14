@@ -53,5 +53,6 @@
 	"Quizzes": "问卷列表",
 	"QuestionnaireList": "问卷列表",
 	"Questionnaire": "问卷",
-	"thankYou": "感谢您参与此问卷！"
+	"thankYou": "感谢您参与此问卷！",
+	"noResults": "尚无用户提交问卷结果。"
 }
