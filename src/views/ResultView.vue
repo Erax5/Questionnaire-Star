@@ -27,7 +27,6 @@
           <div class="card-header">
             <h3 class="text-lg font-medium">
               Question {{ index + 1 }}: {{ result.question }}
-              <p>{{ userData }}</p > 
             </h3>
           </div>
           <div class="card-content">
@@ -96,7 +95,7 @@ export default {
     let hasAnswers = false;
 
     socket.on("quiz", quiz => {
-      console.log("Received quiz data:", this.quizData);
+      console.log("Received quiz data:", quiz);
       this.quizData = quiz;
       hasQuiz = true;
       if (hasAnswers) {
@@ -106,7 +105,6 @@ export default {
 
     socket.on("answers", answers => {
       console.log("Received answers data:", answers);
-
       const userAnswers = answers[this.username];
       if (!userAnswers) {
         console.error(`No answers found for user: ${this.username}`);
@@ -138,22 +136,21 @@ export default {
       }
       return null;
     },
+
     switchLanguage() {
       localStorage.setItem("lang", this.lang);
       socket.emit("getUILabels", this.lang);
     },
-    toggleNav() {
-      this.hideNav = !this.hideNav;
-    },
+
     logOut() {
       document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       console.log("User logged out");
       this.$router.push("/");
     },
+
     processAnswers() {
       console.log("Processing answers...");
-      console.log("Quiz Data:", this.quizData);
-      console.log("User Data:", this.userData);
+      
       if (!this.quizData?.questions || !this.userData?.answers) {
         console.error("Missing data:", {
           hasQuestions: Boolean(this.quizData?.questions),
@@ -165,6 +162,14 @@ export default {
       const userAnswers = this.userData.answers;
       const questions = this.quizData.questions;
 
+      if (!Array.isArray(userAnswers) || !Array.isArray(questions)) {
+        console.error("Invalid data format:", {
+          userAnswers: typeof userAnswers,
+          questions: typeof questions
+        });
+        return;
+      }
+
       if (userAnswers.length !== questions.length) {
         console.error("Answer/question length mismatch:", {
           answersLength: userAnswers.length,
@@ -173,55 +178,74 @@ export default {
         return;
       }
 
-      this.results = questions.map((q, index) => {
-        const userAnswer = userAnswers[index];
-        console.log(`Processing question ${index + 1}:`, {
-          question: q.question,
-          userAnswer
-        });
+      this.results = questions.map((question, index) => {
+        const answer = userAnswers[index];
+        console.log(`Processing question ${index + 1}:`, { question, answer });
 
-        if (q.options) {
-          const data = q.options.map((option, optIndex) => ({
+        let data = [];
+        
+        // 处理选择题
+        if (question.options && Array.isArray(question.options)) {
+          // 创建一个值数组，初始化为0
+          const values = new Array(question.options.length).fill(0);
+          
+          // 处理多选答案
+          if (Array.isArray(answer)) {
+            answer.forEach(answerIndex => {
+              if (answerIndex >= 0 && answerIndex < values.length) {
+                values[answerIndex] = 1;
+              }
+            });
+          } 
+          // 处理单选答案
+          else if (answer !== null && answer !== undefined) {
+            const answerIndex = parseInt(answer);
+            if (answerIndex >= 0 && answerIndex < values.length) {
+              values[answerIndex] = 1;
+            }
+          }
+
+          // 生成数据对象
+          data = question.options.map((option, index) => ({
             name: option,
-            value: userAnswer === optIndex.toString() ? 1 : 0
+            value: values[index]
           }));
-          console.log(`Data for multiChoice question ${index + 1}:`, data);
-          return {
-            question: q.question,
-            data
-          };
-        } else {
-          const data = [{
-            name: userAnswer || "No answer",
+        } 
+        // 处理文本题
+        else {
+          data = [{
+            name: answer || "No answer provided",
             value: 1
           }];
-          console.log(`Data for textAnswer question ${index + 1}:`, data);
-          return {
-            question: q.question,
-            data
-          };
         }
-      }).filter(result => result !== null);
+
+        return {
+          question: question.question,
+          data: data
+        };
+      });
 
       console.log("Processed results:", this.results);
     },
+
     getChartOptions(result) {
       return {
         chart: {
           type: 'pie',
-          width: '100%',
-          height: '100%'
+          width: '50%',
+          height: '50%'
         },
         labels: result.data.map(item => item.name),
         colors: this.colors,
         legend: {
-          position: 'bottom'
+          position: 'bottom',
+          fontSize: '14px'
         },
         tooltip: {
           y: {
             formatter: (value) => {
               const total = result.data.reduce((sum, item) => sum + item.value, 0);
-              const percentage = ((value / total) * 100).toFixed(0);
+              const percentage = ((value / total) * 100).toFixed(1);
               return `${percentage}%`;
             }
           }
@@ -229,12 +253,48 @@ export default {
         plotOptions: {
           pie: {
             dataLabels: {
-              offset: -5
+              enabled: true,
+              offset: -5,
+              style: {
+                fontSize: '12px'
+              }
             },
-            size: '70%' 
+            expandOnClick: true,
+            size: '70%'
           }
-        }
-      }
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: 'bottom',
+              fontSize: '14px'
+            },
+            tooltip: {
+              y: {
+                formatter: (value) => {
+                  const total = result.data.reduce((sum, item) => sum + item.value, 0);
+                  const percentage = ((value / total) * 100).toFixed(1);
+                  return `${percentage}%`;
+                }
+              }
+            },
+            plotOptions: {
+              pie: {
+                dataLabels: {
+                  enabled: true,
+                  offset: -5,
+                  style: {
+                    fontSize: '12px'
+                  }
+                },
+                expandOnClick: true,
+                size: '40%'
+              }
+            },
+          }
+        }]
+      };
     }
   }
 }
