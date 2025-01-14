@@ -22,10 +22,6 @@
         <h2>{{uiLabels.result}}</h2>
       </div>
 
-      <!-- <p> {{ allAnswers }}</p> -->
-      <!-- <p> {{ quizData }}</p> -->
-       <!-- <p> {{ results }}</p> -->
-
       <div class="space-y-8 w-full max-w-4xl mx-auto p-4">
         <div v-if="allAnswers && quizData.questions && results.length > 0">
           <div v-for="(result, index) in results" :key="index" class="card">
@@ -35,12 +31,15 @@
               </h3>
             </div>
             <div class="card-content">
-              <div v-if="result.type === 'multiChoice'" class="chart-container" style="display: flex; justify-content: center;">
-                <VueApexCharts
-                  type="pie"
-                  :options="getChartOptions(result)"
-                  :series="result.data.map(item => item.value)"
-                />
+              <div v-if="result.type === 'multiChoice'" class="chart-wrapper">
+                <div class="chart-container">
+                  <VueApexCharts
+                    ref="chart"
+                    type="pie"
+                    :options="getChartOptions(result)"
+                    :series="result.data.map(item => item.value)"
+                  />
+                </div>
               </div>
               <div v-else-if="result.type === 'textAnswer'" class="answers-list">
                 <p v-for="(answer, answerIndex) in result.data" :key="answerIndex" style="font-size: 1em; margin-left: 1em;">
@@ -117,6 +116,13 @@ export default {
     socket.emit("getQuiz", quizId);
     socket.emit("getAnswers", quizId);
   },
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  },
   methods: {
     getCookie(name) {
       const nameEQ = name + "=";
@@ -138,6 +144,17 @@ export default {
       document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       console.log("User logged out");
       this.$router.push("/");
+    },
+
+    handleResize() {
+      if (this.$refs.chart) {
+        const charts = Array.isArray(this.$refs.chart) ? this.$refs.chart : [this.$refs.chart];
+        charts.forEach(chart => {
+          if (chart && chart.chart) {
+            chart.chart.updateOptions(this.getChartOptions());
+          }
+        });
+      }
     },
 
     processResults() {
@@ -175,14 +192,13 @@ export default {
             name: option,
             value: optionCounts[i]
           })));
-        } 
-        else {
+        } else {
           Object.values(this.allAnswers).forEach(userAnswers => {
-          const answer = userAnswers[index];
-          if (answer) {
-            data.push(answer);
-          }
-        });
+            const answer = userAnswers[index];
+            if (answer) {
+              data.push(answer);
+            }
+          });
         }
 
         return { question: question.question, data, type };
@@ -193,20 +209,42 @@ export default {
       return {
         chart: {
           type: 'pie',
-          width: '50vw',
-          height: '50vh'
+          animations: {
+            enabled: true,
+            speed: 500,
+            animateGradually: {
+              enabled: true,
+              delay: 150
+            },
+            dynamicAnimation: {
+              enabled: true,
+              speed: 350
+            }
+          },
+          redrawOnWindowResize: true,
+          redrawOnParentResize: true
         },
         labels: result.data.map(item => item.name),
         colors: this.colors,
         legend: {
-          fontSize: '15em'
+          position: 'bottom',
+          fontSize: '14px',
+          horizontalAlign: 'center',
+          floating: false,
+          itemMargin: {
+            horizontal: 5,
+            vertical: 2
+          },
+          formatter: function(seriesName, opts) {
+            return [seriesName]
+          }
         },
         tooltip: {
           y: {
             formatter: (value) => {
               const total = result.data.reduce((sum, item) => sum + item.value, 0);
               const percentage = ((value / total) * 100).toFixed(1);
-              return `${percentage}%`;
+              return `${value} (${percentage}%)`;
             }
           }
         },
@@ -214,43 +252,55 @@ export default {
           pie: {
             dataLabels: {
               enabled: true,
-              offset: -5,
               style: {
-                fontSize: '15em'
+                fontSize: '12px',
+                fontFamily: 'Helvetica, Arial, sans-serif'
+              },
+              formatter: function(val, opts) {
+                return opts.w.globals.labels[opts.seriesIndex] + '\n' + val.toFixed(1) + '%'
               }
             },
-            expandOnClick: true,
-            size: '70%'
+            expandOnClick: true
           }
         },
         responsive: [{
-          breakpoint: 480,
+          breakpoint: 1024,
           options: {
             legend: {
-              fontSize: '15em'
-            },
-            tooltip: {
-              y: {
-                formatter: (value) => {
-                  const total = result.data.reduce((sum, item) => sum + item.value, 0);
-                  const percentage = ((value / total) * 100).toFixed(1);
-                  return `${percentage}%`;
-                }
-              }
+              fontSize: '14px'
+            }
+          }
+        }, {
+          breakpoint: 768,
+          options: {
+            legend: {
+              fontSize: '12px'
             },
             plotOptions: {
               pie: {
                 dataLabels: {
-                  enabled: true,
-                  offset: -5,
                   style: {
-                    fontSize: '15em'
+                    fontSize: '11px'
                   }
-                },
-                expandOnClick: true,
-                size: '40%'
+                }
               }
+            }
+          }
+        }, {
+          breakpoint: 480,
+          options: {
+            legend: {
+              fontSize: '10px'
             },
+            plotOptions: {
+              pie: {
+                dataLabels: {
+                  style: {
+                    fontSize: '9px'
+                  }
+                }
+              }
+            }
           }
         }]
       };
@@ -258,3 +308,111 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+}
+
+.card-header {
+  margin-bottom: 1.5rem;
+}
+
+.chart-wrapper {
+  width: 100%;
+  padding: 1rem;
+  max-width: 600px;
+}
+
+.chart-container {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 创建一个正方形容器 */
+}
+
+.chart-container :deep(> div) {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.answers-list {
+  padding: 1rem;
+}
+
+header {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  text-align: center;
+  margin-top: auto;
+}
+
+@media (max-width: 1024px) {
+  .chart-wrapper {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .chart-wrapper {
+    max-width: 400px;
+  }
+  
+  .card {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-wrapper {
+    max-width: 100%;
+    padding: 0.5rem;
+  }
+  
+  .card {
+    padding: 0.75rem;
+  }
+  
+  header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  header > div {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+</style>
