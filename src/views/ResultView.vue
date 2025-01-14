@@ -329,7 +329,7 @@ export default {
 .chart-container {
   position: relative;
   width: 100%;
-  padding-top: 100%; /* 保持正方形比例 */
+  padding-top: 100%; 
 }
 
 .chart-container :deep(> div) {
@@ -340,7 +340,6 @@ export default {
   height: 100% !important;
 }
 
-/* 响应式样式 */
 @media (max-width: 1024px) {
   .chart-wrapper {
     max-width: 280px;
