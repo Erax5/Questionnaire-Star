@@ -7,7 +7,7 @@
 	"signIn": "Sign in",
 	"signUp": "Sign up",
 	"signOut": "Sign out",
-	"quiz": "Quiz", 
+	"quiz": "Questionnaire", 
 	"play": "Play", 
 	"creator": "Creator: ", 
 	"create": "Create", 
@@ -46,14 +46,14 @@
 	"enterOption": "Enter option",
 	"enterAnswer": "Enter answer",
 	"question": "Question",
-	"linkCopy": "Quiz link copied to clipboard!",
-	"failedCopy": "Failed to copy quiz link to clipboard. Error: ",
+	"linkCopy": "Questionnaire link copied to clipboard!",
+	"failedCopy": "Failed to copy questionnaire link to clipboard. Error: ",
 	"option": "Option",
 	"answerError": "Please set an answer",
 	"ans": "Answer",
-	"Quizzes": "Quizzes",
+	"Quizzes": "Questionnaires",
 	"QuestionnaireList": "Questionnaire List",
 	"Questionnaire": "Questionnaire",
-  	"thankYou": "Thank you for participating in this quiz!",
-	"noResults": "No user submissions for this quiz yet."
+  	"thankYou": "Thank you for participating in this questionnaire!",
+	"noResults": "No user submissions for this questionnaire yet."
 }

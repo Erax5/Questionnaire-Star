@@ -110,6 +110,10 @@ export default {
       }
       return null;
     },
+    switchLanguage() {
+      localStorage.setItem( "lang", this.lang );
+      socket.emit( "getUILabels", this.lang );
+    },
     answerSwitch(questionIndex, optionIndex) {
       if (this.userAnswers[questionIndex] === optionIndex) {
         this.userAnswers[questionIndex] = null;
