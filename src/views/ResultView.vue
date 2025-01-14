@@ -17,9 +17,9 @@
       </div>
     </header>
     
-      <div class="container">
+    <div class="container">
       <div class="header">
-          <h2>{{uiLabels.result}}</h2>
+        <h2>{{uiLabels.result}}</h2>
       </div>
 
       <div class="space-y-8 w-full max-w-4xl mx-auto p-4">
@@ -27,6 +27,7 @@
           <div class="card-header">
             <h3 class="text-lg font-medium">
               Question {{ index + 1 }}: {{ result.question }}
+              <p>{{ userData }}</p > 
             </h3>
           </div>
           <div class="card-content">
@@ -63,71 +64,68 @@ export default {
     return {
       uiLabels: {},
       newPollId: "",
-      lang: localStorage.getItem( "lang") || "en",
+      lang: localStorage.getItem("lang") || "en",
       hideNav: true,
-      username: this.getCookie("username") || "",
+      username: "",  
       results: [],
       userData: {},
-      quizData: [],
-
-
-      userDataExample: {
-        "userId": ["0", "2", "banana"]
-      },
-      quizDataExample: {
-        "questions": [
-          {
-            "questionType": "multiChoice",
-            "question": "What is the capital of France?",
-            "options": ["Paris", "London", "Berlin", "Madrid"],
-            "answer": "0"
-          },
-          {
-            "questionType": "multiChoice",
-            "question": "Which planet is known as the red Planet?",
-            "options": ["Mars", "Earth", "Venus", "Pluto"],
-            "answer": "1"
-          },
-          {
-            "questionType": "textAnswer",
-            "question": "What is my favorite fruit?",
-            "answer": "banana"
-          }
-        ]
-      },
+      quizData: {}, 
       colors: ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8']
     }
   },
   created() {
-    socket.on( "uiLabels", labels => this.uiLabels = labels );
-    socket.emit( "getUILabels", this.lang );
+    this.username = this.getCookie("username") || "";
+    
+    socket.on("uiLabels", labels => this.uiLabels = labels);
+    socket.emit("getUILabels", this.lang);
 
-    const username = this.getCookie("username");
-    if (!username) {
+    if (!this.username) {
       console.log("User is not logged in: returning to login screen");
-      this.$router.push("/"); 
+      this.$router.push("/");
+      return;
     }
 
-    // Logic to get the questions from the server
     const quizId = this.$route.params.id;
     if (!quizId) {
       console.log("No quiz id provided");
       this.$router.push("/list");
+      return;
     }
-    else {
-      socket.emit("getQuiz", quizId);
-      socket.on("quiz", quiz => {
-        this.quizData = quiz;
-        console.log(this.quizData);
-      });
 
-      socket.emit("getAnswers", quizId);
-      socket.on("answers", answers => {
-        this.userData = answers;
-        console.log(this.userData);
-      });
-    }
-    // this.processAnswers()
+    let hasQuiz = false;
+    let hasAnswers = false;
+
+    socket.on("quiz", quiz => {
+      console.log("Received quiz data:", this.quizData);
+      this.quizData = quiz;
+      hasQuiz = true;
+      if (hasAnswers) {
+        this.processAnswers();
+      }
+    });
+
+    socket.on("answers", answers => {
+      console.log("Received answers data:", answers);
+
+      const userAnswers = answers[this.username];
+      if (!userAnswers) {
+        console.error(`No answers found for user: ${this.username}`);
+        return;
+      }
+
+      this.userData = {
+        userId: this.username,
+        answers: userAnswers
+      };
+
+      hasAnswers = true;
+      if (hasQuiz) {
+        this.processAnswers();
+      }
+    });
+
+    socket.emit("getQuiz", quizId);
+    socket.emit("getAnswers", quizId);
   },
   methods: {
     getCookie(name) {
@@ -135,17 +133,17 @@ export default {
       const ca = document.cookie.split(';');
       for (let i = 0; i < ca.length; i++) {
         let c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        while (c.charAt(0) === ' ') c = c.substring(1);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
       }
       return null;
     },
     switchLanguage() {
-      localStorage.setItem( "lang", this.lang );
-      socket.emit( "getUILabels", this.lang );
+      localStorage.setItem("lang", this.lang);
+      socket.emit("getUILabels", this.lang);
     },
     toggleNav() {
-      this.hideNav = ! this.hideNav;
+      this.hideNav = !this.hideNav;
     },
     logOut() {
       document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -153,28 +151,59 @@ export default {
       this.$router.push("/");
     },
     processAnswers() {
-      this.results = this.quizData.questions.map((q, index) => {
-        if (q.questionType === "multiChoice") {
+      console.log("Processing answers...");
+      console.log("Quiz Data:", this.quizData);
+      console.log("User Data:", this.userData);
+      if (!this.quizData?.questions || !this.userData?.answers) {
+        console.error("Missing data:", {
+          hasQuestions: Boolean(this.quizData?.questions),
+          hasUserAnswers: Boolean(this.userData?.answers)
+        });
+        return;
+      }
+
+      const userAnswers = this.userData.answers;
+      const questions = this.quizData.questions;
+
+      if (userAnswers.length !== questions.length) {
+        console.error("Answer/question length mismatch:", {
+          answersLength: userAnswers.length,
+          questionsLength: questions.length
+        });
+        return;
+      }
+
+      this.results = questions.map((q, index) => {
+        const userAnswer = userAnswers[index];
+        console.log(`Processing question ${index + 1}:`, {
+          question: q.question,
+          userAnswer
+        });
+
+        if (q.options) {
           const data = q.options.map((option, optIndex) => ({
             name: option,
-            value: this.userData.answers[index] === optIndex.toString() ? 1 : 0
+            value: userAnswer === optIndex.toString() ? 1 : 0
           }));
+          console.log(`Data for multiChoice question ${index + 1}:`, data);
           return {
             question: q.question,
-            type: q.questionType,
-            data: data
+            data
           };
-        } else if (q.questionType === "textAnswer") {
+        } else {
+          const data = [{
+            name: userAnswer || "No answer",
+            value: 1
+          }];
+          console.log(`Data for textAnswer question ${index + 1}:`, data);
           return {
             question: q.question,
-            type: q.questionType,
-            data: [{
-              name: this.userData.answers[index],
-              value: 1
-            }]
+            data
           };
         }
-      });
+      }).filter(result => result !== null);
+
+      console.log("Processed results:", this.results);
     },
     getChartOptions(result) {
       return {
@@ -210,48 +239,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-  .wrapper {
-    background-color: #f9f9f9;
-  }
-  
-  footer {
-    background-color: #f1f1f1;
-    text-align: center;
-    margin-top: auto;
-  }
-
-  .card {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1.5rem;
-  }
-
-  .card-header {
-    padding: 1.5rem;
-    border-bottom: 1px solid #eee;
-  }
-
-  .card-content {
-    padding: 1.5rem;
-  }
-
-  .chart-container {
-    width: 100%;
-    min-height: 250px; 
-    max-width: 500px;
-    margin: 0 auto; 
-  }
-
-  @media screen and (max-width: 50em) {
-    footer{
-      font-size: 2vw; 
-      padding: 0.5em;
-    }
-
-    div{
-      font-size: 2vw; 
-    }
-  }
-</style>
