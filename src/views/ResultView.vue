@@ -30,6 +30,7 @@
                 {{ uiLabels.question }} {{ index + 1 }}: {{ result.question }}
               </h3>
             </div>
+            
             <div class="card-content">
               <div v-if="result.type === 'multiChoice'" class="chart-wrapper">
                 <div class="chart-container">
@@ -310,44 +311,25 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
-  min-height: 100vh;
+.card-content {
   display: flex;
-  flex-direction: column;
-}
-
-.container {
-  flex: 1;
-  padding: 20px;
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.card {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-}
-
-.card-header {
-  margin-bottom: 1.5rem;
+  justify-content: center;
+  width: 100%;
 }
 
 .chart-wrapper {
   width: 100%;
-  padding: 1rem;
-  max-width: 600px;
+  max-width: 300px; 
+  padding: 0.5rem;
+  margin: 0 auto; 
+  display: flex;
+  justify-content: center;
 }
 
 .chart-container {
   position: relative;
   width: 100%;
-  padding-top: 100%; /* 创建一个正方形容器 */
+  padding-top: 100%; /* 保持正方形比例 */
 }
 
 .chart-container :deep(> div) {
@@ -358,61 +340,23 @@ export default {
   height: 100% !important;
 }
 
-.answers-list {
-  padding: 1rem;
-}
-
-header {
-  background-color: #f8f9fa;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-footer {
-  background-color: #f8f9fa;
-  padding: 1rem;
-  text-align: center;
-  margin-top: auto;
-}
-
+/* 响应式样式 */
 @media (max-width: 1024px) {
   .chart-wrapper {
-    max-width: 500px;
-    margin: 0 auto;
+    max-width: 280px;
   }
 }
 
 @media (max-width: 768px) {
   .chart-wrapper {
-    max-width: 400px;
-  }
-  
-  .card {
-    padding: 1rem;
+    max-width: 200px;
   }
 }
 
 @media (max-width: 480px) {
   .chart-wrapper {
-    max-width: 100%;
+    max-width: 200px;
     padding: 0.5rem;
-  }
-  
-  .card {
-    padding: 0.75rem;
-  }
-  
-  header {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  header > div {
-    width: 100% !important;
-    justify-content: center !important;
   }
 }
 </style>
