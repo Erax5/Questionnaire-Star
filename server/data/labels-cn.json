@@ -40,6 +40,7 @@
 	"edit": "编辑",
 	"editQuestionWarning": "警告：编辑问题将取消添加新问题。是否继续？",
 	"addQuestionError": "创建问题时所有字段不能为空，请重试。",
+	"newQuestionnaire": "新问卷",
 	"newQuiz": "新问卷",
 	"enterQuestion": "输入问题",
 	"enterOption": "输入选项",
